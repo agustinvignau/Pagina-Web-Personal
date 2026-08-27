@@ -1,8 +1,13 @@
+/*
+  Los anclajes van con la barra adelante: si fueran "#produccion" a secas,
+  desde /radar o /proyectos/... no llevarían a ningún lado.
+*/
 const SECCIONES = [
-  { href: "#produccion", label: "Producción" },
-  { href: "#laboratorio", label: "Laboratorio" },
-  { href: "#perfil", label: "Perfil" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "/#produccion", label: "Producción" },
+  { href: "/#laboratorio", label: "Laboratorio" },
+  { href: "/#perfil", label: "Perfil" },
+  { href: "/radar", label: "Radar" },
+  { href: "/#contacto", label: "Contacto" },
 ];
 
 export default function Nav() {

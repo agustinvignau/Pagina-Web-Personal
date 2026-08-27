@@ -150,3 +150,65 @@
     display: none;
   }
 }
+
+/* ---------- Cuerpo de los artículos del radar ---------- */
+
+.prosa {
+  font-size: 1.02rem;
+  line-height: 1.72;
+  color: var(--color-texto);
+}
+.prosa > * + * {
+  margin-top: 1.15rem;
+}
+.prosa h2 {
+  font-family: var(--font-sans);
+  font-variation-settings: "wdth" 108;
+  font-weight: 700;
+  font-size: 1.45rem;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin-top: 2.75rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--color-linea);
+}
+.prosa h3 {
+  font-family: var(--font-sans);
+  font-variation-settings: "wdth" 104;
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin-top: 1.9rem;
+}
+.prosa p {
+  max-width: 68ch;
+}
+.prosa a {
+  color: var(--color-oliva-texto);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prosa a:hover {
+  color: var(--color-oliva);
+}
+.prosa ul,
+.prosa ol {
+  padding-left: 1.3rem;
+  max-width: 68ch;
+}
+.prosa li + li {
+  margin-top: 0.55rem;
+}
+.prosa .porque {
+  display: block;
+  margin-top: 0.4rem;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--color-oliva);
+  color: var(--color-apagado);
+  font-size: 0.95rem;
+}
+.prosa .fuente {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
