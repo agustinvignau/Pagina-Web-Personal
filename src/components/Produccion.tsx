@@ -6,13 +6,6 @@ export default async function Produccion() {
 
   return (
     <section id="produccion" className="relative overflow-hidden bg-hueso">
-      <span
-        aria-hidden
-        className="titular contorno-oscuro pointer-events-none absolute -right-8 top-8 hidden select-none text-[22rem] opacity-15 lg:block"
-      >
-        01
-      </span>
-
       <div className="relative px-6 pt-16 md:px-12 md:pt-20">
         <header className="flex flex-col items-start justify-between gap-6 border-b-2 border-texto pb-7 lg:flex-row lg:items-end">
           <div className="flex flex-col gap-4">
