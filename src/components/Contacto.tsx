@@ -40,7 +40,7 @@ export default function Contacto() {
   return (
     <section id="contacto" className="bg-superficie">
       <div className="grid grid-cols-1 gap-12 px-6 py-16 md:px-12 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] lg:gap-20">
-        <div className="flex flex-col gap-6">
+        <div data-revelar className="flex flex-col gap-6">
           <p className="etiqueta text-apagado">04 — Contacto</p>
           <h2>
             <span className="titular block text-[clamp(2.2rem,6vw,4.5rem)]">
@@ -81,7 +81,7 @@ export default function Contacto() {
           </div>
         </div>
 
-        <form onSubmit={enviar} className="flex flex-col gap-5">
+        <form data-revelar onSubmit={enviar} className="flex flex-col gap-5">
           <Campo etiqueta="Nombre" nombre="name" requerido />
           <Campo etiqueta="Mail" nombre="email" tipo="email" requerido />
           <Campo etiqueta="Empresa" nombre="company" />

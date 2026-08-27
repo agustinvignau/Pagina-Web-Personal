@@ -7,7 +7,7 @@ export default async function Laboratorio() {
   return (
     <section id="laboratorio" className="bg-tinta text-hueso">
       <div className="px-6 py-16 md:px-12 md:py-20">
-        <header className="flex flex-col items-start justify-between gap-6 border-b-2 border-hueso pb-7 lg:flex-row lg:items-end">
+        <header data-revelar className="flex flex-col items-start justify-between gap-6 border-b-2 border-hueso pb-7 lg:flex-row lg:items-end">
           <div className="flex flex-col gap-4">
             <p className="etiqueta text-apagado-oscuro">02 — Laboratorio</p>
             <h2>
@@ -30,6 +30,7 @@ export default async function Laboratorio() {
         <ul className="list-none">
           {estudios.map((e, i) => (
             <li
+              data-revelar
               key={e.id}
               className="grid grid-cols-1 items-start gap-x-8 gap-y-3 border-b border-linea-oscura py-6 lg:grid-cols-[3rem_minmax(0,1fr)_minmax(0,26rem)]"
             >

@@ -1,4 +1,5 @@
 import Nav from "./Nav";
+import ParallaxMouse from "./motion/ParallaxMouse";
 import MiniGenesis from "./mockups/MiniGenesis";
 import MiniFacturas from "./mockups/MiniFacturas";
 
@@ -15,7 +16,7 @@ export default function Hero() {
 
       <div className="grid grow items-start gap-y-10 px-6 pt-10 pb-4 md:px-12 lg:grid-cols-[minmax(0,29rem)_minmax(0,1fr)] lg:gap-x-12 lg:pt-12">
         {/* Titular: primero en celular, debajo en escritorio */}
-        <h1 className="order-1 lg:order-3 lg:col-span-2 lg:mt-4">
+        <h1 data-revelar className="order-1 lg:order-3 lg:col-span-2 lg:mt-4">
           <span className="titular block text-[clamp(2.6rem,8.4vw,7rem)] leading-[0.96]">
             Analizo,
           </span>
@@ -28,7 +29,7 @@ export default function Hero() {
         </h1>
 
         {/* Bajada */}
-        <div className="order-2 flex flex-col gap-5 lg:order-1 lg:pt-8">
+        <div data-revelar className="order-2 flex flex-col gap-5 lg:order-1 lg:pt-8">
           <p className="etiqueta text-oliva-luz">
             Técnico Superior en Ciencia de Datos e IA
           </p>
@@ -54,11 +55,11 @@ export default function Hero() {
         </div>
 
         {/* Mockups */}
-        <div className="order-3 lg:order-2 lg:pt-4">
-          <div className="relative [perspective:1600px] lg:h-[21rem]">
+        <div data-revelar className="order-3 lg:order-2 lg:pt-4">
+          <ParallaxMouse className="relative [perspective:1600px] lg:h-[21rem]">
             <MiniFacturas className="hidden lg:absolute lg:left-0 lg:top-2 lg:block lg:w-[19rem] lg:[transform:rotateY(19deg)_rotateX(7deg)_rotateZ(-2deg)]" />
             <MiniGenesis className="lg:absolute lg:left-[14rem] lg:top-16 lg:w-[30rem] lg:[transform:rotateY(17deg)_rotateX(6deg)_rotateZ(-1.5deg)] xl:left-[18rem]" />
-          </div>
+          </ParallaxMouse>
         </div>
       </div>
 

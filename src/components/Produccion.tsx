@@ -7,7 +7,7 @@ export default async function Produccion() {
   return (
     <section id="produccion" className="relative overflow-hidden bg-hueso">
       <div className="relative px-6 pt-16 md:px-12 md:pt-20">
-        <header className="flex flex-col items-start justify-between gap-6 border-b-2 border-texto pb-7 lg:flex-row lg:items-end">
+        <header data-revelar className="flex flex-col items-start justify-between gap-6 border-b-2 border-texto pb-7 lg:flex-row lg:items-end">
           <div className="flex flex-col gap-4">
             <p className="etiqueta text-apagado">01 — Producción</p>
             <h2>

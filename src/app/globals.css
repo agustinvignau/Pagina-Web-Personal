@@ -97,3 +97,56 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- Capa de movimiento ---------- */
+
+/*
+  El ocultamiento inicial depende de la clase .con-reveal, que agrega un
+  script antes del primer pintado. Sin JavaScript nunca se aplica y todo el
+  contenido queda visible.
+*/
+.con-reveal [data-revelar] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--retraso, 0ms),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--retraso, 0ms);
+}
+.con-reveal [data-revelar].visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes cortina-sale {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+.cortina {
+  animation: cortina-sale 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+/* El cursor propio solo reemplaza al del sistema si el componente arrancó */
+.cursor-propio,
+.cursor-propio * {
+  cursor: none;
+}
+.cursor-propio input,
+.cursor-propio textarea {
+  cursor: text;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .con-reveal [data-revelar] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .cortina {
+    animation: none;
+    display: none;
+  }
+}

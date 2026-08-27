@@ -8,7 +8,7 @@ export default function Perfil() {
       </p>
 
       {/* Banda del trabajo actual */}
-      <div className="flex flex-col justify-between gap-10 bg-oliva px-6 py-12 text-superficie md:px-12 md:py-14 lg:flex-row lg:gap-16">
+      <div data-revelar className="flex flex-col justify-between gap-10 bg-oliva px-6 py-12 text-superficie md:px-12 md:py-14 lg:flex-row lg:gap-16">
         <div className="flex flex-col gap-4">
           <p className="etiqueta text-hueso">Experiencia actual</p>
           <h2 className="titular text-[clamp(2.6rem,7.5vw,5.75rem)]">
@@ -33,7 +33,7 @@ export default function Perfil() {
       </div>
 
       {/* Trayectoria y formación */}
-      <div className="grid grid-cols-1 gap-12 px-6 py-14 md:px-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16">
+      <div data-revelar className="grid grid-cols-1 gap-12 px-6 py-14 md:px-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16">
         <div className="flex flex-col gap-5">
           <p className="etiqueta border-b-2 border-texto pb-3.5 text-apagado">
             Antes
