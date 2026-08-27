@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta — modo claro es el estado base */
+  --color-hueso: #E9E0D6;
+  --color-superficie: #F3ECE4;
+  --color-superficie-2: #DED4C7;
+  --color-salvia: #B7B7A4;
+  --color-acero: #8B9797;
+  --color-oliva: #7A754B;
+  --color-oliva-texto: #6E6A42;
+  --color-oliva-luz: #A8A26A;
+  --color-grafito: #3D3E39;
+  --color-tinta: #14150F;
+  --color-linea: #C9C1AE;
+  --color-linea-oscura: #343829;
+  --color-texto: #2C2D28;
+  --color-apagado: #6B7270;
+  --color-apagado-oscuro: #9BA096;
+
+  --font-sans: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-martian), ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --fondo: var(--color-hueso);
+  --tinta-texto: var(--color-texto);
+  --sutil: var(--color-apagado);
+  --acento: var(--color-oliva-texto);
+  --borde: var(--color-linea);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fondo: var(--color-tinta);
+    --tinta-texto: var(--color-hueso);
+    --sutil: var(--color-apagado-oscuro);
+    --acento: var(--color-oliva-luz);
+    --borde: var(--color-linea-oscura);
+  }
+}
+
+:root[data-theme="dark"] {
+  --fondo: var(--color-tinta);
+  --tinta-texto: var(--color-hueso);
+  --sutil: var(--color-apagado-oscuro);
+  --acento: var(--color-oliva-luz);
+  --borde: var(--color-linea-oscura);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background: var(--fondo);
+    color: var(--tinta-texto);
+    font-family: var(--font-sans);
+  }
+  a {
+    color: var(--acento);
+    text-underline-offset: 3px;
+  }
+}
+
+@utility titular {
+  font-family: var(--font-sans);
+  font-variation-settings: "wdth" 118;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.88;
+  text-wrap: balance;
+}
+
+@utility contorno {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--tinta-texto);
+}
+
+@utility etiqueta {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sutil);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,8 @@
+-- Esquema inicial del portfolio. Aplicado en el proyecto portfolio-vignau.
+-- projects: sistemas en produccion y estudios de laboratorio
+-- posts: articulos propios
+-- radar_items: papers quincenales del radar de tecnologia
+-- leads: altas del formulario de contacto
+-- Las cuatro tablas tienen RLS activo: lectura publica solo de lo publicado,
+-- y en leads unicamente insercion.
+-- El SQL completo se conserva en el historial de migraciones de Supabase.
