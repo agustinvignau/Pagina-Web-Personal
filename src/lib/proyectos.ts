@@ -1,7 +1,12 @@
 import { getSupabase } from "./supabase";
+import type { Lang } from "./i18n";
+import { localizarProyecto } from "./types";
 import type { Project, ProjectKind } from "./types";
 
-export async function getProyectos(kind: ProjectKind): Promise<Project[]> {
+export async function getProyectos(
+  kind: ProjectKind,
+  lang: Lang = "es",
+): Promise<Project[]> {
   const supabase = getSupabase();
   if (!supabase) return [];
 
@@ -13,10 +18,13 @@ export async function getProyectos(kind: ProjectKind): Promise<Project[]> {
     .order("position", { ascending: true });
 
   if (error || !data) return [];
-  return data as Project[];
+  return (data as Project[]).map((p) => localizarProyecto(p, lang));
 }
 
-export async function getProyecto(slug: string): Promise<Project | null> {
+export async function getProyecto(
+  slug: string,
+  lang: Lang = "es",
+): Promise<Project | null> {
   const supabase = getSupabase();
   if (!supabase) return null;
 
@@ -28,7 +36,7 @@ export async function getProyecto(slug: string): Promise<Project | null> {
     .maybeSingle();
 
   if (error || !data) return null;
-  return data as Project;
+  return localizarProyecto(data as Project, lang);
 }
 
 export async function getSlugs(): Promise<string[]> {

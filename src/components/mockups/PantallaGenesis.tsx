@@ -1,18 +1,17 @@
+import { rotulos } from "@/lib/mockups";
+import type { Lang } from "@/lib/i18n";
+
 const FILAS = [
-  { sku: "TG-1042", producto: "Taza sublimable 11oz — blanca", stock: "412", reserva: "36", alerta: false },
-  { sku: "TG-0871", producto: "Remera algodón peinado — M", stock: "18", reserva: "24", alerta: true },
-  { sku: "TG-2310", producto: "Vaso térmico acero 500ml", stock: "157", reserva: "12", alerta: false },
-  { sku: "TG-0455", producto: "Gorra bordada — negra", stock: "89", reserva: "40", alerta: false },
-  { sku: "TG-1188", producto: "Mousepad sublimable XL", stock: "7", reserva: "15", alerta: true },
+  { sku: "TG-1042", stock: "412", reserva: "36", alerta: false },
+  { sku: "TG-0871", stock: "18", reserva: "24", alerta: true },
+  { sku: "TG-2310", stock: "157", reserva: "12", alerta: false },
+  { sku: "TG-0455", stock: "89", reserva: "40", alerta: false },
+  { sku: "TG-1188", stock: "7", reserva: "15", alerta: true },
 ];
 
-const ALERTAS = [
-  { texto: "Remera algodón peinado — M por debajo del reorden", meta: "Hace 2 h · Sector textil", fuerte: true },
-  { texto: "Mousepad sublimable XL con 2 pedidos en espera", meta: "Hace 5 h · Sector sublimación", fuerte: true },
-  { texto: "Precio de proveedor desactualizado hace 34 días", meta: "Ayer · 3 proveedores", fuerte: false },
-];
-
-export default function PantallaGenesis() {
+export default function PantallaGenesis({ lang = "es" }: { lang?: Lang }) {
+  const r = rotulos(lang);
+  const alertas = r.avisos.map((a, i) => ({ ...a, fuerte: i < 2 }));
   return (
     <div aria-hidden className="overflow-x-auto border border-tinta">
       <div className="flex min-w-[62rem] bg-superficie">
@@ -20,11 +19,13 @@ export default function PantallaGenesis() {
         <div className="flex w-[13rem] shrink-0 flex-col gap-6 bg-tinta p-5 text-hueso">
           <div className="etiqueta leading-relaxed">
             <span className="block">Génesis</span>
-            <span className="block text-oliva-luz">Inventario</span>
+            <span className="block text-oliva-luz">
+              {lang === "en" ? "Inventory" : "Inventario"}
+            </span>
           </div>
           <ul className="list-none">
-            <li className="etiqueta px-2.5 py-2 text-apagado">Operación</li>
-            {["Tablero", "Pedidos", "Recepciones", "Catálogo"].map((s, i) => (
+            <li className="etiqueta px-2.5 py-2 text-apagado">{r.operacion}</li>
+            {r.menu.map((s, i) => (
               <li
                 key={s}
                 className={`etiqueta px-2.5 py-2.5 ${i === 0 ? "bg-oliva-luz text-tinta" : "text-salvia"}`}
@@ -32,8 +33,8 @@ export default function PantallaGenesis() {
                 {s}
               </li>
             ))}
-            <li className="etiqueta px-2.5 pb-2 pt-4 text-apagado">Análisis</li>
-            {["Rotación", "Proveedores"].map((s) => (
+            <li className="etiqueta px-2.5 pb-2 pt-4 text-apagado">{r.analisis}</li>
+            {r.menu2.map((s) => (
               <li key={s} className="etiqueta px-2.5 py-2.5 text-salvia">
                 {s}
               </li>
@@ -43,7 +44,7 @@ export default function PantallaGenesis() {
             <span className="block size-6 bg-oliva" />
             <span className="etiqueta leading-relaxed">
               <span className="block text-hueso">A. Vignau</span>
-              <span className="block text-salvia">Administrador</span>
+              <span className="block text-salvia">{r.admin}</span>
             </span>
           </div>
         </div>
@@ -52,39 +53,35 @@ export default function PantallaGenesis() {
         <div className="grow">
           <div className="flex items-center justify-between border-b border-linea bg-hueso px-6 py-3.5">
             <div className="flex items-baseline gap-3.5">
-              <span className="subtitular text-lg">Tablero de operación</span>
-              <span className="etiqueta text-apagado">
-                Última sincronía 09:41
-              </span>
+              <span className="subtitular text-lg">{r.tablero}</span>
+              <span className="etiqueta text-apagado">{r.sincronia}</span>
             </div>
             <div className="flex gap-2">
               <span className="etiqueta border border-linea px-3 py-2 text-apagado">
-                Exportar CSV
+                {r.exportar}
               </span>
               <span className="etiqueta bg-texto px-3 py-2 text-hueso">
-                Nuevo pedido
+                {r.nuevoPedido}
               </span>
             </div>
           </div>
 
           <div className="flex flex-col gap-4 p-6">
             <div className="grid grid-cols-4 gap-3.5">
-              <Kpi rotulo="SKUs activos" valor="896" nota="13 tablas · 4 sectores" />
-              <Kpi rotulo="Bajo punto de reorden" valor="14" nota="Umbral configurable" acento />
-              <Kpi rotulo="Capital inmovilizado" valor="$ 8,42 M" nota="A precio de proveedor" />
-              <Kpi rotulo="Rotación mensual" valor="4,2" nota="Promedio 12 meses" />
+              <Kpi rotulo={r.skus} valor="896" nota={r.skusNota} />
+              <Kpi rotulo={r.reorden} valor="14" nota={r.reordenNota} acento />
+              <Kpi rotulo={r.capital} valor="$ 8,42 M" nota={r.capitalNota} />
+              <Kpi rotulo={r.rotacionMes} valor="4,2" nota={r.rotacionNota} />
             </div>
 
             <div className="grid grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] gap-3.5">
               <div className="border border-linea bg-hueso">
                 <div className="flex items-center justify-between border-b border-linea px-4 py-3">
-                  <span className="etiqueta">Movimiento por SKU</span>
-                  <span className="etiqueta text-apagado">
-                    Ordenado por rotación ↓
-                  </span>
+                  <span className="etiqueta">{r.movimiento}</span>
+                  <span className="etiqueta text-apagado">{r.orden}</span>
                 </div>
                 <div className="grid grid-cols-[5rem_minmax(0,1fr)_4.5rem_4.5rem_5.5rem] border-b border-linea bg-superficie-2">
-                  {["SKU", "Producto", "Stock", "Reserva", "Estado"].map((h, i) => (
+                  {r.cols.map((h, i) => (
                     <span
                       key={h}
                       className={`etiqueta px-3 py-2.5 text-apagado ${i > 1 ? "text-right" : ""}`}
@@ -93,7 +90,7 @@ export default function PantallaGenesis() {
                     </span>
                   ))}
                 </div>
-                {FILAS.map((f) => (
+                {FILAS.map((f, idx) => (
                   <div
                     key={f.sku}
                     className={`grid grid-cols-[5rem_minmax(0,1fr)_4.5rem_4.5rem_5.5rem] items-center border-b border-superficie-2 last:border-b-0 ${f.alerta ? "bg-superficie" : ""}`}
@@ -101,7 +98,7 @@ export default function PantallaGenesis() {
                     <span className="cifra px-3 py-3 text-[0.65rem] text-apagado">
                       {f.sku}
                     </span>
-                    <span className="px-3 py-3 text-[0.8rem]">{f.producto}</span>
+                    <span className="px-3 py-3 text-[0.8rem]">{r.productos[idx]}</span>
                     <span
                       className={`cifra px-3 py-3 text-right text-[0.7rem] ${f.alerta ? "text-oliva-texto" : ""}`}
                     >
@@ -114,7 +111,7 @@ export default function PantallaGenesis() {
                       <span
                         className={`etiqueta px-1.5 py-1 ${f.alerta ? "bg-oliva text-hueso" : "border border-linea text-apagado"}`}
                       >
-                        {f.alerta ? "Reponer" : "OK"}
+                        {f.alerta ? r.reponer : r.ok}
                       </span>
                     </span>
                   </div>
@@ -123,9 +120,9 @@ export default function PantallaGenesis() {
 
               <div className="border border-linea bg-hueso">
                 <div className="border-b border-linea px-4 py-3">
-                  <span className="etiqueta">Alertas activas</span>
+                  <span className="etiqueta">{r.alertas}</span>
                 </div>
-                {ALERTAS.map((a) => (
+                {alertas.map((a) => (
                   <div
                     key={a.texto}
                     className="flex items-start gap-3 border-b border-superficie-2 px-4 py-3 last:border-b-0"

@@ -1,13 +1,17 @@
 import Link from "next/link";
 import type { Project } from "@/lib/types";
+import { type Lang, rutaProyecto, textos } from "@/lib/i18n";
 
 export default function ProyectoFila({
   proyecto,
   indice,
+  lang = "es",
 }: {
   proyecto: Project;
   indice: number;
+  lang?: Lang;
 }) {
+  const t = textos(lang);
   const destacado = proyecto.featured;
 
   return (
@@ -24,8 +28,8 @@ export default function ProyectoFila({
       <div className="flex flex-col gap-3">
         <h3 className="subtitular text-2xl md:text-[1.75rem]">
           <Link
-            href={`/proyectos/${proyecto.slug}`}
-            data-cursor="Ver"
+            href={rutaProyecto(lang, proyecto.slug)}
+            data-cursor={lang === "en" ? "Open" : "Ver"}
             className="text-texto no-underline transition-colors group-hover:text-oliva-texto"
           >
             {proyecto.title}
@@ -43,15 +47,12 @@ export default function ProyectoFila({
         <ul className="flex list-none flex-wrap gap-1.5">
           {destacado ? (
             <li className="etiqueta border border-oliva px-2 py-1 text-oliva-texto">
-              Proyecto insignia
+              {t.produccion.insignia}
             </li>
           ) : null}
-          {proyecto.tech.map((t) => (
-            <li
-              key={t}
-              className="etiqueta border border-linea px-2 py-1 text-apagado"
-            >
-              {t}
+          {proyecto.tech.map((x) => (
+            <li key={x} className="etiqueta border border-linea px-2 py-1 text-apagado">
+              {x}
             </li>
           ))}
         </ul>

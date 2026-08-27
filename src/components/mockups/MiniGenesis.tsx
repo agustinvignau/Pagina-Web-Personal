@@ -1,10 +1,19 @@
 import Ventana from "./Ventana";
+import { rotulos } from "@/lib/mockups";
+import type { Lang } from "@/lib/i18n";
 
 const BARRAS = [34, 52, 44, 71, 61, 83, 55, 92, 47, 66];
 
-export default function MiniGenesis({ className = "" }: { className?: string }) {
+export default function MiniGenesis({
+  className = "",
+  lang = "es",
+}: {
+  className?: string;
+  lang?: Lang;
+}) {
+  const r = rotulos(lang);
   return (
-    <Ventana titulo="Génesis · Inventario" className={className}>
+    <Ventana titulo={r.genesis} className={className}>
       <div className="flex">
         <div className="hidden w-[92px] shrink-0 flex-col gap-2.5 border-r border-linea p-3 sm:flex">
           <span className="block h-[7px] w-[70%] bg-oliva" />
@@ -16,9 +25,9 @@ export default function MiniGenesis({ className = "" }: { className?: string }) 
 
         <div className="flex grow flex-col gap-3 p-3.5">
           <div className="grid grid-cols-3 gap-2.5">
-            <Kpi rotulo="SKUs activos" valor="896" />
-            <Kpi rotulo="Stock bajo" valor="14" acento />
-            <Kpi rotulo="Rotación" valor="4,2" />
+            <Kpi rotulo={r.skus} valor="896" />
+            <Kpi rotulo={r.stockBajo} valor="14" acento />
+            <Kpi rotulo={r.rotacion} valor="4,2" />
           </div>
 
           <div className="flex h-[92px] items-end gap-1.5 border border-linea p-3">

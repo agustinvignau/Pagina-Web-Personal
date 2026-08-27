@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { type Lang, textos } from "@/lib/i18n";
 
 type Estado = "quieto" | "enviando" | "enviado" | "error";
 
-export default function Contacto() {
+export default function Contacto({ lang = "es" }: { lang?: Lang }) {
+  const t = textos(lang).contacto;
   const [estado, setEstado] = useState<Estado>("quieto");
   const [mensajeError, setMensajeError] = useState("");
 
@@ -25,14 +27,14 @@ export default function Contacto() {
       const cuerpo = await res.json();
 
       if (!res.ok) {
-        setMensajeError(cuerpo.error ?? "No se pudo enviar el mensaje.");
+        setMensajeError(cuerpo.error ?? t.errorGenerico);
         setEstado("error");
         return;
       }
       form.reset();
       setEstado("enviado");
     } catch {
-      setMensajeError("No hubo respuesta del servidor. Probá de nuevo.");
+      setMensajeError(t.errorGenerico);
       setEstado("error");
     }
   }
@@ -41,19 +43,17 @@ export default function Contacto() {
     <section id="contacto" className="bg-superficie">
       <div className="grid grid-cols-1 gap-12 px-6 py-16 md:px-12 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] lg:gap-20">
         <div data-revelar className="flex flex-col gap-6">
-          <p className="etiqueta text-apagado">04 — Contacto</p>
+          <p className="etiqueta text-apagado">{t.eyebrow}</p>
           <h2>
             <span className="titular block text-[clamp(2.2rem,6vw,4.5rem)]">
-              Contame
+              {t.titulo1}
             </span>
             <span className="titular contorno-oscuro block text-[clamp(2.2rem,6vw,4.5rem)]">
-              el problema
+              {t.titulo2}
             </span>
           </h2>
           <p className="max-w-[42ch] leading-relaxed text-apagado">
-            Si algo en tu operación se resuelve con planillas y paciencia,
-            probablemente se pueda resolver mejor. Escribime qué está pasando y
-            te digo con qué lo atacaría.
+            {t.bajada}
           </p>
           <div className="flex flex-col gap-2 border-t border-linea pt-5">
             <a
@@ -71,10 +71,9 @@ export default function Contacto() {
               linkedin.com/in/agustinvignau
             </a>
             <p className="mt-3 max-w-[40ch] text-sm leading-relaxed text-apagado">
-              Si lo que buscás es una consultoría con equipo detrás, lo trabajo
-              desde{" "}
+              {t.renovatio}{" "}
               <a href="https://renovatio.ar" target="_blank" rel="noreferrer">
-                Renovatio
+                {t.renovatioLink}
               </a>
               .
             </p>
@@ -82,12 +81,12 @@ export default function Contacto() {
         </div>
 
         <form data-revelar onSubmit={enviar} className="flex flex-col gap-5">
-          <Campo etiqueta="Nombre" nombre="name" requerido />
-          <Campo etiqueta="Mail" nombre="email" tipo="email" requerido />
-          <Campo etiqueta="Empresa" nombre="company" />
+          <Campo etiqueta={t.nombre} nombre="name" requerido />
+          <Campo etiqueta={t.mail} nombre="email" tipo="email" requerido />
+          <Campo etiqueta={t.empresa} nombre="company" />
 
           <label className="flex flex-col gap-2">
-            <span className="etiqueta text-apagado">Qué necesitás</span>
+            <span className="etiqueta text-apagado">{t.mensaje}</span>
             <textarea
               name="message"
               required
@@ -111,14 +110,12 @@ export default function Contacto() {
             disabled={estado === "enviando"}
             className="etiqueta self-start border border-texto px-6 py-4 transition-colors hover:bg-texto hover:text-hueso disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {estado === "enviando" ? "Enviando…" : "Enviar mensaje"}
+            {estado === "enviando" ? t.enviando : t.enviar}
           </button>
 
           <p aria-live="polite" className="min-h-6 text-sm">
             {estado === "enviado" ? (
-              <span className="text-oliva-texto">
-                Recibido. Te respondo dentro de las próximas 48 horas.
-              </span>
+              <span className="text-oliva-texto">{t.exito}</span>
             ) : null}
             {estado === "error" ? (
               <span className="text-apagado">{mensajeError}</span>
