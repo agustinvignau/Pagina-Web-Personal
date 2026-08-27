@@ -1,6 +1,13 @@
 # Portfolio — Agustín Vignau
 
+**En línea: https://www.agustinvignau.com**
+
 Sitio personal en Next.js. Reemplaza la versión estática en HTML.
+
+El dominio está registrado en Cloudflare y el DNS apunta a Vercel con un
+registro A en el raíz y un CNAME en `www`, ambos en modo **DNS only**: si se
+activa el proxy de Cloudflare (la nube naranja), Vercel no puede emitir el
+certificado.
 
 - **Framework:** Next.js 15 (App Router) + TypeScript
 - **Estilos:** Tailwind v4, con la paleta y la tipografía del sistema de diseño
@@ -61,4 +68,4 @@ El esquema versionado está en `supabase/migrations/`.
 
 ## Estado
 
-Fase 0 de 6 — fundaciones. El plan completo está en `docs/plan.md`.
+Fases 0 a 4 completas y en producción. El plan está en `docs/plan.md`.

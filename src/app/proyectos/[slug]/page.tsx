@@ -24,8 +24,9 @@ export async function generateMetadata({
   if (!proyecto) return { title: "Proyecto no encontrado" };
 
   return {
-    title: `${proyecto.title} — Agustín Vignau`,
+    title: proyecto.title,
     description: proyecto.summary,
+    alternates: { canonical: `/proyectos/${slug}` },
   };
 }
 

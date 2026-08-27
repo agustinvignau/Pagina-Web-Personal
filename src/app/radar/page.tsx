@@ -7,7 +7,8 @@ import { getEdiciones, periodoLegible } from "@/lib/radar";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Radar — Agustín Vignau",
+  title: "Radar",
+  alternates: { canonical: "/radar" },
   description:
     "Qué se movió en IA, agentes, datos e infraestructura, leído cada quince días.",
 };

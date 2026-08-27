@@ -22,8 +22,9 @@ export async function generateMetadata({
   if (!edicion) return { title: "Edición no encontrada" };
 
   return {
-    title: `${edicion.title} — Radar de Agustín Vignau`,
+    title: edicion.title,
     description: edicion.summary ?? undefined,
+    alternates: { canonical: `/radar/${slug}` },
   };
 }
 
