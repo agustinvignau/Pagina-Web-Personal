@@ -39,15 +39,6 @@ export default async function Produccion() {
         )}
       </div>
 
-      <a
-        href="#laboratorio"
-        className="flex flex-wrap items-center justify-between gap-3 bg-tinta px-6 py-6 no-underline md:px-12"
-      >
-        <span className="etiqueta text-apagado-oscuro">02 — Laboratorio</span>
-        <span className="etiqueta text-hueso">
-          Cinco estudios metodológicos con datos sintéticos →
-        </span>
-      </a>
     </section>
   );
 }

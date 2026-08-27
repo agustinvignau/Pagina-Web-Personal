@@ -2,7 +2,6 @@ const SECCIONES = [
   { href: "#produccion", label: "Producción" },
   { href: "#laboratorio", label: "Laboratorio" },
   { href: "#perfil", label: "Perfil" },
-  { href: "#radar", label: "Radar" },
   { href: "#contacto", label: "Contacto" },
 ];
 
