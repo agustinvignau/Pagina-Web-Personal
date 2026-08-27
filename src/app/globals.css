@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Paleta — modo claro es el estado base */
+  /* Paleta */
   --color-hueso: #E9E0D6;
   --color-superficie: #F3ECE4;
   --color-superficie-2: #DED4C7;
@@ -22,44 +22,29 @@
   --font-mono: var(--font-martian), ui-monospace, SFMono-Regular, monospace;
 }
 
-:root {
-  --fondo: var(--color-hueso);
-  --tinta-texto: var(--color-texto);
-  --sutil: var(--color-apagado);
-  --acento: var(--color-oliva-texto);
-  --borde: var(--color-linea);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --fondo: var(--color-tinta);
-    --tinta-texto: var(--color-hueso);
-    --sutil: var(--color-apagado-oscuro);
-    --acento: var(--color-oliva-luz);
-    --borde: var(--color-linea-oscura);
-  }
-}
-
-:root[data-theme="dark"] {
-  --fondo: var(--color-tinta);
-  --tinta-texto: var(--color-hueso);
-  --sutil: var(--color-apagado-oscuro);
-  --acento: var(--color-oliva-luz);
-  --borde: var(--color-linea-oscura);
-}
+/*
+  El sitio compromete un único mundo visual: cada sección declara su color
+  a sangre completa, como en los mockups aprobados. No hay modo claro y
+  oscuro alternos — hay bandas de hueso y bandas de tinta.
+*/
 
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
   }
   body {
-    background: var(--fondo);
-    color: var(--tinta-texto);
+    background: var(--color-hueso);
+    color: var(--color-texto);
     font-family: var(--font-sans);
   }
-  a {
-    color: var(--acento);
-    text-underline-offset: 3px;
+  ::selection {
+    background: var(--color-oliva);
+    color: var(--color-hueso);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-oliva-luz);
+    outline-offset: 3px;
   }
 }
 
@@ -69,24 +54,44 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.035em;
-  line-height: 0.88;
+  line-height: 0.87;
   text-wrap: balance;
 }
 
-@utility contorno {
+@utility subtitular {
+  font-family: var(--font-sans);
+  font-variation-settings: "wdth" 108;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+}
+
+@utility contorno-claro {
   color: transparent;
-  -webkit-text-stroke: 1.5px var(--tinta-texto);
+  -webkit-text-stroke: 1.5px var(--color-hueso);
+}
+
+@utility contorno-oscuro {
+  color: transparent;
+  -webkit-text-stroke: 1.4px var(--color-texto);
 }
 
 @utility etiqueta {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--sutil);
+  font-size: 0.62rem;
+  line-height: 1.6;
+}
+
+@utility cifra {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
