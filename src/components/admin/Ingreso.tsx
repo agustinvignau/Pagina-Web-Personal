@@ -37,9 +37,22 @@ export default function Ingreso() {
     });
 
     if (fallo) {
-      // No confirmamos ni desmentimos si el mail existe.
+      /*
+        El mensaje neutro es para no revelar si una dirección existe. Pero el
+        límite de envíos NO es un secreto, y esconderlo detrás de "ya está en
+        camino" hace que uno espere un mail que nunca sale. Ese caso se dice
+        con todas las letras.
+      */
+      const codigo = (fallo as { code?: string }).code ?? "";
+      const limite =
+        codigo === "over_email_send_rate_limit" ||
+        fallo.status === 429 ||
+        /rate limit/i.test(fallo.message);
+
       setError(
-        "Si esa dirección tiene acceso, el enlace ya está en camino.",
+        limite
+          ? "Se alcanzó el límite de mails por hora del servidor de Supabase. No se envió nada: esperá un rato y probá de nuevo."
+          : "Si esa dirección tiene acceso, el enlace ya está en camino.",
       );
       setEstado("error");
       return;
