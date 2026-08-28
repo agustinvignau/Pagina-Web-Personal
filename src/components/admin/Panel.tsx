@@ -10,11 +10,10 @@ import SeccionMensajes from "./SeccionMensajes";
 
 type Solapa = "radar" | "proyectos" | "mensajes";
 
-const ADMIN = "agustinvignau729@gmail.com";
-
 export default function Panel() {
   const [cargando, setCargando] = useState(true);
   const [sesion, setSesion] = useState<Session | null>(null);
+  const [habilitado, setHabilitado] = useState<boolean | null>(null);
   const [solapa, setSolapa] = useState<Solapa>("radar");
 
   useEffect(() => {
@@ -35,6 +34,23 @@ export default function Panel() {
     return () => sub.subscription.unsubscribe();
   }, []);
 
+  /*
+    Quién tiene acceso NO se decide acá: se le pregunta a la base, que
+    consulta la tabla de administradores. Así sumar o sacar a alguien es una
+    fila, no un cambio de código y un despliegue.
+  */
+  useEffect(() => {
+    if (!sesion) {
+      setHabilitado(null);
+      return;
+    }
+    const supabase = getSupabaseNavegador();
+    if (!supabase) return;
+    supabase
+      .rpc("es_admin")
+      .then(({ data, error }) => setHabilitado(error ? false : Boolean(data)));
+  }, [sesion]);
+
   const salir = useCallback(async () => {
     await getSupabaseNavegador()?.auth.signOut();
   }, []);
@@ -49,18 +65,26 @@ export default function Panel() {
 
   if (!sesion) return <Ingreso />;
 
+  if (habilitado === null) {
+    return (
+      <main className="flex min-h-svh items-center justify-center bg-tinta">
+        <p className="etiqueta text-apagado-oscuro">Verificando acceso…</p>
+      </main>
+    );
+  }
+
   /*
     Segunda barrera, y es sólo eso: una barrera de pantalla. Quien manda sobre
     los datos son las políticas de la base. Esto existe para que una sesión
     ajena no vea ni la forma del panel.
   */
-  if (sesion.user.email !== ADMIN) {
+  if (!habilitado) {
     return (
       <main className="flex min-h-svh items-center justify-center bg-tinta px-6 text-hueso">
         <div className="flex max-w-[26rem] flex-col gap-5">
           <h1 className="titular text-[clamp(1.8rem,6vw,2.6rem)]">Sin acceso</h1>
           <p className="leading-relaxed text-salvia">
-            Esta cuenta no tiene permisos sobre el panel.
+            {sesion.user.email} no está en la lista de administradores.
           </p>
           <button
             type="button"
