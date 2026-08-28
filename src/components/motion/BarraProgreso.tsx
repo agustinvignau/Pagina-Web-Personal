@@ -6,17 +6,52 @@ export default function BarraProgreso() {
   const [avance, setAvance] = useState(0);
 
   useEffect(() => {
-    const calcular = () => {
-      const alto =
-        document.documentElement.scrollHeight - window.innerHeight;
+    /*
+      Leer scrollHeight obliga al navegador a recalcular el layout. Hacerlo en
+      cada evento de scroll salía caro, así que el alto se mide una vez y se
+      vuelve a medir sólo cuando cambia el tamaño de la ventana o del contenido.
+      Además el cálculo se agenda en un cuadro de animación en vez de correr por
+      cada evento.
+    */
+    let alto = 0;
+    let pedido = 0;
+
+    const medir = () => {
+      alto = document.documentElement.scrollHeight - window.innerHeight;
+    };
+
+    const pintar = () => {
+      pedido = 0;
       setAvance(alto > 0 ? (window.scrollY / alto) * 100 : 0);
     };
-    calcular();
-    window.addEventListener("scroll", calcular, { passive: true });
-    window.addEventListener("resize", calcular);
+
+    const alScrollear = () => {
+      if (pedido) return;
+      pedido = requestAnimationFrame(pintar);
+    };
+
+    const alRedimensionar = () => {
+      medir();
+      alScrollear();
+    };
+
+    medir();
+    pintar();
+
+    window.addEventListener("scroll", alScrollear, { passive: true });
+    window.addEventListener("resize", alRedimensionar);
+
+    const observador =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(alRedimensionar)
+        : null;
+    observador?.observe(document.documentElement);
+
     return () => {
-      window.removeEventListener("scroll", calcular);
-      window.removeEventListener("resize", calcular);
+      window.removeEventListener("scroll", alScrollear);
+      window.removeEventListener("resize", alRedimensionar);
+      observador?.disconnect();
+      if (pedido) cancelAnimationFrame(pedido);
     };
   }, []);
 

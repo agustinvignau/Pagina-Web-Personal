@@ -26,6 +26,11 @@ export const metadata: Metadata = {
     title: "Agustín Vignau — Analizo, diseño y resuelvo",
     description: DESCRIPCION,
   },
+  icons: {
+    icon: [{ url: "/icono.svg", type: "image/svg+xml" }],
+    shortcut: "/icono.svg",
+    apple: "/icono.svg",
+  },
   twitter: { card: "summary_large_image" },
   robots: {
     index: true,

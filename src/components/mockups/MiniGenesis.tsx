@@ -58,7 +58,7 @@ function Kpi({
     <div className="border border-linea px-2.5 py-2">
       <div className="etiqueta text-[0.42rem] text-apagado">{rotulo}</div>
       <div
-        className={`cifra mt-1 text-lg ${acento ? "text-oliva" : "text-texto"}`}
+        className={`cifra mt-1 text-lg ${acento ? "text-oliva-texto" : "text-texto"}`}
       >
         {valor}
       </div>

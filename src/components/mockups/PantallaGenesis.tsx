@@ -24,7 +24,7 @@ export default function PantallaGenesis({ lang = "es" }: { lang?: Lang }) {
             </span>
           </div>
           <ul className="list-none">
-            <li className="etiqueta px-2.5 py-2 text-apagado">{r.operacion}</li>
+            <li className="etiqueta px-2.5 py-2 text-apagado-oscuro">{r.operacion}</li>
             {r.menu.map((s, i) => (
               <li
                 key={s}
@@ -33,7 +33,7 @@ export default function PantallaGenesis({ lang = "es" }: { lang?: Lang }) {
                 {s}
               </li>
             ))}
-            <li className="etiqueta px-2.5 pb-2 pt-4 text-apagado">{r.analisis}</li>
+            <li className="etiqueta px-2.5 pb-2 pt-4 text-apagado-oscuro">{r.analisis}</li>
             {r.menu2.map((s) => (
               <li key={s} className="etiqueta px-2.5 py-2.5 text-salvia">
                 {s}

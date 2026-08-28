@@ -10,6 +10,7 @@ export default function CursorCustom() {
   const [activo, setActivo] = useState(false);
   const [visto, setVisto] = useState(false);
   const [rotulo, setRotulo] = useState<string | null>(null);
+  const rotuloActual = useRef<string | null>(null);
 
   useEffect(() => {
     const finoYSinReducir =
@@ -33,10 +34,19 @@ export default function CursorCustom() {
       if (punto.current) {
         punto.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       }
+      /*
+        Sin esta comparación, cada movimiento del mouse disparaba un re-render
+        de React. Ahora sólo se avisa cuando el elemento debajo del cursor
+        realmente cambia de estado.
+      */
       const destino = (e.target as HTMLElement)?.closest?.(INTERACTIVO) as
         | HTMLElement
         | null;
-      setRotulo(destino ? (destino.dataset.cursor ?? "") : null);
+      const nuevo = destino ? (destino.dataset.cursor ?? "") : null;
+      if (nuevo !== rotuloActual.current) {
+        rotuloActual.current = nuevo;
+        setRotulo(nuevo);
+      }
     };
 
     const animar = () => {

@@ -24,7 +24,7 @@ export default function MiniFacturas({
             <div className="etiqueta text-[0.42rem] text-apagado">
               {r.aRevisar}
             </div>
-            <div className="cifra mt-1 text-base text-oliva">03</div>
+            <div className="cifra mt-1 text-base text-oliva-texto">03</div>
           </div>
         </div>
         <div className="flex flex-col gap-1.5">

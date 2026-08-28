@@ -19,7 +19,7 @@ export default function Ventana({
         <span className="block size-[7px] bg-acero" />
         <span className="block size-[7px] bg-salvia" />
         <span className="grow" />
-        <span className="etiqueta text-[0.5rem] text-apagado">{titulo}</span>
+        <span className="etiqueta text-[0.5rem] text-grafito">{titulo}</span>
       </div>
       {children}
     </div>
