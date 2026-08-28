@@ -10,6 +10,8 @@ import SeccionMensajes from "./SeccionMensajes";
 
 type Solapa = "radar" | "proyectos" | "mensajes";
 
+const ADMIN = "agustinvignau729@gmail.com";
+
 export default function Panel() {
   const [cargando, setCargando] = useState(true);
   const [sesion, setSesion] = useState<Session | null>(null);
@@ -46,6 +48,31 @@ export default function Panel() {
   }
 
   if (!sesion) return <Ingreso />;
+
+  /*
+    Segunda barrera, y es sólo eso: una barrera de pantalla. Quien manda sobre
+    los datos son las políticas de la base. Esto existe para que una sesión
+    ajena no vea ni la forma del panel.
+  */
+  if (sesion.user.email !== ADMIN) {
+    return (
+      <main className="flex min-h-svh items-center justify-center bg-tinta px-6 text-hueso">
+        <div className="flex max-w-[26rem] flex-col gap-5">
+          <h1 className="titular text-[clamp(1.8rem,6vw,2.6rem)]">Sin acceso</h1>
+          <p className="leading-relaxed text-salvia">
+            Esta cuenta no tiene permisos sobre el panel.
+          </p>
+          <button
+            type="button"
+            onClick={salir}
+            className="etiqueta self-start border border-linea-oscura px-5 py-3.5 text-apagado-oscuro transition-colors hover:text-hueso"
+          >
+            Cerrar sesión
+          </button>
+        </div>
+      </main>
+    );
+  }
 
   const solapas: { id: Solapa; label: string }[] = [
     { id: "radar", label: "Radar" },

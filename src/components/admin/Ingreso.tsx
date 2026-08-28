@@ -22,13 +22,25 @@ export default function Ingreso() {
     setEstado("enviando");
     setError("");
 
+    /*
+      shouldCreateUser en false es lo que cierra la puerta de verdad: si el
+      mail no corresponde a un usuario que ya existe, Supabase no crea nada
+      ni manda ningún enlace. Para sumar a alguien hay que invitarlo desde el
+      panel de Supabase, a propósito.
+    */
     const { error: fallo } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: `${window.location.origin}/admin` },
+      options: {
+        shouldCreateUser: false,
+        emailRedirectTo: `${window.location.origin}/admin`,
+      },
     });
 
     if (fallo) {
-      setError(fallo.message);
+      // No confirmamos ni desmentimos si el mail existe.
+      setError(
+        "Si esa dirección tiene acceso, el enlace ya está en camino.",
+      );
       setEstado("error");
       return;
     }
@@ -77,8 +89,9 @@ export default function Ingreso() {
         )}
 
         <p className="text-sm leading-relaxed text-apagado-oscuro">
-          Cualquiera puede pedir un enlace, pero sólo tu dirección tiene
-          permisos sobre los datos. Eso lo decide la base, no esta pantalla.
+          Sólo las direcciones ya invitadas reciben enlace. Y aunque alguien
+          consiguiera entrar, los permisos sobre los datos los decide la base,
+          no esta pantalla.
         </p>
       </div>
     </main>
