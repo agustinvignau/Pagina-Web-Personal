@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getSlugs } from "@/lib/proyectos";
 import { getEdiciones } from "@/lib/radar";
+import { getEscritos } from "@/lib/escritos";
 
 const SITIO = "https://www.agustinvignau.com";
 
@@ -26,7 +27,11 @@ function entrada(
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [slugs, ediciones] = await Promise.all([getSlugs(), getEdiciones()]);
+  const [slugs, ediciones, escritos] = await Promise.all([
+    getSlugs(),
+    getEdiciones(),
+    getEscritos(),
+  ]);
 
   const proyectos = slugs.flatMap((slug) => {
     const es = `/proyectos/${slug}`;
@@ -47,12 +52,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
   });
 
+  const notas = escritos.flatMap((e) => {
+    const es = `/escritos/${e.slug}`;
+    const en = `/en/writing/${e.slug}`;
+    const lastModified = e.published_at ? new Date(e.published_at) : undefined;
+    return [
+      entrada(es, es, en, { lastModified, changeFrequency: "yearly", priority: 0.6 }),
+      entrada(en, es, en, { lastModified, changeFrequency: "yearly", priority: 0.5 }),
+    ];
+  });
+
   return [
     entrada("/", "/", "/en", { changeFrequency: "weekly", priority: 1 }),
     entrada("/en", "/", "/en", { changeFrequency: "weekly", priority: 0.8 }),
     entrada("/radar", "/radar", "/en/radar", { changeFrequency: "weekly", priority: 0.7 }),
     entrada("/en/radar", "/radar", "/en/radar", { changeFrequency: "weekly", priority: 0.6 }),
+    entrada("/escritos", "/escritos", "/en/writing", { changeFrequency: "weekly", priority: 0.7 }),
+    entrada("/en/writing", "/escritos", "/en/writing", { changeFrequency: "weekly", priority: 0.6 }),
     ...proyectos,
     ...radar,
+    ...notas,
   ];
 }

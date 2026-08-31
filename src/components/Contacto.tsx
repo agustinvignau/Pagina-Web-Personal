@@ -22,7 +22,8 @@ export default function Contacto({ lang = "es" }: { lang?: Lang }) {
       const res = await fetch("/api/contacto", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(datos),
+        // El idioma viaja con el formulario: decide en qué lengua sale el acuse.
+        body: JSON.stringify({ ...datos, lang }),
       });
       const cuerpo = await res.json();
 

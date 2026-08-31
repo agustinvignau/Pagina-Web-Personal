@@ -10,11 +10,11 @@ en `/admin` y versión en inglés bajo `/en`.
 | 1 | Identidad visual y mockups de producto | completa |
 | 2 | Núcleo del portfolio: home, producción, laboratorio, perfil, contacto | completa |
 | 3 | Capa premium de movimiento | completa |
-| 4 | Radar y blog | radar completo, blog sin empezar |
+| 4 | Radar y blog | completa |
 | 5 | Inglés y SEO técnico | completa |
 | 6 | Panel propio y dominio | completa |
 
-Ninguna fase arranca sin aprobación explícita.
+Las siete fases están cerradas. Ninguna arrancó sin aprobación explícita.
 
 ## Qué quedó construido
 
@@ -34,6 +34,14 @@ Ninguna fase arranca sin aprobación explícita.
   y la lista de accesos vive en la tabla `admins`, no en el código.
 - **Auditoría.** Contraste accesible, favicon propio y menos trabajo en el
   hilo principal.
+- **Cierre de la fase 4.** Sección Escritos en `/escritos` y `/en/writing`,
+  con índice, páginas de detalle, minutos de lectura, etiquetas, imágenes de
+  vista previa, entrada en el menú y en el sitemap, y su solapa en el panel.
+  La tabla `posts` pasó al mismo patrón de traducción que el resto: una fila
+  por artículo con las columnas `_en` al lado, y el cuerpo en HTML como el
+  del radar, en vez de una fila por idioma con MDX.
+- **Los mails del formulario.** Cada mensaje dispara el aviso a Agustín y un
+  acuse de recibo a quien escribió, en su idioma, con copia de lo que mandó.
 
 ## Qué hay hoy en la base
 
@@ -41,22 +49,26 @@ Ninguna fase arranca sin aprobación explícita.
 |---|---|---|
 | `projects` | 9 | 4 de producción y 5 de laboratorio, todos publicados y con traducción al inglés |
 | `radar_items` | 1 | una sola edición publicada: el período 17–24 de agosto |
-| `posts` | 0 | la tabla existe desde la fase 0 y no la usa ninguna pantalla |
+| `posts` | 0 | la sección ya existe y está vacía: falta el primer artículo |
 | `leads` | 2 | ninguno marcado como atendido; el último entró el 30 de agosto |
 | `admins` | 2 | quiénes pueden entrar a `/admin` |
 
 ## Lo que quedó abierto
 
-1. **El blog no existe.** La tabla `posts` está en el esquema desde la fase
-   0, pero no hay ruta, componente ni consulta que la toque. Era la mitad
-   de la fase 4 y quedó afuera.
-2. **El radar no está automatizado.** Hay índice, notas y aprobación desde
+1. **Resend sin configurar.** El código de los dos mails está escrito y
+   probado, pero `RESEND_API_KEY` no existe todavía y el dominio no está
+   verificado en Resend, así que no sale ninguno. Los pasos están en el
+   README. Hasta que se haga, los mensajes solo se ven entrando al panel.
+2. **Escritos sin ningún artículo.** El menú ya muestra la sección y la
+   página dice que no hay nada publicado. Conviene tener el primero antes de
+   desplegar, o sacar la entrada del menú hasta entonces.
+3. **El radar no está automatizado.** Hay índice, notas y aprobación desde
    el panel, pero ninguna ingesta: no hay edge functions, ni tarea
    programada, ni más rutas de API que `/api/contacto`. Las ediciones
    quincenales se cargan a mano, y con una sola publicada la cadencia está
    por cortarse.
-3. **Dos mensajes sin responder** en la bandeja del panel.
-4. **Sin foto de perfil.** Sigue anotado como mejora futura.
+4. **Dos mensajes sin responder** en la bandeja del panel, del 30 de agosto.
+5. **Sin foto de perfil.** Sigue anotado como mejora futura.
 
 ## Decisiones tomadas
 
@@ -81,7 +93,8 @@ Ninguna fase arranca sin aprobación explícita.
 
 | Opción | Qué implica |
 |---|---|
-| A. Blog | Cerrar la fase 4: rutas `/notas` y `/en/notes`, render del `body_mdx`, listado, y alta desde el panel |
-| B. Radar automatizado | Ingesta programada de fuentes + borrador automático que se aprueba desde `/admin` |
-| C. Contenido | Cargar la edición del radar que falta y responder los dos mensajes, sin tocar código |
-| D. Pulido | Foto de perfil, revisión de métricas reales de carga, o lo que aparezca al mirar el sitio con ojos frescos |
+| A. Terminar el correo | Crear la clave en Resend y verificar el dominio en Cloudflare. Sin código: son tres pasos del README |
+| B. El primer escrito | Escribir y publicar el artículo que estrena la sección |
+| C. Radar automatizado | Ingesta programada de fuentes + borrador automático que se aprueba desde `/admin` |
+| D. Contenido | Cargar la edición del radar que falta y responder los dos mensajes |
+| E. Pulido | Foto de perfil, o lo que aparezca al mirar el sitio con ojos frescos |

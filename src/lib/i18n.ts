@@ -21,13 +21,18 @@ export function rutaRadar(lang: Lang, slug?: string) {
   return slug ? `${base}/${slug}` : base;
 }
 
+export function rutaEscrito(lang: Lang, slug?: string) {
+  const base = lang === "es" ? "/escritos" : "/en/writing";
+  return slug ? `${base}/${slug}` : base;
+}
+
 /** La misma página en el otro idioma, para el conmutador del menú. */
 export function otroIdioma(lang: Lang): Lang {
   return lang === "es" ? "en" : "es";
 }
 
 type Textos = {
-  nav: { produccion: string; laboratorio: string; perfil: string; radar: string; contacto: string };
+  nav: { produccion: string; laboratorio: string; perfil: string; radar: string; escritos: string; contacto: string };
   ciudad: string;
   hero: {
     rol: string;
@@ -93,11 +98,21 @@ type Textos = {
     origen: string;
     todas: string;
   };
+  escritos: {
+    eyebrow: string;
+    titulo1: string;
+    titulo2: string;
+    bajada: string;
+    vacio: string;
+    articulo: string;
+    lectura: string;
+    todos: string;
+  };
   footer: { mail: string; linkedin: string; github: string; cv: string; ubicacion: string };
 };
 
 const ES: Textos = {
-  nav: { produccion: "Producción", laboratorio: "Laboratorio", perfil: "Perfil", radar: "Radar", contacto: "Contacto" },
+  nav: { produccion: "Producción", laboratorio: "Laboratorio", perfil: "Perfil", radar: "Radar", escritos: "Escritos", contacto: "Contacto" },
   ciudad: "Buenos Aires",
   hero: {
     rol: "Técnico Superior en Ciencia de Datos e IA",
@@ -188,11 +203,22 @@ const ES: Textos = {
     origen: "Origen",
     todas: "← Todas las ediciones",
   },
+  escritos: {
+    eyebrow: "Escritos",
+    titulo1: "Lo que voy",
+    titulo2: "entendiendo",
+    bajada:
+      "Notas sobre datos, automatización y sistemas que tienen que funcionar en empresas reales. Escribo cuando algo me costó entenderlo y sospecho que a otro le va a costar igual.",
+    vacio: "Todavía no hay nada publicado.",
+    articulo: "Escrito",
+    lectura: "min de lectura",
+    todos: "← Todos los escritos",
+  },
   footer: { mail: "Mail", linkedin: "LinkedIn", github: "GitHub", cv: "CV", ubicacion: "Buenos Aires, Argentina" },
 };
 
 const EN: Textos = {
-  nav: { produccion: "Production", laboratorio: "Lab", perfil: "Profile", radar: "Radar", contacto: "Contact" },
+  nav: { produccion: "Production", laboratorio: "Lab", perfil: "Profile", radar: "Radar", escritos: "Writing", contacto: "Contact" },
   ciudad: "Buenos Aires",
   hero: {
     rol: "Data Science & AI Technician",
@@ -282,6 +308,17 @@ const EN: Textos = {
       "An automated sweep collects releases and their official links into a document. Every two weeks an agent consolidates it and drafts the edition; I read it, correct what needs correcting, and add my own reading before publishing. No edition goes out without passing through me.",
     origen: "Source",
     todas: "← All editions",
+  },
+  escritos: {
+    eyebrow: "Writing",
+    titulo1: "What I am",
+    titulo2: "working out",
+    bajada:
+      "Notes on data, automation, and systems that have to hold up inside real companies. I write when something took me effort to understand and I suspect it will take someone else the same.",
+    vacio: "Nothing published yet.",
+    articulo: "Article",
+    lectura: "min read",
+    todos: "← All writing",
   },
   footer: { mail: "Email", linkedin: "LinkedIn", github: "GitHub", cv: "CV", ubicacion: "Buenos Aires, Argentina" },
 };

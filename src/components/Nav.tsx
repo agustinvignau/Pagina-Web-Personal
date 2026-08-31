@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { type Lang, otroIdioma, ruta, rutaRadar, textos } from "@/lib/i18n";
+import { type Lang, otroIdioma, ruta, rutaEscrito, rutaRadar, textos } from "@/lib/i18n";
 
 export default function Nav({
   lang = "es",
@@ -16,6 +16,7 @@ export default function Nav({
     { href: ruta(lang, "/#laboratorio"), label: t.nav.laboratorio },
     { href: ruta(lang, "/#perfil"), label: t.nav.perfil },
     { href: rutaRadar(lang), label: t.nav.radar },
+    { href: rutaEscrito(lang), label: t.nav.escritos },
     { href: ruta(lang, "/#contacto"), label: t.nav.contacto },
   ];
 

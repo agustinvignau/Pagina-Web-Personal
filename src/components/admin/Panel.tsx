@@ -5,10 +5,11 @@ import type { Session } from "@supabase/supabase-js";
 import { getSupabaseNavegador } from "@/lib/supabase-navegador";
 import Ingreso from "./Ingreso";
 import SeccionRadar from "./SeccionRadar";
+import SeccionEscritos from "./SeccionEscritos";
 import SeccionProyectos from "./SeccionProyectos";
 import SeccionMensajes from "./SeccionMensajes";
 
-type Solapa = "radar" | "proyectos" | "mensajes";
+type Solapa = "radar" | "escritos" | "proyectos" | "mensajes";
 
 export default function Panel() {
   const [cargando, setCargando] = useState(true);
@@ -100,6 +101,7 @@ export default function Panel() {
 
   const solapas: { id: Solapa; label: string }[] = [
     { id: "radar", label: "Radar" },
+    { id: "escritos", label: "Escritos" },
     { id: "proyectos", label: "Proyectos" },
     { id: "mensajes", label: "Mensajes" },
   ];
@@ -146,6 +148,7 @@ export default function Panel() {
 
       <div className="px-6 py-10 md:px-10">
         {solapa === "radar" ? <SeccionRadar /> : null}
+        {solapa === "escritos" ? <SeccionEscritos /> : null}
         {solapa === "proyectos" ? <SeccionProyectos /> : null}
         {solapa === "mensajes" ? <SeccionMensajes /> : null}
       </div>
