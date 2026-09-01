@@ -47,6 +47,45 @@ async function enviarMail(
   }
 }
 
+/*
+  TEMPORAL — diagnóstico del correo. Se abre en el navegador:
+  https://www.agustinvignau.com/api/contacto
+
+  Dice si la clave llega a la función y qué contesta Resend cuando se la usa
+  desde acá. Nunca devuelve la clave: solo su largo y sus primeros caracteres.
+  Sacar este handler cuando el correo esté andando.
+*/
+export async function GET() {
+  const clave = process.env.RESEND_API_KEY;
+  const remitente = process.env.RESEND_FROM ?? "(sin definir, cae en onboarding@resend.dev)";
+
+  const informe: Record<string, unknown> = {
+    clave_presente: Boolean(clave),
+    clave_largo: clave?.length ?? 0,
+    clave_empieza_con: clave ? clave.slice(0, 3) : null,
+    clave_tiene_espacios: clave ? /\s/.test(clave) : null,
+    clave_tiene_comillas: clave ? /["']/.test(clave) : null,
+    remitente,
+  };
+
+  if (clave) {
+    try {
+      const res = await fetch("https://api.resend.com/domains", {
+        headers: { Authorization: `Bearer ${clave}` },
+      });
+      informe.resend_status = res.status;
+      informe.resend_dice = res.ok
+        ? "la clave sirve"
+        : (await res.text().catch(() => "")).slice(0, 300);
+    } catch (e) {
+      informe.resend_status = "no se pudo llamar";
+      informe.resend_dice = String(e).slice(0, 200);
+    }
+  }
+
+  return NextResponse.json(informe);
+}
+
 export async function POST(request: Request) {
   let cuerpo: Record<string, unknown>;
   try {
