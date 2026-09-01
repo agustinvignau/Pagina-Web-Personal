@@ -42,6 +42,9 @@ Las siete fases están cerradas. Ninguna arrancó sin aprobación explícita.
   del radar, en vez de una fila por idioma con MDX.
 - **Los mails del formulario.** Cada mensaje dispara el aviso a Agustín y un
   acuse de recibo a quien escribió, en su idioma, con copia de lo que mandó.
+  Andando en producción desde el 31 de agosto: dominio verificado en Resend
+  sobre Cloudflare, y las variables cargadas en Vercel. Los fallos de envío
+  quedan escritos en los logs en vez de perderse en silencio.
 
 ## Qué hay hoy en la base
 
@@ -55,20 +58,18 @@ Las siete fases están cerradas. Ninguna arrancó sin aprobación explícita.
 
 ## Lo que quedó abierto
 
-1. **Resend sin configurar.** El código de los dos mails está escrito y
-   probado, pero `RESEND_API_KEY` no existe todavía y el dominio no está
-   verificado en Resend, así que no sale ninguno. Los pasos están en el
-   README. Hasta que se haga, los mensajes solo se ven entrando al panel.
-2. **Escritos sin ningún artículo.** El menú ya muestra la sección y la
+1. **Escritos sin ningún artículo.** El menú ya muestra la sección y la
    página dice que no hay nada publicado. Conviene tener el primero antes de
    desplegar, o sacar la entrada del menú hasta entonces.
-3. **El radar no está automatizado.** Hay índice, notas y aprobación desde
+2. **El radar no está automatizado.** Hay índice, notas y aprobación desde
    el panel, pero ninguna ingesta: no hay edge functions, ni tarea
    programada, ni más rutas de API que `/api/contacto`. Las ediciones
    quincenales se cargan a mano, y con una sola publicada la cadencia está
    por cortarse.
-4. **Dos mensajes sin responder** en la bandeja del panel, del 30 de agosto.
-5. **Sin foto de perfil.** Sigue anotado como mejora futura.
+3. **La bandeja del panel está sucia.** Además de los dos mensajes reales del
+   30 de agosto, quedaron seis pruebas del 31 mientras se configuraba el
+   correo. Conviene marcarlas como atendidas.
+4. **Sin foto de perfil.** Sigue anotado como mejora futura.
 
 ## Decisiones tomadas
 
@@ -93,8 +94,7 @@ Las siete fases están cerradas. Ninguna arrancó sin aprobación explícita.
 
 | Opción | Qué implica |
 |---|---|
-| A. Terminar el correo | Crear la clave en Resend y verificar el dominio en Cloudflare. Sin código: son tres pasos del README |
-| B. El primer escrito | Escribir y publicar el artículo que estrena la sección |
-| C. Radar automatizado | Ingesta programada de fuentes + borrador automático que se aprueba desde `/admin` |
-| D. Contenido | Cargar la edición del radar que falta y responder los dos mensajes |
-| E. Pulido | Foto de perfil, o lo que aparezca al mirar el sitio con ojos frescos |
+| A. El primer escrito | Escribir y publicar el artículo que estrena la sección |
+| B. Radar automatizado | Ingesta programada de fuentes + borrador automático que se aprueba desde `/admin` |
+| C. Contenido | Cargar la edición del radar que falta y responder los dos mensajes |
+| D. Pulido | Foto de perfil, o lo que aparezca al mirar el sitio con ojos frescos |
