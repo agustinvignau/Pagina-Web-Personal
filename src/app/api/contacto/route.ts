@@ -13,8 +13,16 @@ function texto(valor: unknown, max: number) {
  * El único lugar que habla con Resend. Nunca tira: un mail que no sale es un
  * aviso perdido, no una operación fallida. El lead ya está guardado antes de
  * que esto corra.
+ *
+ * Pero fallar en silencio deja sin diagnóstico: si el mail no llega no hay
+ * forma de saber si fue la clave, el remitente o la red. Por eso el error se
+ * escribe en los logs, que es donde hay que ir a mirarlo.
  */
-async function enviarMail(clave: string, payload: Record<string, unknown>) {
+async function enviarMail(
+  clave: string,
+  etiqueta: string,
+  payload: Record<string, unknown>,
+) {
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -24,8 +32,17 @@ async function enviarMail(clave: string, payload: Record<string, unknown>) {
       },
       body: JSON.stringify(payload),
     });
-    return res.ok;
-  } catch {
+
+    if (!res.ok) {
+      const detalle = await res.text().catch(() => "");
+      console.error(
+        `[contacto] Resend rechazó el mail "${etiqueta}": ${res.status} ${detalle}`,
+      );
+      return false;
+    }
+    return true;
+  } catch (e) {
+    console.error(`[contacto] No se pudo llamar a Resend para "${etiqueta}":`, e);
     return false;
   }
 }
@@ -93,8 +110,13 @@ export async function POST(request: Request) {
   const clave = process.env.RESEND_API_KEY;
   const remitente = process.env.RESEND_FROM ?? "onboarding@resend.dev";
 
+  // Nunca se escribe la clave en los logs: solo si está y qué forma tiene.
+  console.log(
+    `[contacto] clave: ${clave ? `presente, ${clave.length} caracteres, empieza con "${clave.slice(0, 3)}"` : "AUSENTE"} | remitente: ${remitente}`,
+  );
+
   if (clave) {
-    const aviso = enviarMail(clave, {
+    const aviso = enviarMail(clave, "aviso", {
       from: `Portfolio <${remitente}>`,
       to: [DESTINO],
       reply_to: email,
@@ -102,7 +124,7 @@ export async function POST(request: Request) {
       text: `${name} <${email}>${company ? `\nEmpresa: ${company}` : ""}\n\n${message}`,
     });
 
-    const acuse = enviarMail(clave, {
+    const acuse = enviarMail(clave, "acuse", {
       from: `Agustín Vignau <${remitente}>`,
       to: [email],
       reply_to: DESTINO,
