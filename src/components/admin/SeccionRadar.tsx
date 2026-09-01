@@ -72,7 +72,7 @@ export default function SeccionRadar() {
 
   return (
     <section>
-      <Titulo nota="El borrador lo escribe la tarea automática los días 1 y 16. Nada se publica hasta que lo apruebes acá.">
+      <Titulo nota="La tarea automática publica la edición sola los días 1 y 16, y te avisa por mail. Acá la corregís o la bajás si algo salió mal.">
         Radar
       </Titulo>
       <Estado texto={aviso} />

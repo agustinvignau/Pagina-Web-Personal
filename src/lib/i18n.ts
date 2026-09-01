@@ -195,11 +195,11 @@ const ES: Textos = {
     titulo1: "Qué se movió",
     titulo2: "estas dos semanas",
     bajada:
-      "Sigo los lanzamientos y cambios de IA, agentes, machine learning e infraestructura. Cada quince días un agente consolida lo que se acumuló, yo lo leo, agrego qué me parece que importa y recién ahí se publica.",
+      "Sigo los lanzamientos y cambios de IA, agentes, machine learning e infraestructura. Un rastreo automático los junta y cada quince días un agente los consolida y publica la edición. Está automatizado de punta a punta: es el mismo tipo de sistema que construyo para otros.",
     vacio: "La primera edición está en revisión.",
     edicion: "Radar tecnológico · edición",
     comoSeArma:
-      "Un rastreo automático deja las novedades y sus enlaces oficiales en un documento. Cada quince días un agente lo consolida y redacta el borrador; yo lo leo, corrijo lo que haga falta y agrego la lectura propia antes de publicarlo. Ninguna edición sale sin pasar por mí.",
+      "Un rastreo automático deja las novedades y sus enlaces oficiales en un documento. Los días 1 y 16 una tarea programada lo consolida, redacta la edición en los dos idiomas y la publica sin que yo intervenga. Recibo el aviso cuando salió, y desde ahí corrijo o bajo la edición si hace falta.",
     origen: "Origen",
     todas: "← Todas las ediciones",
   },
@@ -301,11 +301,11 @@ const EN: Textos = {
     titulo1: "What moved",
     titulo2: "these two weeks",
     bajada:
-      "I follow releases and changes across AI, agents, machine learning, and infrastructure. Every two weeks an agent consolidates what piled up, I read it, add what I think matters, and only then it gets published.",
+      "I follow releases and changes across AI, agents, machine learning, and infrastructure. An automated sweep collects them, and every two weeks an agent consolidates and publishes the edition. It runs end to end on its own: the same kind of system I build for other people.",
     vacio: "The first edition is under review.",
     edicion: "Tech radar · edition",
     comoSeArma:
-      "An automated sweep collects releases and their official links into a document. Every two weeks an agent consolidates it and drafts the edition; I read it, correct what needs correcting, and add my own reading before publishing. No edition goes out without passing through me.",
+      "An automated sweep collects releases and their official links into a document. On the 1st and the 16th a scheduled task consolidates it, writes the edition in both languages, and publishes it with no input from me. I get a notice once it is out, and correct or pull the edition from there if needed.",
     origen: "Source",
     todas: "← All editions",
   },
