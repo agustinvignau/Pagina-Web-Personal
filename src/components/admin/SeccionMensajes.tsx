@@ -12,6 +12,8 @@ type Lead = {
   message: string;
   handled: boolean;
   created_at: string;
+  flagged: boolean;
+  flag_reason: string | null;
 };
 
 export default function SeccionMensajes() {
@@ -55,13 +57,14 @@ export default function SeccionMensajes() {
   if (cargando) return <Vacio>Cargando mensajes…</Vacio>;
 
   const pendientes = leads.filter((l) => !l.handled).length;
+  const sospechosos = leads.filter((l) => l.flagged && !l.handled).length;
 
   return (
     <section>
       <Titulo
         nota={
           pendientes > 0
-            ? `${pendientes} sin responder.`
+            ? `${pendientes} sin responder${sospechosos > 0 ? `, ${sospechosos} marcado${sospechosos > 1 ? "s" : ""} como sospechoso${sospechosos > 1 ? "s" : ""}` : ""}.`
             : "Todo respondido. Esta es la única forma de leerlos: la clave pública del sitio no puede."
         }
       >
@@ -87,6 +90,14 @@ export default function SeccionMensajes() {
                     {l.name}
                     {l.company ? ` · ${l.company}` : ""}
                   </span>
+                  {l.flagged ? (
+                    <span
+                      title="No se le mandó acuse de recibo."
+                      className="etiqueta self-start border border-linea px-2 py-1 text-oliva-texto"
+                    >
+                      Sospechoso · {l.flag_reason ?? "sin motivo"}
+                    </span>
+                  ) : null}
                   <a href={`mailto:${l.email}`} className="etiqueta">
                     {l.email}
                   </a>

@@ -4,9 +4,44 @@ import { getSupabase } from "@/lib/supabase";
 const DESTINO = "agustinvignau729@gmail.com";
 const SITIO = "https://www.agustinvignau.com";
 
+/*
+  No es un secreto y no pretende serlo: es un pimiento para que en la base no
+  queden direcciones IP en claro. Alcanza para contar envíos de un mismo
+  origen, que es lo único para lo que se usa.
+*/
+const PIMIENTO = "portfolio-vignau-contacto";
+
 function texto(valor: unknown, max: number) {
   if (typeof valor !== "string") return "";
   return valor.trim().slice(0, max);
+}
+
+/** La IP real viene en la cabecera que pone el proxy de Vercel, no en la conexión. */
+function ipDelPedido(request: Request) {
+  const reenviada = request.headers.get("x-forwarded-for");
+  if (reenviada) return reenviada.split(",")[0]!.trim();
+  return request.headers.get("x-real-ip") ?? "";
+}
+
+async function hashear(valor: string) {
+  if (!valor) return null;
+  const datos = new TextEncoder().encode(`${PIMIENTO}:${valor}`);
+  const digest = await crypto.subtle.digest("SHA-256", datos);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+/**
+ * Señales de mensaje sospechoso. Deliberadamente pocas y conservadoras: un
+ * falso positivo acá es una consulta real que no recibe respuesta, que es
+ * peor que dejar pasar un spam. Nada se descarta: se marca.
+ */
+function revisar(name: string, message: string) {
+  const enlaces = (message.match(/https?:\/\//gi) ?? []).length;
+  if (/https?:\/\//i.test(name)) return "enlace en el nombre";
+  if (enlaces >= 3) return `${enlaces} enlaces en el mensaje`;
+  return null;
 }
 
 /**
@@ -79,8 +114,41 @@ export async function POST(request: Request) {
     );
   }
 
-  // 1. Guardar el lead. Si esto falla, el mensaje se pierde: es lo que avisamos.
   const supabase = getSupabase();
+  const ipHash = await hashear(ipDelPedido(request));
+
+  /*
+    1. Límite de envíos. La cuenta la hace la base con una función propia,
+       porque la clave pública no puede leer `leads` — y está bien que no
+       pueda. La función devuelve un permiso, no datos.
+
+       El límite por dirección de destino es el que importa: sin él, el acuse
+       de recibo convierte este formulario en una máquina de mandarle mails a
+       un tercero desde tu dominio.
+  */
+  if (supabase) {
+    const { data: permiso } = await supabase.rpc("contacto_puede_enviar", {
+      p_ip_hash: ipHash,
+      p_email: email,
+    });
+
+    const veredicto = permiso as { permitido: boolean; motivo: string } | null;
+    if (veredicto && !veredicto.permitido) {
+      console.warn(`[contacto] Envío frenado por límite (${veredicto.motivo}).`);
+      return NextResponse.json(
+        {
+          error: en
+            ? "That is a few messages in a short time. Wait an hour, or write straight to agustinvignau729@gmail.com."
+            : "Son varios mensajes en poco rato. Esperá una hora, o escribime directo a agustinvignau729@gmail.com.",
+        },
+        { status: 429 },
+      );
+    }
+  }
+
+  // 2. Guardar el lead. Si esto falla, el mensaje se pierde: es lo que avisamos.
+  const sospecha = revisar(name, message);
+
   if (supabase) {
     const { error } = await supabase.from("leads").insert({
       name,
@@ -88,6 +156,9 @@ export async function POST(request: Request) {
       company: company || null,
       message,
       source: en ? "web-en" : "web",
+      ip_hash: ipHash,
+      flagged: Boolean(sospecha),
+      flag_reason: sospecha,
     });
     if (error) {
       return NextResponse.json(
@@ -98,43 +169,46 @@ export async function POST(request: Request) {
   }
 
   /*
-    2. Los dos mails. El primero me avisa a mí; el segundo le confirma a quien
-       escribió que el mensaje llegó — la web promete respuesta en 48 horas y
-       hasta ahora esa promesa no tenía ningún acuse detrás.
+    3. Los mails. El aviso sale siempre — un mensaje marcado como sospechoso
+       igual se lee, sólo que avisado.
+
+       El acuse NO sale si el mensaje quedó marcado. Un mensaje sospechoso
+       suele traer la dirección de otro, y contestarle es justamente el abuso
+       que hay que evitar. Si fue un falso positivo, la persona recibe
+       respuesta cuando Agustín le contesta a mano.
 
        Si todavía no hay clave configurada, el lead igual quedó guardado, así
-       que la respuesta sigue siendo un éxito. Ojo: mientras el remitente sea
-       el de prueba de Resend, el acuse al visitante no se entrega. Hace falta
-       el dominio verificado.
+       que la respuesta sigue siendo un éxito.
   */
   const clave = process.env.RESEND_API_KEY;
   const remitente = process.env.RESEND_FROM ?? "onboarding@resend.dev";
 
-  // Nunca se escribe la clave en los logs: solo si está y qué forma tiene.
-  console.log(
-    `[contacto] clave: ${clave ? `presente, ${clave.length} caracteres, empieza con "${clave.slice(0, 3)}"` : "AUSENTE"} | remitente: ${remitente}`,
-  );
-
   if (clave) {
-    const aviso = enviarMail(clave, "aviso", {
-      from: `Portfolio <${remitente}>`,
-      to: [DESTINO],
-      reply_to: email,
-      subject: `Consulta de ${name}${company ? ` (${company})` : ""}`,
-      text: `${name} <${email}>${company ? `\nEmpresa: ${company}` : ""}\n\n${message}`,
-    });
+    const envios = [
+      enviarMail(clave, "aviso", {
+        from: `Portfolio <${remitente}>`,
+        to: [DESTINO],
+        reply_to: email,
+        subject: `${sospecha ? "[sospechoso] " : ""}Consulta de ${name}${company ? ` (${company})` : ""}`,
+        text: `${name} <${email}>${company ? `\nEmpresa: ${company}` : ""}${sospecha ? `\n\n⚠ Marcado como sospechoso: ${sospecha}. No se le mandó acuse de recibo.` : ""}\n\n${message}`,
+      }),
+    ];
 
-    const acuse = enviarMail(clave, "acuse", {
-      from: `Agustín Vignau <${remitente}>`,
-      to: [email],
-      reply_to: DESTINO,
-      subject: en ? "I got your message" : "Recibí tu mensaje",
-      text: en
-        ? `Hi ${name},\n\nYour message reached me. I reply within 48 hours — this is just the confirmation, written automatically.\n\nA copy of what you sent:\n\n${message}\n\n—\nAgustín Vignau\n${SITIO}`
-        : `Hola ${name}:\n\nTu mensaje llegó. Te respondo dentro de las próximas 48 horas — esto es sólo la confirmación, escrita automáticamente.\n\nTe dejo una copia de lo que mandaste:\n\n${message}\n\n—\nAgustín Vignau\n${SITIO}`,
-    });
+    if (!sospecha) {
+      envios.push(
+        enviarMail(clave, "acuse", {
+          from: `Agustín Vignau <${remitente}>`,
+          to: [email],
+          reply_to: DESTINO,
+          subject: en ? "I got your message" : "Recibí tu mensaje",
+          text: en
+            ? `Hi ${name},\n\nYour message reached me. I reply within 48 hours — this is just the confirmation, written automatically.\n\nA copy of what you sent:\n\n${message}\n\n—\nAgustín Vignau\n${SITIO}`
+            : `Hola ${name}:\n\nTu mensaje llegó. Te respondo dentro de las próximas 48 horas — esto es sólo la confirmación, escrita automáticamente.\n\nTe dejo una copia de lo que mandaste:\n\n${message}\n\n—\nAgustín Vignau\n${SITIO}`,
+        }),
+      );
+    }
 
-    await Promise.allSettled([aviso, acuse]);
+    await Promise.allSettled(envios);
   }
 
   return NextResponse.json({ ok: true });
