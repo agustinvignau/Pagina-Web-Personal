@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import Analitica from "@/components/Analitica";
 import { archivo, martianMono, ANTES_DE_PINTAR, SITIO, capasDeMovimiento } from "@/lib/documento";
 
 const DESCRIPCION =
@@ -48,6 +50,8 @@ export default function LayoutEs({
         <script dangerouslySetInnerHTML={{ __html: ANTES_DE_PINTAR }} />
         {capasDeMovimiento()}
         {children}
+        <Analitica lang="es" />
+        <Analytics />
       </body>
     </html>
   );

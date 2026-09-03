@@ -6,10 +6,11 @@ import { getSupabaseNavegador } from "@/lib/supabase-navegador";
 import Ingreso from "./Ingreso";
 import SeccionRadar from "./SeccionRadar";
 import SeccionEscritos from "./SeccionEscritos";
+import SeccionAnalitica from "./SeccionAnalitica";
 import SeccionProyectos from "./SeccionProyectos";
 import SeccionMensajes from "./SeccionMensajes";
 
-type Solapa = "radar" | "escritos" | "proyectos" | "mensajes";
+type Solapa = "radar" | "escritos" | "proyectos" | "mensajes" | "analitica";
 
 export default function Panel() {
   const [cargando, setCargando] = useState(true);
@@ -104,6 +105,7 @@ export default function Panel() {
     { id: "escritos", label: "Escritos" },
     { id: "proyectos", label: "Proyectos" },
     { id: "mensajes", label: "Mensajes" },
+    { id: "analitica", label: "Analítica" },
   ];
 
   return (
@@ -151,6 +153,7 @@ export default function Panel() {
         {solapa === "escritos" ? <SeccionEscritos /> : null}
         {solapa === "proyectos" ? <SeccionProyectos /> : null}
         {solapa === "mensajes" ? <SeccionMensajes /> : null}
+        {solapa === "analitica" ? <SeccionAnalitica /> : null}
       </div>
     </main>
   );

@@ -1,13 +1,14 @@
+import EnlaceMedido from "./EnlaceMedido";
 import { type Lang, textos } from "@/lib/i18n";
 
 export default function Footer({ lang = "es" }: { lang?: Lang }) {
   const t = textos(lang);
 
   const enlaces = [
-    { href: "mailto:agustinvignau729@gmail.com", label: t.footer.mail },
-    { href: "https://www.linkedin.com/in/agustinvignau/", label: t.footer.linkedin, externo: true },
-    { href: "https://github.com/agustinvignau", label: t.footer.github, externo: true },
-    { href: "/CV-Agustin-Vignau.pdf", label: t.footer.cv },
+    { href: "mailto:agustinvignau729@gmail.com", label: t.footer.mail, tipo: "externo" as const, detalle: "mail" },
+    { href: "https://www.linkedin.com/in/agustinvignau/", label: t.footer.linkedin, externo: true, tipo: "externo" as const, detalle: "linkedin" },
+    { href: "https://github.com/agustinvignau", label: t.footer.github, externo: true, tipo: "externo" as const, detalle: "github" },
+    { href: "/CV-Agustin-Vignau.pdf", label: t.footer.cv, tipo: "cv" as const },
   ];
 
   return (
@@ -19,13 +20,15 @@ export default function Footer({ lang = "es" }: { lang?: Lang }) {
       <ul className="flex list-none flex-wrap gap-x-6 gap-y-2">
         {enlaces.map((e) => (
           <li key={e.label}>
-            <a
+            <EnlaceMedido
               href={e.href}
-              {...(e.externo ? { target: "_blank", rel: "noreferrer" } : {})}
+              tipo={e.tipo}
+              detalle={e.detalle}
+              externo={e.externo}
               className="etiqueta text-apagado-oscuro no-underline transition-colors hover:text-hueso"
             >
               {e.label}
-            </a>
+            </EnlaceMedido>
           </li>
         ))}
       </ul>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { registrar } from "./Analitica";
 import { type Lang, textos } from "@/lib/i18n";
 
 type Estado = "quieto" | "enviando" | "enviado" | "error";
@@ -33,6 +34,7 @@ export default function Contacto({ lang = "es" }: { lang?: Lang }) {
         return;
       }
       form.reset();
+      registrar("contacto");
       setEstado("enviado");
     } catch {
       setMensajeError(t.errorGenerico);

@@ -3,6 +3,7 @@ import MiniGenesis from "./mockups/MiniGenesis";
 import MiniFacturas from "./mockups/MiniFacturas";
 import ParallaxMouse from "./motion/ParallaxMouse";
 import { type Lang, ruta, textos } from "@/lib/i18n";
+import EnlaceMedido from "./EnlaceMedido";
 
 export default function Hero({ lang = "es" }: { lang?: Lang }) {
   const t = textos(lang);
@@ -36,12 +37,14 @@ export default function Hero({ lang = "es" }: { lang?: Lang }) {
             >
               {t.hero.verProduccion}
             </a>
-            <a
+            <EnlaceMedido
               href="/CV-Agustin-Vignau.pdf"
+              tipo="cv"
+              detalle="hero"
               className="etiqueta border border-linea-oscura px-4 py-3 text-apagado-oscuro no-underline transition-colors hover:border-hueso hover:text-hueso"
             >
               {t.hero.descargarCV}
-            </a>
+            </EnlaceMedido>
           </div>
         </div>
 
