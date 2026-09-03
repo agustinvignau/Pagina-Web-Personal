@@ -34,6 +34,35 @@ function dominio(referido: string) {
   }
 }
 
+/*
+  Los navegadores internos de las apps no mandan referido, pero sí se
+  anuncian en el user-agent. Es la única forma de saber que una visita vino
+  de Instagram cuando el enlace no está etiquetado.
+*/
+const APPS: [RegExp, string][] = [
+  [/Instagram/i, "instagram (app)"],
+  [/FBAN|FBAV|FB_IAB/i, "facebook (app)"],
+  [/LinkedInApp/i, "linkedin (app)"],
+  [/BytedanceWebview|TikTok/i, "tiktok (app)"],
+  [/Twitter/i, "x (app)"],
+  [/WhatsApp/i, "whatsapp"],
+];
+
+function appDeOrigen(ua: string) {
+  return APPS.find(([re]) => re.test(ua))?.[1] ?? null;
+}
+
+/**
+ * El origen sale de tres fuentes, en este orden: la etiqueta de la URL gana
+ * porque es la que uno puso a propósito; después la app que se anuncia en el
+ * user-agent; y por último el referido del navegador. Si no hay ninguna, la
+ * visita es directa de verdad.
+ */
+function origen(utm: string, ua: string, referido: string) {
+  if (utm) return utm.toLowerCase().slice(0, 40);
+  return appDeOrigen(ua) ?? dominio(referido);
+}
+
 function queDispositivo(ua: string) {
   if (/bot|crawler|spider|crawling|preview|headless/i.test(ua)) return null;
   if (/mobile|android|iphone|ipad|ipod/i.test(ua)) return "movil";
@@ -76,7 +105,7 @@ export async function POST(request: Request) {
       tipo,
       ruta: texto(cuerpo.ruta, 200) || "/",
       lang: texto(cuerpo.lang, 2) === "en" ? "en" : "es",
-      referido: dominio(texto(cuerpo.referido, 300)),
+      referido: origen(texto(cuerpo.utm, 40), ua, texto(cuerpo.referido, 300)),
       pais: request.headers.get("x-vercel-ip-country")?.slice(0, 2) ?? null,
       dispositivo,
       detalle: texto(cuerpo.detalle, 200) || null,

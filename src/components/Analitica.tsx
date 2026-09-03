@@ -49,6 +49,9 @@ export default function Analitica({ lang }: { lang: Lang }) {
         ruta,
         lang,
         referido: document.referrer,
+        // Instagram y las demás apps no mandan referido: la etiqueta de la
+        // URL es la única forma de saber que la visita vino de ahí.
+        utm: new URLSearchParams(window.location.search).get("utm_source") ?? "",
       }),
     }).catch(() => {});
   }, [ruta, lang]);
