@@ -14,7 +14,7 @@ export default async function Produccion({ lang = "es" }: { lang?: Lang }) {
           className="flex flex-col items-start justify-between gap-6 border-b-2 border-texto pb-7 lg:flex-row lg:items-end"
         >
           <div className="flex flex-col gap-4">
-            <p className="etiqueta text-apagado">{t.produccion.eyebrow}</p>
+            <p className="rotulo text-apagado">{t.produccion.eyebrow}</p>
             <h2>
               <span className="titular block text-[clamp(2.2rem,6vw,4.75rem)]">
                 {t.produccion.titulo1}

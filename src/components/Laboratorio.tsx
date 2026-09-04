@@ -14,7 +14,7 @@ export default async function Laboratorio({ lang = "es" }: { lang?: Lang }) {
           className="flex flex-col items-start justify-between gap-6 border-b-2 border-hueso pb-7 lg:flex-row lg:items-end"
         >
           <div className="flex flex-col gap-4">
-            <p className="etiqueta text-apagado-oscuro">{t.laboratorio.eyebrow}</p>
+            <p className="rotulo text-apagado-oscuro">{t.laboratorio.eyebrow}</p>
             <h2>
               <span className="titular block text-[clamp(2.2rem,6vw,4.75rem)]">
                 {t.laboratorio.titulo1}
@@ -34,9 +34,11 @@ export default async function Laboratorio({ lang = "es" }: { lang?: Lang }) {
             <li
               data-revelar
               key={e.id}
-              className="grid grid-cols-1 items-start gap-x-8 gap-y-3 border-b border-linea-oscura py-6 lg:grid-cols-[3rem_minmax(0,1fr)_minmax(0,26rem)]"
+              className="grid grid-cols-1 items-start gap-x-6 gap-y-3 border-b border-linea-oscura py-6 lg:grid-cols-[2.5rem_minmax(0,1fr)_minmax(0,26rem)]"
             >
-              <span className="cifra text-[0.7rem] text-oliva-luz lg:pt-1.5">
+              {/* Más cuerpo y más cerca del título: a 0.7rem y a 3rem de
+                  distancia el número no se leía como parte de la ficha. */}
+              <span className="cifra text-[0.95rem] text-oliva-luz lg:pt-1">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div className="flex flex-col gap-2">

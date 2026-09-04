@@ -33,7 +33,7 @@ export default function Nav({
             <li key={s.href}>
               <a
                 href={s.href}
-                className="etiqueta text-apagado-oscuro no-underline transition-colors hover:text-hueso"
+                className="etiqueta text-salvia no-underline transition-colors hover:text-hueso"
               >
                 {s.label}
               </a>
@@ -60,7 +60,7 @@ export default function Nav({
       <ul className="mt-4 flex list-none flex-wrap gap-x-4 gap-y-1 border-y border-linea-oscura px-6 py-3 lg:hidden">
         {secciones.map((s) => (
           <li key={s.href}>
-            <a href={s.href} className="etiqueta text-apagado-oscuro no-underline">
+            <a href={s.href} className="etiqueta text-salvia no-underline">
               {s.label}
             </a>
           </li>

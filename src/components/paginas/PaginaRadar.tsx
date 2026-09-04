@@ -14,7 +14,7 @@ export default async function PaginaRadar({ lang }: { lang: Lang }) {
         <Nav lang={lang} alternar={rutaRadar(otroIdioma(lang))} />
         <div className="flex flex-col gap-8 px-6 pb-14 pt-12 md:px-12 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <div className="flex flex-col gap-5">
-            <p data-revelar className="etiqueta text-oliva-luz">
+            <p data-revelar className="rotulo text-oliva-luz">
               {t.eyebrow}
             </p>
             <h1 data-revelar>

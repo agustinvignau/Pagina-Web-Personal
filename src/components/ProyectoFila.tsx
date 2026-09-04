@@ -17,11 +17,11 @@ export default function ProyectoFila({
   return (
     <article
       data-revelar
-      className={`group grid grid-cols-1 items-start gap-x-6 gap-y-4 border-b border-linea py-7 transition-colors lg:grid-cols-[3rem_minmax(0,1fr)_minmax(0,19rem)_7rem] ${
+      className={`group grid grid-cols-1 items-start gap-x-6 gap-y-4 border-b border-linea py-7 transition-colors lg:grid-cols-[2.5rem_minmax(0,1fr)_minmax(0,19rem)_7rem] ${
         destacado ? "bg-superficie px-4 lg:px-5" : "hover:bg-superficie"
       }`}
     >
-      <div className="cifra text-[0.7rem] text-oliva-texto lg:pt-1.5">
+      <div className="cifra text-[0.95rem] text-oliva-texto lg:pt-1">
         {String(indice).padStart(2, "0")}
       </div>
 
@@ -44,21 +44,28 @@ export default function ProyectoFila({
             </span>
           </Link>
         </h3>
-        <ul className="flex list-none flex-wrap gap-1.5">
+        {/*
+          Sólo la insignia conserva el recuadro: es una distinción y merece
+          peso. Las tecnologías son un dato de reojo, así que van como texto
+          separado por puntos — seis cajas con borde ocupaban tres renglones
+          en celular y competían con el título.
+        */}
+        <ul className="flex list-none flex-wrap items-center gap-x-3 gap-y-1.5">
           {destacado ? (
-            <li className="etiqueta border border-oliva px-2 py-1 text-oliva-texto">
+            <li className="etiqueta-dato mr-1 border border-oliva px-2 py-1 text-oliva-texto">
               {t.produccion.insignia}
             </li>
           ) : null}
-          {proyecto.tech.map((x) => (
-            <li key={x} className="etiqueta border border-linea px-2 py-1 text-apagado">
+          {proyecto.tech.map((x, i) => (
+            <li key={x} className="etiqueta-dato flex items-center gap-3 text-apagado">
+              {i > 0 ? <span aria-hidden className="text-linea">·</span> : null}
               {x}
             </li>
           ))}
         </ul>
       </div>
 
-      <p className="text-sm leading-relaxed text-apagado">{proyecto.summary}</p>
+      <p className="text-[0.95rem] leading-relaxed text-apagado">{proyecto.summary}</p>
 
       {proyecto.impact_value ? (
         <div className="flex flex-col gap-1 lg:text-right">

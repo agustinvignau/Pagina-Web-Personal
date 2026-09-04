@@ -46,7 +46,7 @@ export default function Contacto({ lang = "es" }: { lang?: Lang }) {
     <section id="contacto" className="bg-superficie">
       <div className="grid grid-cols-1 gap-12 px-6 py-16 md:px-12 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] lg:gap-20">
         <div data-revelar className="flex flex-col gap-6">
-          <p className="etiqueta text-apagado">{t.eyebrow}</p>
+          <p className="rotulo text-apagado">{t.eyebrow}</p>
           <h2>
             <span className="titular block text-[clamp(2.2rem,6vw,4.5rem)]">
               {t.titulo1}
@@ -59,9 +59,15 @@ export default function Contacto({ lang = "es" }: { lang?: Lang }) {
             {t.bajada}
           </p>
           <div className="flex max-w-[42ch] flex-col gap-2 border-t border-linea pt-5">
+            {/*
+              Fuera del mono en mayúsculas: es la información más importante
+              de la página y era de lo que menos se leía. En minúsculas y en
+              la tipografía de lectura entra completa y se reconoce de un
+              vistazo, sobre todo en celular.
+            */}
             <a
               href="mailto:agustinvignau729@gmail.com"
-              className="etiqueta no-underline"
+              className="text-[1.05rem] leading-snug text-texto underline decoration-linea underline-offset-4 transition-colors hover:decoration-oliva"
             >
               agustinvignau729@gmail.com
             </a>
@@ -69,7 +75,7 @@ export default function Contacto({ lang = "es" }: { lang?: Lang }) {
               href="https://www.linkedin.com/in/agustinvignau/"
               target="_blank"
               rel="noreferrer"
-              className="etiqueta no-underline"
+              className="text-[1.05rem] leading-snug text-texto underline decoration-linea underline-offset-4 transition-colors hover:decoration-oliva"
             >
               linkedin.com/in/agustinvignau
             </a>

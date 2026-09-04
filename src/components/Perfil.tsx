@@ -15,7 +15,7 @@ export default function Perfil({ lang = "es" }: { lang?: Lang }) {
         className="flex flex-col justify-between gap-10 bg-oliva px-6 py-12 text-superficie md:px-12 md:py-14 lg:flex-row lg:gap-16"
       >
         <div className="flex flex-col gap-4">
-          <p className="etiqueta text-hueso/75">{t.eyebrow}</p>
+          <p className="rotulo text-hueso/80">{t.eyebrow}</p>
           <p className="etiqueta text-hueso">{t.experienciaActual}</p>
           {/* La marca se escribe TuGenesis3D: sin corte forzado y sin
               mayúsculas, que le comían el camel case. */}
@@ -102,10 +102,13 @@ export default function Perfil({ lang = "es" }: { lang?: Lang }) {
             {t.cursos.map((c) => (
               <li
                 key={c.titulo}
-                className="flex flex-wrap items-baseline justify-between gap-2 border-b border-linea py-3.5"
+                /* En grilla y no en flex-wrap: con justify-between, el título
+                   largo empujaba su meta al renglón siguiente y cada ítem de
+                   la lista terminaba alineado distinto. */
+                className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 border-b border-linea py-3.5"
               >
                 <span className="text-[0.95rem]">{c.titulo}</span>
-                <span className="etiqueta text-apagado">{c.donde}</span>
+                <span className="etiqueta text-right text-apagado">{c.donde}</span>
               </li>
             ))}
           </ul>
