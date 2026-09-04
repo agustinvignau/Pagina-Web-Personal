@@ -15,27 +15,27 @@ export default function MiniGenesis({
   return (
     <Ventana titulo={r.genesis} className={className}>
       <div className="flex">
-        <div className="hidden w-[92px] shrink-0 flex-col gap-2.5 border-r border-linea p-3 sm:flex">
-          <span className="block h-[7px] w-[70%] bg-oliva" />
-          <span className="block h-[7px] w-[90%] bg-linea" />
-          <span className="block h-[7px] w-[60%] bg-linea" />
-          <span className="block h-[7px] w-[78%] bg-linea" />
-          <span className="block h-[7px] w-[52%] bg-linea" />
+        <div className="hidden w-[5.75em] shrink-0 flex-col gap-[0.625em] border-r border-linea p-[0.75em] sm:flex">
+          <span className="block h-[0.4375em] w-[70%] bg-oliva" />
+          <span className="block h-[0.4375em] w-[90%] bg-linea" />
+          <span className="block h-[0.4375em] w-[60%] bg-linea" />
+          <span className="block h-[0.4375em] w-[78%] bg-linea" />
+          <span className="block h-[0.4375em] w-[52%] bg-linea" />
         </div>
 
-        <div className="flex grow flex-col gap-3 p-3.5">
-          <div className="grid grid-cols-3 gap-2.5">
+        <div className="flex grow flex-col gap-[0.75em] p-[0.875em]">
+          <div className="grid grid-cols-3 gap-[0.625em]">
             <Kpi rotulo={r.skus} valor="896" />
             <Kpi rotulo={r.stockBajo} valor="14" acento />
             <Kpi rotulo={r.rotacion} valor="4,2" />
           </div>
 
-          <div className="flex h-[92px] items-end gap-1.5 border border-linea p-3">
+          <div className="flex h-[5.75em] items-end gap-[0.375em] border border-linea p-[0.75em]">
             {BARRAS.map((h, i) => (
               <span
                 key={i}
                 style={{ height: `${h}%` }}
-                className={`block w-4 grow ${h > 80 ? "bg-oliva" : "bg-salvia"}`}
+                className={`block w-[1em] grow ${h > 80 ? "bg-oliva" : "bg-salvia"}`}
               />
             ))}
           </div>
@@ -55,10 +55,10 @@ function Kpi({
   acento?: boolean;
 }) {
   return (
-    <div className="border border-linea px-2.5 py-2">
-      <div className="etiqueta text-[0.42rem] text-apagado">{rotulo}</div>
+    <div className="border border-linea px-[0.625em] py-[0.5em]">
+      <div className="etiqueta text-[0.42em] text-apagado">{rotulo}</div>
       <div
-        className={`cifra mt-1 text-lg ${acento ? "text-oliva-texto" : "text-texto"}`}
+        className={`cifra mt-[0.22em] text-[1.125em] ${acento ? "text-oliva-texto" : "text-texto"}`}
       >
         {valor}
       </div>
