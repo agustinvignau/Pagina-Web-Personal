@@ -11,7 +11,7 @@ export default async function Laboratorio({ lang = "es" }: { lang?: Lang }) {
       <div className="px-6 py-16 md:px-12 md:py-20">
         <header
           data-revelar
-          className="flex flex-col items-start justify-between gap-6 border-b-2 border-hueso pb-7 lg:flex-row lg:items-end"
+          className="flex flex-col items-start gap-6 border-b-2 border-hueso pb-7 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-end lg:gap-x-12"
         >
           <div className="flex flex-col gap-4">
             <p className="rotulo text-apagado-oscuro">{t.laboratorio.eyebrow}</p>
@@ -24,7 +24,8 @@ export default async function Laboratorio({ lang = "es" }: { lang?: Lang }) {
               </span>
             </h2>
           </div>
-          <p className="max-w-[40ch] text-sm leading-relaxed text-salvia lg:mb-2">
+          {/* Igual que en Producción: cuerpo de lectura y columna propia. */}
+          <p className="max-w-[46ch] text-[1.02rem] leading-relaxed text-salvia lg:mb-2">
             {t.laboratorio.bajada}
           </p>
         </header>

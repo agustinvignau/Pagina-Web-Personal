@@ -44,7 +44,7 @@ export default async function PaginaRadar({ lang }: { lang: Lang }) {
               <li
                 key={e.id}
                 data-revelar
-                className="group grid grid-cols-1 items-start gap-x-8 gap-y-3 border-b border-linea py-7 transition-colors hover:bg-superficie lg:grid-cols-[13rem_minmax(0,1fr)]"
+                className="group grid grid-cols-1 items-start gap-x-10 gap-y-4 border-b border-linea py-7 transition-colors hover:bg-superficie lg:grid-cols-[11rem_minmax(0,1fr)_minmax(0,15rem)]"
               >
                 <span className="etiqueta text-apagado lg:pt-2">
                   {periodoLegible(e.period_start, e.period_end, lang)}
@@ -60,11 +60,32 @@ export default async function PaginaRadar({ lang }: { lang: Lang }) {
                     </Link>
                   </h2>
                   {e.summary ? (
-                    <p className="max-w-[70ch] text-sm leading-relaxed text-apagado">
+                    <p className="max-w-[62ch] text-[0.95rem] leading-relaxed text-apagado">
                       {e.summary}
                     </p>
                   ) : null}
                 </div>
+
+                {/*
+                  Los tres datos de cada edición ocupan la columna que antes
+                  quedaba vacía. El índice pasa de ser una lista de títulos a
+                  dejar ver de qué se trata cada edición sin abrirla, y de paso
+                  el listado usa el ancho completo en vez de la mitad.
+                */}
+                {e.datos.length > 0 ? (
+                  <dl className="m-0 flex flex-row flex-wrap gap-x-8 gap-y-3 lg:flex-col lg:gap-y-3.5 lg:pt-1.5">
+                    {e.datos.slice(0, 3).map((d) => (
+                      <div key={d.rotulo} className="flex flex-col gap-0.5">
+                        <dd className="cifra m-0 text-[1.05rem] leading-none text-texto">
+                          {d.valor}
+                        </dd>
+                        <dt className="etiqueta-dato text-apagado">{d.rotulo}</dt>
+                      </div>
+                    ))}
+                  </dl>
+                ) : (
+                  <span aria-hidden />
+                )}
               </li>
             ))}
           </ul>

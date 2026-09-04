@@ -11,7 +11,7 @@ export default async function Produccion({ lang = "es" }: { lang?: Lang }) {
       <div className="relative px-6 pt-16 md:px-12 md:pt-20">
         <header
           data-revelar
-          className="flex flex-col items-start justify-between gap-6 border-b-2 border-texto pb-7 lg:flex-row lg:items-end"
+          className="flex flex-col items-start gap-6 border-b-2 border-texto pb-7 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-end lg:gap-x-12"
         >
           <div className="flex flex-col gap-4">
             <p className="rotulo text-apagado">{t.produccion.eyebrow}</p>
@@ -24,7 +24,9 @@ export default async function Produccion({ lang = "es" }: { lang?: Lang }) {
               </span>
             </h2>
           </div>
-          <p className="max-w-[38ch] text-sm leading-relaxed text-apagado lg:mb-2">
+          {/* Más cuerpo y en una columna propia, no empujada contra el borde
+              de la pantalla: antes se leía como una nota al pie. */}
+          <p className="max-w-[46ch] text-[1.02rem] leading-relaxed text-apagado lg:mb-2">
             {t.produccion.bajada}
           </p>
         </header>
