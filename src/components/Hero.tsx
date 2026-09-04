@@ -54,9 +54,22 @@ export default function Hero({ lang = "es" }: { lang?: Lang }) {
         </div>
 
         <div data-revelar className="order-3 lg:pt-1">
+          {/*
+            Desde xl los mockups se anclan a la DERECHA de su columna y su
+            ancho pasa a ser un porcentaje. Anclados a la izquierda con ancho
+            fijo se quedaban cortos en pantallas anchas: quedaban flotando al
+            medio y dejaban todo el margen derecho vacío. Debajo de xl se
+            mantiene el anclaje viejo, porque ahí la columna es más angosta
+            que los mockups y anclarlos a la derecha los recortaría del lado
+            que importa.
+
+            El alto del contenedor no se toca: subirlo empujaba el hero a
+            1032px y la barra de datos del pie se iba abajo del pliegue. El
+            hero tiene que entrar en una pantalla.
+          */}
           <ParallaxMouse className="relative [perspective:1600px] lg:h-[21rem]">
-            <MiniFacturas lang={lang} className="hidden lg:absolute lg:left-0 lg:top-2 lg:block lg:w-[19rem] lg:[transform:rotateY(19deg)_rotateX(7deg)_rotateZ(-2deg)]" />
-            <MiniGenesis lang={lang} className="lg:absolute lg:left-[14rem] lg:top-16 lg:w-[30rem] lg:[transform:rotateY(17deg)_rotateX(6deg)_rotateZ(-1.5deg)] xl:left-[18rem]" />
+            <MiniFacturas lang={lang} className="hidden lg:absolute lg:left-0 lg:top-2 lg:block lg:w-[19rem] lg:[transform:rotateY(19deg)_rotateX(7deg)_rotateZ(-2deg)] xl:left-auto xl:right-[34%] xl:top-0 xl:w-[30%]" />
+            <MiniGenesis lang={lang} className="lg:absolute lg:left-[14rem] lg:top-16 lg:w-[30rem] lg:[transform:rotateY(17deg)_rotateX(6deg)_rotateZ(-1.5deg)] xl:left-auto xl:right-0 xl:top-12 xl:w-[44%]" />
           </ParallaxMouse>
         </div>
       </div>
