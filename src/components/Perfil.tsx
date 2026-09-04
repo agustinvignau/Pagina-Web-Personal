@@ -25,24 +25,30 @@ export default function Perfil({ lang = "es" }: { lang?: Lang }) {
           <p className="etiqueta mt-1 text-hueso">
             {lang === "en" ? "February 2026 — present" : "Febrero 2026 — actualidad"}
           </p>
-        </div>
-
-        <div className="flex max-w-[36rem] flex-col gap-4 lg:pt-8">
-          <h3 className="subtitular text-2xl md:text-[1.6rem]">{t.rolActual}</h3>
-          <p className="text-[0.95rem] leading-relaxed">{t.descripcionActual}</p>
-          <ul className="mt-1 flex list-none flex-wrap gap-1.5">
+          {/*
+            Los hitos bajan a esta columna. Estaban debajo de la descripción,
+            que ya era la más alta de las dos, así que la banda quedaba con
+            todo el peso a la derecha y un vacío grande abajo a la izquierda.
+            Acá cuelgan del nombre de la empresa, que es de lo que hablan.
+          */}
+          <ul className="mt-5 flex list-none flex-wrap gap-1.5">
             {t.hitos.map((h) => (
-              <li key={h} className="etiqueta border border-hueso px-2 py-1">
+              <li key={h} className="etiqueta-dato border border-hueso/60 px-2 py-1">
                 {h}
               </li>
             ))}
           </ul>
         </div>
+
+        <div className="flex max-w-[36rem] flex-col gap-4 lg:pt-8">
+          <h3 className="subtitular text-2xl md:text-[1.6rem]">{t.rolActual}</h3>
+          <p className="text-[0.95rem] leading-relaxed">{t.descripcionActual}</p>
+        </div>
       </div>
 
       <div
         data-revelar
-        className="grid grid-cols-1 gap-12 px-6 py-14 md:px-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16"
+        className="grid grid-cols-1 gap-12 px-6 py-14 md:px-12 lg:grid-cols-2 lg:gap-16"
       >
         <div className="flex flex-col gap-5">
           <p className="etiqueta border-b-2 border-texto pb-3.5 text-apagado">
