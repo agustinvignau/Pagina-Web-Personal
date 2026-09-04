@@ -56,7 +56,7 @@ export default function Hero({ lang = "es" }: { lang?: Lang }) {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-2 border-t border-linea-oscura px-6 py-4 md:px-12">
+      <div className="flex flex-col gap-y-2 border-t border-linea-oscura px-6 py-4 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-8 md:px-12">
         <span className="etiqueta text-apagado-oscuro">{t.hero.scroll}</span>
         <ul className="flex list-none flex-wrap gap-x-7 gap-y-1">
           {t.hero.pie.map((x) => (

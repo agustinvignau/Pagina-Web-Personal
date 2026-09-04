@@ -34,7 +34,14 @@
     scroll-behavior: smooth;
   }
   body {
-    background: var(--color-hueso);
+    /*
+      Tinta y no hueso: cada página abre con una banda oscura y cierra con el
+      footer oscuro, así que este es el color que corresponde a cualquier zona
+      que el contenido no llegue a cubrir — el sobrescroll del celular, o la
+      franja de abajo cuando la página es más corta que la pantalla. Con hueso
+      aparecía una banda clara debajo del footer.
+    */
+    background: var(--color-tinta);
     color: var(--color-texto);
     font-family: var(--font-sans);
   }
@@ -66,14 +73,25 @@
   line-height: 1.08;
 }
 
+/*
+  El grosor va en em, no en píxeles. Con un valor fijo el trazo no se achicaba
+  junto con la letra: en celular, donde los titulares se parten y el cuerpo
+  baja a la mitad, el borde ocupaba proporcionalmente el doble y rellenaba los
+  huecos de las letras. "ESTAS DOS SEMANAS" y "EL PROBLEMA" casi no se leían.
+  Es también lo que empastaba la virgulilla de la Ñ en DISEÑO.
+
+  Los valores están calibrados para que en el titular de escritorio (~76px)
+  den lo mismo que los 1.5px y 1.4px de antes: la vista grande no cambia, la
+  chica deja de empastarse.
+*/
 @utility contorno-claro {
   color: transparent;
-  -webkit-text-stroke: 1.5px var(--color-hueso);
+  -webkit-text-stroke: 0.02em var(--color-hueso);
 }
 
 @utility contorno-oscuro {
   color: transparent;
-  -webkit-text-stroke: 1.4px var(--color-texto);
+  -webkit-text-stroke: 0.019em var(--color-texto);
 }
 
 @utility etiqueta {

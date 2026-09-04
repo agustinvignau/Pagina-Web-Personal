@@ -74,7 +74,7 @@ export default async function PaginaProyecto({
         </section>
       ) : null}
 
-      <section className="grid grid-cols-1 gap-10 bg-superficie px-6 py-14 md:px-12 lg:grid-cols-3 lg:gap-14">
+      <section className="grid grid-cols-1 gap-10 bg-hueso px-6 py-14 md:px-12 lg:grid-cols-3 lg:gap-14">
         <Bloque titulo={t.problema} texto={proyecto.problem} />
         <Bloque titulo={t.solucion} texto={proyecto.solution} />
         <Bloque titulo={t.resultado} texto={proyecto.outcome} />

@@ -4,21 +4,23 @@ export default function Perfil({ lang = "es" }: { lang?: Lang }) {
   const t = textos(lang).perfil;
 
   return (
-    <section id="perfil" className="bg-hueso">
-      <p className="etiqueta px-6 pb-6 pt-14 text-apagado md:px-12">
-        {t.eyebrow}
-      </p>
-
+    <section id="perfil" className="bg-hueso pt-14">
+      {/*
+        El rótulo vive DENTRO de la banda oliva. Afuera quedaba flotando sobre
+        el hueso de la sección anterior y rotulaba un bloque al que no
+        pertenecía visualmente.
+      */}
       <div
         data-revelar
         className="flex flex-col justify-between gap-10 bg-oliva px-6 py-12 text-superficie md:px-12 md:py-14 lg:flex-row lg:gap-16"
       >
         <div className="flex flex-col gap-4">
+          <p className="etiqueta text-hueso/75">{t.eyebrow}</p>
           <p className="etiqueta text-hueso">{t.experienciaActual}</p>
-          <h2 className="titular text-[clamp(2.6rem,7.5vw,5.75rem)]">
-            TuGenesis
-            <br />
-            3D
+          {/* La marca se escribe TuGenesis3D: sin corte forzado y sin
+              mayúsculas, que le comían el camel case. */}
+          <h2 className="titular normal-case text-[clamp(2.4rem,7vw,5.25rem)]">
+            TuGenesis3D
           </h2>
           <p className="etiqueta mt-1 text-hueso">
             {lang === "en" ? "February 2026 — present" : "Febrero 2026 — actualidad"}

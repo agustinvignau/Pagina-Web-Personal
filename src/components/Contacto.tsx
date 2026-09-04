@@ -58,7 +58,7 @@ export default function Contacto({ lang = "es" }: { lang?: Lang }) {
           <p className="max-w-[42ch] leading-relaxed text-apagado">
             {t.bajada}
           </p>
-          <div className="flex flex-col gap-2 border-t border-linea pt-5">
+          <div className="flex max-w-[42ch] flex-col gap-2 border-t border-linea pt-5">
             <a
               href="mailto:agustinvignau729@gmail.com"
               className="etiqueta no-underline"
