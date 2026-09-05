@@ -58,7 +58,7 @@ export default function Contacto({ lang = "es" }: { lang?: Lang }) {
           <p className="max-w-[42ch] leading-relaxed text-apagado">
             {t.bajada}
           </p>
-          <div className="flex max-w-[42ch] flex-col gap-2 border-t border-linea pt-5">
+          <div className="flex max-w-[42ch] flex-col gap-1 border-t border-linea pt-5">
             {/*
               Fuera del mono en mayúsculas: es la información más importante
               de la página y era de lo que menos se leía. En minúsculas y en
@@ -67,7 +67,7 @@ export default function Contacto({ lang = "es" }: { lang?: Lang }) {
             */}
             <a
               href="mailto:agustinvignau729@gmail.com"
-              className="text-[1.05rem] leading-snug text-texto underline decoration-linea underline-offset-4 transition-colors hover:decoration-oliva"
+              className="w-fit py-1 text-[1.05rem] leading-snug text-texto underline decoration-linea underline-offset-4 transition-colors hover:decoration-oliva"
             >
               agustinvignau729@gmail.com
             </a>
@@ -75,7 +75,7 @@ export default function Contacto({ lang = "es" }: { lang?: Lang }) {
               href="https://www.linkedin.com/in/agustinvignau/"
               target="_blank"
               rel="noreferrer"
-              className="text-[1.05rem] leading-snug text-texto underline decoration-linea underline-offset-4 transition-colors hover:decoration-oliva"
+              className="w-fit py-1 text-[1.05rem] leading-snug text-texto underline decoration-linea underline-offset-4 transition-colors hover:decoration-oliva"
             >
               linkedin.com/in/agustinvignau
             </a>

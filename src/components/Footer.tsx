@@ -17,7 +17,7 @@ export default function Footer({ lang = "es" }: { lang?: Lang }) {
         <span className="block text-hueso">Agustín Vignau</span>
         <span className="block text-oliva-luz">{t.footer.ubicacion}</span>
       </div>
-      <ul className="flex list-none flex-wrap gap-x-6 gap-y-2">
+      <ul className="flex list-none flex-wrap gap-x-6">
         {enlaces.map((e) => (
           <li key={e.label}>
             <EnlaceMedido
@@ -25,7 +25,7 @@ export default function Footer({ lang = "es" }: { lang?: Lang }) {
               tipo={e.tipo}
               detalle={e.detalle}
               externo={e.externo}
-              className="etiqueta text-apagado-oscuro no-underline transition-colors hover:text-hueso"
+              className="etiqueta -mx-2 block px-2 py-2 text-apagado-oscuro no-underline transition-colors hover:text-hueso"
             >
               {e.label}
             </EnlaceMedido>

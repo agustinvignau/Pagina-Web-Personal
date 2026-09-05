@@ -8,6 +8,10 @@
   --color-salvia: #B7B7A4;
   --color-acero: #8B9797;
   --color-oliva: #7A754B;
+  /* La banda de Perfil lleva texto encima y el oliva normal queda justo en el
+     medio: ni el hueso ni la tinta llegan a 4.5:1 sobre el. Este es el mismo
+     oliva bajado hasta que el texto claro pasa AA con margen. */
+  --color-oliva-banda: #666239;
   --color-oliva-texto: #6A6640;
   --color-oliva-luz: #A8A26A;
   --color-grafito: #3D3E39;

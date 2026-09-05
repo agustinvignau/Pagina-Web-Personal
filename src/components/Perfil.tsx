@@ -12,10 +12,10 @@ export default function Perfil({ lang = "es" }: { lang?: Lang }) {
       */}
       <div
         data-revelar
-        className="flex flex-col justify-between gap-10 bg-oliva px-6 py-12 text-superficie md:px-12 md:py-14 lg:flex-row lg:gap-16"
+        className="flex flex-col justify-between gap-10 bg-oliva-banda px-6 py-12 text-superficie md:px-12 md:py-14 lg:flex-row lg:gap-16"
       >
         <div className="flex flex-col gap-4">
-          <p className="rotulo text-hueso/80">{t.eyebrow}</p>
+          <p className="rotulo text-hueso">{t.eyebrow}</p>
           <p className="etiqueta text-hueso">{t.experienciaActual}</p>
           {/* La marca se escribe TuGenesis3D: sin corte forzado y sin
               mayúsculas, que le comían el camel case. */}

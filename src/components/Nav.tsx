@@ -33,7 +33,7 @@ export default function Nav({
             <li key={s.href}>
               <a
                 href={s.href}
-                className="etiqueta text-salvia no-underline transition-colors hover:text-hueso"
+                className="etiqueta block py-2.5 text-salvia no-underline transition-colors hover:text-hueso"
               >
                 {s.label}
               </a>
@@ -50,17 +50,17 @@ export default function Nav({
             href={alternar ?? ruta(otro, "/")}
             hrefLang={otro}
             aria-label={otro === "en" ? "Read in English" : "Leer en español"}
-            className="etiqueta border border-linea-oscura px-2 py-1 text-hueso no-underline transition-colors hover:border-oliva-luz hover:text-oliva-luz"
+            className="etiqueta border border-linea-oscura px-2.5 py-2 text-hueso no-underline transition-colors hover:border-oliva-luz hover:text-oliva-luz"
           >
             {otro.toUpperCase()}
           </Link>
         </div>
       </nav>
 
-      <ul className="mt-4 flex list-none flex-wrap gap-x-4 gap-y-1 border-y border-linea-oscura px-6 py-3 lg:hidden">
+      <ul className="mt-4 flex list-none flex-wrap gap-x-5 border-y border-linea-oscura px-6 py-1 lg:hidden">
         {secciones.map((s) => (
           <li key={s.href}>
-            <a href={s.href} className="etiqueta text-salvia no-underline">
+            <a href={s.href} className="etiqueta block py-3 text-salvia no-underline">
               {s.label}
             </a>
           </li>
