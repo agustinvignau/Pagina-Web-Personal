@@ -89,17 +89,19 @@ export default function Perfil({ lang = "es" }: { lang?: Lang }) {
             <h3 className="subtitular text-lg">{t.carrera}</h3>
             <p className="etiqueta text-apagado">{t.carreraDonde}</p>
             <dl className="m-0 flex gap-8 border-t border-linea pt-4">
-              <div>
-                <dd className="cifra m-0 text-2xl">12/19</dd>
+              {/* dt antes que dd, como pide una lista de definiciones; el
+                  orden visual lo da flex-col-reverse. */}
+              <div className="flex flex-col-reverse">
                 <dt className="etiqueta mt-1 text-apagado">{t.materias}</dt>
+                <dd className="cifra m-0 text-2xl">12/19</dd>
               </div>
-              <div>
-                <dd className="cifra m-0 text-2xl">8,4</dd>
+              <div className="flex flex-col-reverse">
                 <dt className="etiqueta mt-1 text-apagado">{t.promedio}</dt>
+                <dd className="cifra m-0 text-2xl">8,4</dd>
               </div>
-              <div>
-                <dd className="cifra m-0 text-2xl">2028</dd>
+              <div className="flex flex-col-reverse">
                 <dt className="etiqueta mt-1 text-apagado">{t.licenciatura}</dt>
+                <dd className="cifra m-0 text-2xl">2028</dd>
               </div>
             </dl>
           </div>

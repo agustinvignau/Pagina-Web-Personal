@@ -75,11 +75,17 @@ export default async function PaginaRadar({ lang }: { lang: Lang }) {
                 {e.datos.length > 0 ? (
                   <dl className="m-0 flex flex-row flex-wrap gap-x-8 gap-y-3 lg:flex-col lg:gap-y-3.5 lg:pt-1.5">
                     {e.datos.slice(0, 3).map((d) => (
-                      <div key={d.rotulo} className="flex flex-col gap-0.5">
+                      /*
+                        El rotulo va primero en el marcado y la cifra despues,
+                        que es el orden que pide una lista de definiciones y el
+                        que lee un lector de pantalla. Al reves se ve: la
+                        columna se invierte con flex-col-reverse.
+                      */
+                      <div key={d.rotulo} className="flex flex-col-reverse gap-0.5">
+                        <dt className="etiqueta-dato text-apagado">{d.rotulo}</dt>
                         <dd className="cifra m-0 text-[1.05rem] leading-none text-texto">
                           {d.valor}
                         </dd>
-                        <dt className="etiqueta-dato text-apagado">{d.rotulo}</dt>
                       </div>
                     ))}
                   </dl>
