@@ -1,6 +1,6 @@
 # Registro de fases y decisiones
 
-Del 26 de agosto al 2 de septiembre de 2026. Este archivo es la fuente de
+Del 26 de agosto al 5 de septiembre de 2026. Este archivo es la fuente de
 verdad del proyecto: qué se construyó, qué se decidió y por qué. El README
 cuenta cómo operarlo; esto cuenta cómo llegó a ser así.
 
@@ -16,6 +16,8 @@ El sitio está en línea en https://www.agustinvignau.com.
 | 5 | Inglés y SEO técnico | completa |
 | 6 | Panel propio y dominio | completa |
 | 7 | Correo, automatización y seguridad | completa |
+| 8 | Analítica y CV público | completa |
+| 9 | Diseño: cuatro fases sobre capturas anotadas | completa |
 
 Ninguna fase arrancó sin aprobación explícita.
 
@@ -96,6 +98,57 @@ seguridad, y `es_admin()` fuera del alcance de los anónimos.
 
 ---
 
+## Fase 8 — Analítica y CV público · 2-3 de septiembre
+
+Dos capas. Vercel Web Analytics para el tráfico, y una tabla propia detrás de
+`/api/evento` para lo que el plan gratis no da: clics al CV, al mail, a
+LinkedIn y a GitHub, y de dónde viene cada visita.
+
+**Sin cookies.** La huella de una visita es un hash de IP + user agent +
+fecha, y la fecha hace que rote todos los días. No se guarda ninguna IP en
+claro. La detección del navegador interno de las apps —Instagram, Facebook,
+LinkedIn, TikTok, X, WhatsApp— sale del user agent, con prioridad utm → app →
+dominio de origen, y hay filtro de bots.
+
+**El teléfono salió del CV público.** Se editó el PDF quitando el texto, no
+rehaciéndolo, para no perder el diseño. Queda una copia con teléfono fuera
+del repositorio para mandar a mano.
+
+---
+
+## Fase 9 — Diseño · 4-5 de septiembre
+
+Cuatro fases, todas a partir de capturas anotadas.
+
+1. **Legibilidad y fondo.** El cuerpo pasó a tinta: había una franja clara
+   debajo del pie. El contorno de los titulares pasó de píxeles fijos a `em`,
+   así engorda con el cuerpo de letra en vez de quedar fino en grande.
+2. **Escala de rótulos.** Un solo tamaño de rótulo hacía todo igual de
+   importante. Ahora son tres: `rotulo`, `etiqueta` y `etiqueta-dato`.
+3. **Estructura.** El titular del hero va primero también en escritorio; las
+   bajadas, el índice del radar con una tercera columna de datos, la ficha de
+   caso y la banda de Perfil en dos columnas.
+4. **Verificación medida, no a ojo.** Contraste calculado sobre el DOM
+   renderizado, tamaño de las zonas tocables y desbordes, en 360, 390 y 430 de
+   ancho y con el user agent y el viewport del navegador interno de Instagram.
+   Salieron tres cosas: sobre el oliva de la banda de Perfil no pasaba AA
+   **ningún** color de texto, ni claro ni oscuro, porque ese oliva cae justo
+   en el medio (se bajó a `--color-oliva-banda`); los enlaces del menú en
+   celular medían 12px de alto, la mitad del mínimo de la norma; y las listas
+   de definiciones tenían el valor antes que el rótulo en el marcado, así que
+   un lector de pantalla las leía al revés.
+
+Aparte de las fases: los mockups del hero pasaron a ocupar la columna derecha
+entera. Agrandarlos no era ensancharlos —tenían las medidas internas en
+píxeles fijos y se aplastaban—, así que pasaron a `em` con el cuerpo de letra
+en `cqw`, y ahora crecen enteros y en proporción.
+
+También se verificó el punto de las canónicas que figuraba abierto: la raíz
+redirige a `www`, y las canónicas, el sitemap y `og:url` dicen `www`. Estaba
+bien; no había nada que arreglar.
+
+---
+
 ## Decisiones tomadas
 
 **Producto**
@@ -138,6 +191,15 @@ seguridad, y `es_admin()` fuera del alcance de los anónimos.
   cronológico, fechas repetidas, emojis mal codificados— y la tarea los
   contempla. Si sale una edición rara, mirar primero el doc.
 
+**Método**
+
+- **Medir antes de arreglar.** De los defectos reportados sobre capturas, tres
+  se midieron y no eran defectos: dos separaciones que parecían distintas eran
+  idénticas, y un espacio "de más" era una línea de estado reservada. Se
+  dijeron como tales en vez de inventarles un arreglo.
+- El contenedor de verificación no llega a Supabase, así que el índice del
+  radar y las fichas de proyecto solo se pueden comprobar en producción.
+
 **Lo que se decidió NO hacer**
 
 - **Sin página de testimonios inventados.** Llegó una oferta de spam para
@@ -153,10 +215,14 @@ seguridad, y `es_admin()` fuera del alcance de los anónimos.
 ## Lo que queda abierto
 
 1. **Ningún escrito publicado todavía.** La sección está en el menú y vacía.
-   Se resuelve con la primera bitácora del domingo.
-2. **El teléfono en el CV público.** El PDF del pie lleva el número personal y
-   lo van a rastrear los bots. Decisión pendiente: sacarlo del CV público y
-   mantener una versión con teléfono para mandar a mano.
-3. **Sin foto de perfil.**
-4. **Las canónicas apuntan a `www`** y el dominio sirve desde la raíz sin
-   `www`. No rompe nada; conviene alinearlo.
+   La tarea de Escritos nunca se disparó: se creó un martes y su primer
+   disparo es el lunes 7 de septiembre. Depende de que la entrevista del
+   domingo esté contestada.
+2. **Sin foto de perfil.**
+3. **La entrada del radar del 17-24 de agosto** tiene datos genéricos en la
+   tercera columna —Período, Novedades, Foco— en lugar de métricas. No es un
+   error de código: la automatización empezó a generar datos mejores después.
+   Se arregla editando esa entrada.
+4. **Los mockups del hero podrían pasar de barras a series de líneas.** Si se
+   hace, hay que tocar también `PantallaGenesis`, que es la versión grande de
+   las fichas de proyecto, para que no queden distintas.
