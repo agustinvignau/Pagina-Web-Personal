@@ -1,5 +1,8 @@
+import Carril from "./carrusel/Carril";
+import TarjetaProyecto from "./carrusel/TarjetaProyecto";
+import { graficoLab } from "./carrusel/GraficoLab";
 import { getProyectos } from "@/lib/proyectos";
-import { type Lang, rutaProyecto, textos } from "@/lib/i18n";
+import { type Lang, textos } from "@/lib/i18n";
 
 export default async function Laboratorio({ lang = "es" }: { lang?: Lang }) {
   const t = textos(lang);
@@ -7,8 +10,8 @@ export default async function Laboratorio({ lang = "es" }: { lang?: Lang }) {
   if (estudios.length === 0) return null;
 
   return (
-    <section id="laboratorio" className="bg-tinta text-hueso">
-      <div className="px-6 py-16 md:px-12 md:py-20">
+    <section id="laboratorio" className="bg-tinta pb-16 pt-16 text-hueso md:pb-20 md:pt-20">
+      <div className="px-6 md:px-12">
         <header
           data-revelar
           className="flex flex-col items-start gap-6 border-b-2 border-hueso pb-7 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-end lg:gap-x-12"
@@ -29,39 +32,26 @@ export default async function Laboratorio({ lang = "es" }: { lang?: Lang }) {
             {t.laboratorio.bajada}
           </p>
         </header>
+      </div>
 
-        <ul className="list-none">
+      <div data-revelar>
+        <Carril
+          tono="oscuro"
+          etiqueta={t.nav.laboratorio}
+          anterior={t.laboratorio.anterior}
+          siguiente={t.laboratorio.siguiente}
+        >
           {estudios.map((e, i) => (
-            <li
-              data-revelar
+            <TarjetaProyecto
               key={e.id}
-              className="grid grid-cols-1 items-start gap-x-6 gap-y-3 border-b border-linea-oscura py-6 lg:grid-cols-[2.5rem_minmax(0,1fr)_minmax(0,26rem)]"
-            >
-              {/* Más cuerpo y más cerca del título: a 0.7rem y a 3rem de
-                  distancia el número no se leía como parte de la ficha. */}
-              <span className="cifra text-[0.95rem] text-oliva-luz lg:pt-1">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div className="flex flex-col gap-2">
-                <h3 className="subtitular text-xl md:text-2xl">
-                  <a
-                    href={rutaProyecto(lang, e.slug)}
-                    data-cursor={lang === "en" ? "Open" : "Ver"}
-                    className="text-hueso no-underline transition-colors hover:text-oliva-luz"
-                  >
-                    {e.title}
-                  </a>
-                </h3>
-                {e.problem ? (
-                  <p className="text-sm text-apagado-oscuro">{e.problem}</p>
-                ) : null}
-              </div>
-              <p className="text-sm leading-relaxed text-salvia">
-                {e.solution ?? e.summary}
-              </p>
-            </li>
+              proyecto={e}
+              indice={i + 1}
+              lang={lang}
+              tono="oscuro"
+              viva={graficoLab(e.slug, lang)}
+            />
           ))}
-        </ul>
+        </Carril>
       </div>
     </section>
   );

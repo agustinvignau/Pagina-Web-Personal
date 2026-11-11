@@ -265,3 +265,91 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+
+/* ---------- Carrusel de proyectos (fase 10) ---------- */
+
+/*
+  El carril es scroll nativo con snap: el dedo, la rueda y el teclado andan
+  como en cualquier página. El relleno lateral repite el de la sección para
+  que la primera tarjeta arranque alineada con el titular, y la siguiente
+  asome por la derecha: así se entiende que hay más.
+*/
+.carril {
+  position: relative;
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1.5rem;
+  padding: 2rem 1.5rem 0.5rem;
+  list-style: none;
+  scrollbar-width: none;
+}
+.carril::-webkit-scrollbar { display: none; }
+/* Sin esto el último margen derecho se pierde y la última tarjeta queda pegada al borde. */
+.carril::after { content: ""; flex: 0 0 1px; }
+@media (min-width: 768px) {
+  .carril { scroll-padding-inline: 3rem; padding-inline: 3rem; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .carril { cursor: grab; }
+}
+.carril[data-arrastrando] { cursor: grabbing; scroll-snap-type: none; }
+.carril[data-arrastrando] * { pointer-events: none; user-select: none; }
+
+.tarjeta { flex: 0 0 86%; min-width: 0; scroll-snap-align: start; }
+@media (min-width: 768px) { .tarjeta { flex-basis: 64%; } }
+@media (min-width: 1280px) { .tarjeta { flex-basis: 54%; } }
+/* El Laboratorio muestra gráficos, que se leen más chicos que una pantalla de sistema. */
+.tarjeta[data-tono="oscuro"] { flex-basis: 82%; }
+@media (min-width: 768px) { .tarjeta[data-tono="oscuro"] { flex-basis: 46%; } }
+@media (min-width: 1280px) { .tarjeta[data-tono="oscuro"] { flex-basis: 38%; } }
+
+.portada {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  max-width: 100%;
+}
+@media (min-width: 768px) { .portada { aspect-ratio: 16 / 10; } }
+.tarjeta[data-tono="claro"] .portada { border: 1.5px solid var(--color-tinta); background: var(--color-superficie); }
+.tarjeta[data-tono="oscuro"] .portada { border: 1px solid var(--color-linea-oscura); background: #1b1c15; }
+
+.portada-img {
+  object-fit: cover;
+  object-position: left top;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.portada[data-foco="centro"] .portada-img { object-position: center top; }
+.group:hover .portada-img,
+.group:focus-visible .portada-img { transform: scale(1.035); }
+
+/*
+  En celular una captura entera de un sistema queda ilegible en 340px. Se
+  agranda y se muestra el recorte desde donde está lo importante: arriba a
+  la izquierda en las capturas, al centro en una pieza centrada.
+*/
+@media (max-width: 767px) {
+  .portada-img { transform: scale(1.75); transform-origin: left top; }
+  .portada[data-foco="centro"] .portada-img { transform-origin: center top; }
+  .group:hover .portada-img,
+  .group:focus-visible .portada-img { transform: scale(1.8); }
+}
+
+/* En celular los rótulos sobre la portada se achican: a tamaño normal dos
+   de ellos tapaban un tercio de la imagen. */
+@media (max-width: 767px) {
+  .chips > li { font-size: 0.56rem; padding: 0.2rem 0.4rem; }
+}
+
+.reserva-clara {
+  background: repeating-linear-gradient(135deg, var(--color-superficie) 0 14px, var(--color-superficie-2) 14px 15px);
+}
+.reserva-oscura {
+  background: repeating-linear-gradient(135deg, #1b1c15 0 14px, var(--color-linea-oscura) 14px 15px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portada-img { transition: none; }
+}

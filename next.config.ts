@@ -30,6 +30,26 @@ const cabeceras = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Las portadas de los proyectos viven en el bucket público de Supabase.
+  // Next las achica y las pasa a WebP o AVIF según el ancho de la tarjeta.
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ettrvdlseiamhyswiznu.supabase.co",
+        pathname: "/storage/v1/object/public/proyectos/**",
+      },
+    ],
+  },
+  // La ficha "Widget para el ERP" pasó a ser "MerchBot" (fase 10). La
+  // redirección es permanente para que los enlaces ya compartidos sigan
+  // andando y los buscadores pasen la ficha a la URL nueva.
+  async redirects() {
+    return [
+      { source: "/proyectos/widget-para-el-erp", destination: "/proyectos/merchbot", permanent: true },
+      { source: "/en/projects/widget-para-el-erp", destination: "/en/projects/merchbot", permanent: true },
+    ];
+  },
   async headers() {
     return [{ source: "/:path*", headers: cabeceras }];
   },

@@ -1,3 +1,5 @@
+import type { ProjectStatus } from "./types";
+
 export type Lang = "es" | "en";
 
 export const IDIOMAS: Lang[] = ["es", "en"];
@@ -52,8 +54,19 @@ type Textos = {
     bajada: string;
     insignia: string;
     sinDatos: string;
+    estados: Record<ProjectStatus, string>;
+    repoPublico: string;
+    anterior: string;
+    siguiente: string;
   };
-  laboratorio: { eyebrow: string; titulo1: string; titulo2: string; bajada: string };
+  laboratorio: {
+    eyebrow: string;
+    titulo1: string;
+    titulo2: string;
+    bajada: string;
+    anterior: string;
+    siguiente: string;
+  };
   perfil: {
     eyebrow: string;
     experienciaActual: string;
@@ -134,6 +147,16 @@ const ES: Textos = {
       "Lo que corre hoy en empresas reales, con usuarios que dependen de que no se caiga. Cada ficha abre el caso: el problema, la decisión de diseño y qué cambió después.",
     insignia: "Proyecto insignia",
     sinDatos: "Sin conexión a la base de datos",
+    estados: {
+      en_produccion: "En producción",
+      terminado: "Terminado",
+      en_desarrollo: "En desarrollo",
+      uso_personal: "Uso personal",
+      producto_propio: "Producto propio",
+    },
+    repoPublico: "Repo público",
+    anterior: "Proyecto anterior",
+    siguiente: "Proyecto siguiente",
   },
   laboratorio: {
     eyebrow: "02 — Laboratorio",
@@ -141,6 +164,8 @@ const ES: Textos = {
     titulo2: "un problema",
     bajada:
       "Cinco estudios de punta a punta con datos sintéticos, inspirados en el taller de producción y el depósito mayorista donde trabajé. Los datos son inventados a propósito, para poder mostrar el método sin exponer a ninguna empresa.",
+    anterior: "Estudio anterior",
+    siguiente: "Estudio siguiente",
   },
   perfil: {
     eyebrow: "03 — Perfil",
@@ -240,6 +265,16 @@ const EN: Textos = {
       "What runs today in real companies, with users who depend on it staying up. Each entry opens the case: the problem, the design decision, and what changed afterwards.",
     insignia: "Flagship project",
     sinDatos: "No connection to the database",
+    estados: {
+      en_produccion: "In production",
+      terminado: "Finished",
+      en_desarrollo: "In development",
+      uso_personal: "Personal use",
+      producto_propio: "Own product",
+    },
+    repoPublico: "Public repo",
+    anterior: "Previous project",
+    siguiente: "Next project",
   },
   laboratorio: {
     eyebrow: "02 — Lab",
@@ -247,6 +282,8 @@ const EN: Textos = {
     titulo2: "through a problem",
     bajada:
       "Five end-to-end studies on synthetic data, drawn from the production workshop and the wholesale warehouse where I worked. The data is invented on purpose, so the method can be shown without exposing any company.",
+    anterior: "Previous study",
+    siguiente: "Next study",
   },
   perfil: {
     eyebrow: "03 — Profile",

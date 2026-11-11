@@ -2,6 +2,22 @@ import type { Lang } from "./i18n";
 
 export type ProjectKind = "produccion" | "laboratorio";
 
+/** Estado que se muestra sobre la portada. El rótulo sale de i18n.ts. */
+export type ProjectStatus =
+  | "en_produccion"
+  | "terminado"
+  | "en_desarrollo"
+  | "uso_personal"
+  | "producto_propio";
+
+export const ESTADOS: ProjectStatus[] = [
+  "en_produccion",
+  "terminado",
+  "en_desarrollo",
+  "uso_personal",
+  "producto_propio",
+];
+
 export type Project = {
   id: string;
   slug: string;
@@ -21,6 +37,11 @@ export type Project = {
   featured: boolean;
   published: boolean;
   links: Record<string, string>;
+  status: ProjectStatus | null;
+  cover_url: string | null;
+  cover_alt: string | null;
+  cover_focus: "izquierda" | "centro" | null;
+  cover_alt_en?: string | null;
   title_en?: string | null;
   subtitle_en?: string | null;
   summary_en?: string | null;
@@ -46,5 +67,6 @@ export function localizarProyecto(p: Project, lang: Lang): Project {
     solution: p.solution_en ?? p.solution,
     outcome: p.outcome_en ?? p.outcome,
     impact_label: p.impact_label_en ?? p.impact_label,
+    cover_alt: p.cover_alt_en || p.cover_alt,
   };
 }

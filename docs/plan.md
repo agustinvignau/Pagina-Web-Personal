@@ -18,6 +18,8 @@ El sitio está en línea en https://www.agustinvignau.com.
 | 7 | Correo, automatización y seguridad | completa |
 | 8 | Analítica y CV público | completa |
 | 9 | Diseño: cuatro fases sobre capturas anotadas | completa |
+| 10 | Proyectos en carrusel visual y MerchBot | en curso: A a D hechas, falta E |
+| 11 | Laboratorio interactivo | idea, sin planificar |
 
 Ninguna fase arrancó sin aprobación explícita.
 
@@ -146,6 +148,220 @@ en `cqw`, y ahora crecen enteros y en proporción.
 También se verificó el punto de las canónicas que figuraba abierto: la raíz
 redirige a `www`, y las canónicas, el sitemap y `og:url` dicen `www`. Estaba
 bien; no había nada que arreglar.
+
+---
+
+## Fase 10 — Proyectos en carrusel visual y MerchBot · planificada el 10 de noviembre
+
+**Estado: aprobada el 10 de noviembre, después de una demo navegable del
+carrusel. A a D hechas; sigue E.**
+
+### Por qué
+
+Casi nadie lee las fichas: se mira y se decide. Hoy Producción y Laboratorio
+son listas de texto, y quien entra no ve cómo quedó ningún proyecto. La meta
+de esta fase es que cada proyecto **se vea**: una portada que muestre el
+producto real, o una reproducción fiel, en un carrusel por sección.
+
+En paralelo, MerchBot está terminado con el repositorio público, y hoy figura
+dos veces: como "Widget para el ERP" (publicado, subtítulo "evolución de
+MerchBot") y como "Bot de inventario en Telegram" (oculto, su versión
+original).
+
+### Decisiones ya tomadas
+
+- **Producción y Laboratorio siguen separados**, cada uno con su carrusel:
+  Producción en fondo claro y Laboratorio en tinta, como hoy.
+- **La imagen es la protagonista de la tarjeta.** El texto se reduce a
+  título, una línea de qué es y la cifra de impacto. El detalle sigue en la
+  ficha.
+- **MerchBot y el Widget se fusionan en una sola ficha, "MerchBot".** Cuenta
+  la versión terminada y su uso con el equipo de compras, y lleva el link al
+  repo público. El bot de Telegram sigue oculto, y la ficha lo nombra como su
+  origen.
+- **Estado de MerchBot: en producción.** La ficha aclara que el repositorio
+  público está preparado para correr en local con Docker. Así el sitio y el
+  README del repo no se contradicen.
+- **Las portadas de Research y PressFlow salen de capturas de Agustín.** Hasta
+  que estén, esas tarjetas usan una portada de reserva con el título, y nada
+  queda roto.
+- **El carrusel es diseño propio**, con la paleta, la tipografía y el
+  movimiento que el sitio ya tiene. No hay una página de referencia.
+- **Sin librerías nuevas:** *scroll-snap* nativo y un componente cliente
+  chico.
+
+### A — Datos
+
+1. Migración `supabase/migrations/20261110_portadas_y_estado.sql`, que suma a
+   `projects`:
+   - `cover_url`, `cover_alt` y `cover_alt_en`: la portada y su texto
+     alternativo, con el mismo patrón de traducción que el resto.
+   - `status`: el estado visible (`en_produccion`, `terminado`, `en_desarrollo`).
+     El rótulo en cada idioma se resuelve en `i18n.ts`.
+2. Bucket público `proyectos` en Storage. Se lee sin sesión, y solo
+   `es_admin()` puede escribir.
+3. `types.ts` y `localizarProyecto`: los campos nuevos, con caída al
+   castellano.
+4. `/admin` → `SeccionProyectos`: subir o cambiar la portada y elegir el
+   estado.
+
+Solo suma columnas: lo publicado sigue funcionando igual mientras las
+columnas estén vacías.
+
+**Hecho el 10 de noviembre.** Migración aplicada en producción. El estado
+quedó cargado en los cinco de Producción: Génesis, MerchBot y Comprobantes
+en producción, Research como uso personal y PressFlow como producto propio.
+Laboratorio queda sin estado. Al estado se le sumaron `uso_personal` y
+`producto_propio`, que salieron de la demo. La portada se sube con un nombre
+nuevo cada vez, para que la caché no muestre la vieja, y la anterior se
+borra recién cuando la nueva quedó guardada.
+
+> **Visto de paso, sin tocar:** el linter de Supabase marca que `anon` puede
+> ejecutar `es_admin()` y `contacto_puede_enviar()`. La fase 7 dice que
+> `es_admin()` quedó fuera del alcance de los anónimos, y hoy no es así. Es
+> inofensivo, porque para un anónimo devuelve `false`, pero el registro y la
+> base no coinciden. Se decide aparte.
+
+### B — El carrusel
+
+Un componente nuevo, `CarruselProyectos`, que reemplaza a `ProyectoFila` en
+Producción y a la lista de `Laboratorio`.
+
+- Tarjeta con portada grande, en proporción 16:10 en escritorio y 4:5 en
+  celular, para que la pantalla del producto se lea. Debajo van el número, el
+  título, la línea de qué es y la cifra.
+- La insignia de destacado y el estado van sobre la imagen.
+- Se desliza con el dedo, la rueda horizontal, arrastrando con el mouse o con
+  las flechas. Lleva una barra de progreso con el formato de la sección
+  (`01 / 05`).
+- En escritorio se ve la tarjeta siguiente asomando, así se entiende que
+  sigue.
+- Hover: la portada se acerca apenas y el cursor propio dice "Ver".
+- Accesible: lista semántica, foco visible, flechas de teclado, y con
+  `prefers-reduced-motion` el desplazamiento no se anima.
+- Hay que probarlo en el navegador interno de Instagram, igual que en la
+  fase 9.
+
+**Hecho el 11 de noviembre.** `src/components/carrusel/`: `Carril` es el
+único componente de cliente (cuál se ve, flechas, teclado, arrastre) y
+`TarjetaProyecto` se arma en el servidor. Las portadas pasan por `next/image`
+desde el bucket, así que llegan achicadas al ancho de la tarjeta. Verificado
+con datos fijos en 1440 y en iPhone 13: sin desborde horizontal, el contador
+avanza con la flecha y la portada de reserva entra entera.
+
+Tres cambios respecto de lo planeado:
+- **Génesis y Comprobantes van como imagen, no como componente en vivo.**
+  `PantallaGenesis` y `PantallaFacturas` están medidas en `rem` con un ancho
+  mínimo de 62rem y tienen scroll horizontal propio. Achicarlas para que
+  entren en una tarjeta pedía escalarlas con JavaScript, y su scroll
+  peleaba con el arrastre del carril. La portada es una captura de esos
+  mismos componentes. Si cambia el mockup, hay que volver a sacarla.
+- **Se sumó `cover_focus`** (migración `20261111_portada_foco.sql`). En
+  celular la portada se agranda 1,75 veces para que se lea, y el recorte
+  parte arriba a la izquierda en las capturas de sistemas y al centro en
+  una pieza centrada, como el press kit de PressFlow.
+- **Sin segunda imagen al pasar el mouse.** La demo la tenía para MerchBot,
+  Research y PressFlow, pero sumaba una columna más y no existe en el
+  celular. Al pasar el mouse la portada se acerca apenas.
+
+`ProyectoFila.tsx` quedó sin uso. Se borra en el commit de la fase.
+
+### C — Las portadas
+
+| Proyecto | Portada |
+|---|---|
+| MerchBot | captura real del repo (`docs/img/web-24-7.png`, panel y voz) |
+| Génesis | `PantallaGenesis`, el mockup grande que ya existe |
+| Comprobantes | `PantallaFacturas`, ídem |
+| Research con agentes | captura de Agustín |
+| PressFlow AI | captura de Agustín |
+| Los 5 de Laboratorio | el gráfico principal de cada estudio, como componente propio con los datos sintéticos del repo |
+
+En Génesis y Comprobantes la portada es el componente renderizado en vivo, no
+una imagen: así no se desfasan si cambia el mockup.
+
+El gráfico de Laboratorio se arma como componente (SVG), no como PNG, a
+propósito: en la fase 11 se le agregan controles encima sin rehacerlo.
+- Forecasting: la serie real contra el pronóstico, con su banda.
+- Anomalías: la dispersión con las órdenes marcadas.
+- Churn: el ranking de riesgo.
+- Segmentación: los clusters.
+- A/B: la diferencia con su intervalo.
+
+Las capturas de Agustín van en `capturas-proyectos/`, dentro de esta carpeta.
+Se suma a `.gitignore` y desde ahí se suben al bucket.
+
+**Hecho el 11 de noviembre.**
+
+- **Las cinco portadas de Producción viven en `public/portadas/`**, no en el
+  bucket. Desde acá no se puede subir al bucket sin la clave de servicio, y
+  así quedan versionadas con el código. `cover_url` acepta las dos cosas: una
+  ruta local o una URL del bucket. Lo que se suba después desde el panel va
+  al bucket y reemplaza a la local. El panel nunca borra un archivo local.
+- **Los gráficos del Laboratorio** están en
+  `src/components/carrusel/GraficoLab.tsx`. Salen de
+  `src/lib/laboratorio-datos.ts`, que genera
+  `scripts/datos_laboratorio.py` a partir de los CSV procesados de cada repo.
+  Ninguna cifra está escrita a mano.
+- **Churn cambió de forma.** La demo mostraba los diez clientes de más riesgo,
+  pero con los datos reales los diez superan el umbral y la línea de corte
+  quedaba escondida. Ahora es la distribución de los 146 clientes con el
+  umbral marcado y, dentro de cada barra, los que de verdad se fueron. Ahí
+  se ve que con 0,50 la mitad de los que se van quedan abajo del umbral.
+  Eso es justo lo que la fase 11 va a dejar explorar.
+- En A/B la unidad es sucursal-día, igual que en el estudio: 120 días por
+  variante, 18,3 % contra 22,4 %.
+
+### D — MerchBot
+
+1. **La ficha.** Se reescribe la fila del Widget en ES y EN: título "MerchBot",
+   link al repo, estado en producción, aclaración del deploy local y el texto
+   actualizado al cierre del repo.
+2. **El slug pasa de `widget-para-el-erp` a `merchbot`.** Lleva una
+   redirección permanente en `next.config.ts` para las dos rutas, ES y EN, así
+   no se rompe ningún enlace ya compartido. El sitemap se regenera solo.
+3. **El escrito**, en ES y EN, queda en **borrador**:
+   - qué resuelve: el stock en lenguaje natural, a cualquier hora, sin ir al
+     depósito;
+   - las decisiones: los números salen de SQL y el modelo solo redacta; RAG
+     solo para texto libre; solo lectura sobre el negocio;
+   - qué aprendió: medir en vez de suponer (28 casos, RAG y sentimiento),
+     depender de un proveedor externo, y el VADER descartado (42 % contra
+     88 %);
+   - enlaces a los escritos anteriores: el de embeddings contra BM25 (25/10)
+     y el de los saldos del ERP (06/10).
+
+   Agustín lo publica desde el panel, como siempre.
+
+**Hecho el 11 de noviembre.**
+
+- **Escrito:** `2026-11-11-merchbot-terminado`, en borrador, en ES y EN.
+  Enlaza a los escritos del 4/10 y del 25/10 y al repo. Todo lo que dice sale
+  del README, de `docs/REFLEXION.md` y de los escritos anteriores. Lo publica
+  Agustín desde el panel.
+- **Ficha:** el texto nuevo está en `supabase/datos/20261111_merchbot.sql`.
+  **No se aplicó todavía, a propósito.** Cambia el slug, así que si se aplica
+  antes del deploy, la URL vieja da 404 hasta que llegue la redirección. Va
+  justo antes del push, en E.
+- **Redirección:** en `next.config.ts`, permanente, en las dos rutas.
+
+### E — Verificación
+
+- `npm run typecheck` y `npm run build`.
+- Capturas a 360, 390 y 430 de ancho, en escritorio y con el user agent de
+  Instagram. Contraste medido sobre el texto encima de las portadas.
+- Comprobar que la redirección del slug viejo responde 308 en las dos rutas.
+- Pasarle las capturas a Agustín. **El push a `main` (deploy) va solo con su
+  OK.**
+
+### Fuera de esta fase
+
+- **Fase 11, Laboratorio interactivo:** controles sobre cada modelo. Mover el
+  umbral del churn y ver precisión y recall, cambiar el nivel de servicio y
+  ver el stock de seguridad, la cantidad de clusters, el tamaño de muestra del
+  A/B. Se planifica cuando cierre la 10.
+- Actualizar el README: hoy dice 9 proyectos, y "Lo que queda abierto" dice
+  que no hay escritos publicados (hay 5). Se corrige al cerrar esta fase.
 
 ---
 

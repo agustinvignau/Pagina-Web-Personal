@@ -1,4 +1,5 @@
-import ProyectoFila from "./ProyectoFila";
+import Carril from "./carrusel/Carril";
+import TarjetaProyecto from "./carrusel/TarjetaProyecto";
 import { getProyectos } from "@/lib/proyectos";
 import { type Lang, textos } from "@/lib/i18n";
 
@@ -7,8 +8,8 @@ export default async function Produccion({ lang = "es" }: { lang?: Lang }) {
   const proyectos = await getProyectos("produccion", lang);
 
   return (
-    <section id="produccion" className="relative overflow-hidden bg-hueso">
-      <div className="relative px-6 pt-16 md:px-12 md:pt-20">
+    <section id="produccion" className="relative overflow-hidden bg-hueso pb-16 pt-16 md:pb-20 md:pt-20">
+      <div className="px-6 md:px-12">
         <header
           data-revelar
           className="flex flex-col items-start gap-6 border-b-2 border-texto pb-7 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-end lg:gap-x-12"
@@ -30,17 +31,24 @@ export default async function Produccion({ lang = "es" }: { lang?: Lang }) {
             {t.produccion.bajada}
           </p>
         </header>
-
-        {proyectos.length > 0 ? (
-          <div className="pb-16">
-            {proyectos.map((p, i) => (
-              <ProyectoFila key={p.id} proyecto={p} indice={i + 1} lang={lang} />
-            ))}
-          </div>
-        ) : (
-          <p className="etiqueta py-16 text-apagado">{t.produccion.sinDatos}</p>
-        )}
       </div>
+
+      {proyectos.length > 0 ? (
+        <div data-revelar>
+          <Carril
+            tono="claro"
+            etiqueta={t.nav.produccion}
+            anterior={t.produccion.anterior}
+            siguiente={t.produccion.siguiente}
+          >
+            {proyectos.map((p, i) => (
+              <TarjetaProyecto key={p.id} proyecto={p} indice={i + 1} lang={lang} tono="claro" />
+            ))}
+          </Carril>
+        </div>
+      ) : (
+        <p className="etiqueta px-6 py-16 text-apagado md:px-12">{t.produccion.sinDatos}</p>
+      )}
     </section>
   );
 }
