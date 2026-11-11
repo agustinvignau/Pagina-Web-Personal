@@ -18,7 +18,7 @@ El sitio está en línea en https://www.agustinvignau.com.
 | 7 | Correo, automatización y seguridad | completa |
 | 8 | Analítica y CV público | completa |
 | 9 | Diseño: cuatro fases sobre capturas anotadas | completa |
-| 10 | Proyectos en carrusel visual y MerchBot | en curso: A a D hechas, falta E |
+| 10 | Proyectos en carrusel visual y MerchBot | completa |
 | 11 | Laboratorio interactivo | idea, sin planificar |
 
 Ninguna fase arrancó sin aprobación explícita.
@@ -154,7 +154,7 @@ bien; no había nada que arreglar.
 ## Fase 10 — Proyectos en carrusel visual y MerchBot · planificada el 10 de noviembre
 
 **Estado: aprobada el 10 de noviembre, después de una demo navegable del
-carrusel. A a D hechas; sigue E.**
+carrusel. Completa el 11 de noviembre.**
 
 ### Por qué
 
@@ -353,6 +353,25 @@ Se suma a `.gitignore` y desde ahí se suben al bucket.
 - Comprobar que la redirección del slug viejo responde 308 en las dos rutas.
 - Pasarle las capturas a Agustín. **El push a `main` (deploy) va solo con su
   OK.**
+
+**Hecho el 11 de noviembre.** El build de producción pasó antes del push.
+La ficha de MerchBot se aplicó justo antes del push, y el deploy de Vercel
+salió bien. Verificado en www.agustinvignau.com:
+
+- Dos carriles, cinco portadas de Producción que cargan y cinco gráficos del
+  Laboratorio.
+- Sin scroll lateral.
+- `/proyectos/widget-para-el-erp` y `/en/projects/widget-para-el-erp`
+  redirigen a `merchbot`.
+
+En producción apareció un detalle que con los datos de prueba no se veía: en
+el Laboratorio el rótulo "Repo público" tapaba el título de cada gráfico.
+Ahí sale, porque los cinco estudios tienen repo y el rótulo no distingue
+nada.
+
+Queda pendiente probar el panel con sesión iniciada: subir una portada y
+cambiar un estado. También falta probarlo en el navegador interno de
+Instagram.
 
 ### Fuera de esta fase
 

@@ -27,7 +27,9 @@ export default function TarjetaProyecto({
 }) {
   const t = textos(lang);
   const claro = tono === "claro";
-  const repo = p.links?.repo;
+  // En el Laboratorio los cinco estudios tienen repo público: el rótulo no
+  // distingue nada y tapaba el título del gráfico. Va solo en Producción.
+  const repo = claro ? p.links?.repo : undefined;
 
   return (
     <li className="tarjeta" data-tono={tono}>
