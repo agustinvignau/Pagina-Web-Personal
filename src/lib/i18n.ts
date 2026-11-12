@@ -99,6 +99,7 @@ type Textos = {
     renovatio: string;
     renovatioLink: string;
   };
+  visor: { ampliar: string; cerrar: string; anterior: string; siguiente: string; etiqueta: string };
   caso: { caso: string; estudio: string; produccion: string; laboratorio: string; vista: string; problema: string; solucion: string; resultado: string; herramientas: string; volver: string; repo: string };
   radar: {
     eyebrow: string;
@@ -208,6 +209,13 @@ const ES: Textos = {
     errorGenerico: "No hubo respuesta del servidor. Probá de nuevo.",
     renovatio: "Si lo que buscás es una consultoría con equipo detrás, lo trabajo desde",
     renovatioLink: "Renovatio",
+  },
+  visor: {
+    ampliar: "Ampliar",
+    cerrar: "Cerrar",
+    anterior: "Captura anterior",
+    siguiente: "Captura siguiente",
+    etiqueta: "Captura ampliada",
   },
   caso: {
     caso: "Caso", estudio: "Estudio", produccion: "Producción", laboratorio: "Laboratorio",
@@ -326,6 +334,13 @@ const EN: Textos = {
     errorGenerico: "No response from the server. Please try again.",
     renovatio: "If what you need is a consultancy with a team behind it, I work through",
     renovatioLink: "Renovatio",
+  },
+  visor: {
+    ampliar: "Enlarge",
+    cerrar: "Close",
+    anterior: "Previous screenshot",
+    siguiente: "Next screenshot",
+    etiqueta: "Enlarged screenshot",
   },
   caso: {
     caso: "Case", estudio: "Study", produccion: "Production", laboratorio: "Lab",

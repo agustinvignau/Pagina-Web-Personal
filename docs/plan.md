@@ -19,7 +19,8 @@ El sitio está en línea en https://www.agustinvignau.com.
 | 8 | Analítica y CV público | completa |
 | 9 | Diseño: cuatro fases sobre capturas anotadas | completa |
 | 10 | Proyectos en carrusel visual y MerchBot | completa |
-| 10.1 | Imágenes en las fichas y datos de ejemplo en Comprobantes | lista, esperando OK para el deploy |
+| 10.1 | Imágenes en las fichas y datos de ejemplo en Comprobantes | completa |
+| 10.2 | Visor de capturas en las fichas | lista, esperando OK para el deploy |
 | 11 | Laboratorio interactivo | idea, sin planificar |
 
 Ninguna fase arrancó sin aprobación explícita.
@@ -409,6 +410,44 @@ la ficha existía solo para los dos proyectos con mockup en código.
   se corrigió una contradicción: el aviso decía que el comprobante no traía
   CAE y el documento mostraba uno. La portada se regeneró con otro nombre
   (`comprobantes-2.webp`), así la caché de imágenes no muestra la vieja.
+
+**Publicada el 11 de noviembre.** Verificado en el sitio: las tres galerías
+en los dos idiomas, el gráfico en las fichas del Laboratorio y Comprobantes
+con datos de ejemplo.
+
+> **Para la próxima vez que cambie una portada a mano:** el inicio se
+> regenera cada 5 minutos. Si se borra la imagen vieja en el mismo deploy en
+> que cambia `cover_url`, la tarjeta queda sin imagen hasta esa
+> regeneración. Conviene dejar la vieja un deploy más, o cambiar
+> `cover_url` desde el panel, que no borra lo que está en `public/`.
+
+---
+
+## Fase 10.2 — Visor de capturas · 11 de noviembre
+
+Antes, tocar una captura de la galería la abría en otra pestaña. Ahora se
+abre un visor dentro de la ficha. Se eligió entre tres versiones en una
+demo (zoom desde la captura, cortina editorial, zoom con lupa) y ganó la
+**cortina editorial**:
+
+- Sube un panel de tinta con la misma curva que el cambio de página del
+  sitio, y la imagen se revela de abajo hacia arriba. Al costado van el
+  número grande en contorno, el epígrafe y las flechas; en celular, abajo.
+- Al pasar de una captura a otra, la imagen se cierra hacia un lado y la
+  nueva entra desde el otro.
+- Se cierra con Esc, con la × o tocando fuera de la imagen. **El "atrás" del
+  navegador también lo cierra**, en vez de salir de la ficha: el visor suma
+  una entrada al historial al abrir, y los controles cierran con
+  `history.back()`, así hay un solo camino de cierre.
+- En celular se pasa deslizando de costado y se cierra deslizando hacia
+  abajo. La página de atrás no se mueve. El foco queda dentro del visor y al
+  cerrar vuelve a la miniatura. Respeta "reducir movimiento".
+- El visor se monta con un portal sobre `body`. Dentro de la ficha, las
+  figuras tienen `transform` (por el reveal) y un `position: fixed` adentro
+  quedaría atado a ellas.
+
+Pendiente, si hace falta: acercar con dos dedos dentro del visor, para las
+capturas con letra chica en celular.
 ---
 
 ## Decisiones tomadas

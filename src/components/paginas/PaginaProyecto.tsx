@@ -84,7 +84,7 @@ export default async function PaginaProyecto({
           ) : grafico ? (
             <div className="mx-auto max-w-5xl overflow-hidden border border-linea-oscura bg-tinta">{grafico}</div>
           ) : (
-            <Galeria capturas={capturas} />
+            <Galeria capturas={capturas} lang={lang} />
           )}
         </section>
       ) : null}
