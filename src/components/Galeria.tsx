@@ -120,11 +120,27 @@ function Visor({
   const alCerrarRef = useRef(alCerrar);
   alCerrarRef.current = alCerrar;
 
+  // Cada animación tiene un tiempo máximo. Si el navegador no está dibujando
+  // (pestaña de fondo, ventana tapada, celular con poca batería), la
+  // animación no avanza y el visor quedaría esperándola: pasado ese tiempo se
+  // completa sola y el visor sigue respondiendo.
   const animar = useCallback(
-    (el: Element | null, frames: Keyframe[], ms: number, curva = SUAVE, delay = 0) =>
-      !el || reducido.current
-        ? Promise.resolve()
-        : el.animate(frames, { duration: ms, easing: curva, delay, fill: "both" }).finished.then(() => undefined),
+    (el: Element | null, frames: Keyframe[], ms: number, curva = SUAVE, delay = 0): Promise<void> => {
+      if (!el || reducido.current) return Promise.resolve();
+      const a = el.animate(frames, { duration: ms, easing: curva, delay, fill: "both" });
+      return new Promise((listo) => {
+        const tope = window.setTimeout(() => {
+          a.finish();
+          listo();
+        }, ms + delay + 150);
+        a.finished
+          .catch(() => undefined)
+          .then(() => {
+            window.clearTimeout(tope);
+            listo();
+          });
+      });
+    },
     [],
   );
 
