@@ -19,6 +19,7 @@ El sitio está en línea en https://www.agustinvignau.com.
 | 8 | Analítica y CV público | completa |
 | 9 | Diseño: cuatro fases sobre capturas anotadas | completa |
 | 10 | Proyectos en carrusel visual y MerchBot | completa |
+| 10.1 | Imágenes en las fichas y datos de ejemplo en Comprobantes | lista, esperando OK para el deploy |
 | 11 | Laboratorio interactivo | idea, sin planificar |
 
 Ninguna fase arrancó sin aprobación explícita.
@@ -382,6 +383,32 @@ Instagram.
 - Actualizar el README: hoy dice 9 proyectos, y "Lo que queda abierto" dice
   que no hay escritos publicados (hay 5). Se corrige al cerrar esta fase.
 
+
+---
+
+## Fase 10.1 — Imágenes en las fichas · 11 de noviembre
+
+Al abrir MerchBot, Research o PressFlow no había ninguna imagen: la vista de
+la ficha existía solo para los dos proyectos con mockup en código.
+
+- **Galería:** columna `gallery` (migración `20261111_galeria.sql`) con
+  capturas reales, cada una con su texto alternativo y un epígrafe en ES y
+  EN. La primera va grande, con su ancho real como tope; las demás, de a
+  tres. Cada una se abre en grande. El contenido está en
+  `supabase/datos/20261111_galerias.sql`.
+- **Laboratorio:** la ficha muestra el mismo gráfico de la portada, en
+  grande. Es donde entran los controles de la fase 11.
+- **MerchBot:** de las capturas del chat se usa solo la parte del reclamo.
+  En el repo muestran "Remera Dry-Fit Negro M — stock -15" y el bot suma
+  100 − 15 = 85. Puede ser un dato de la planilla de demo o que el bot no
+  filtre el stock negativo; se revisa en el repo de MerchBot.
+- **PressFlow:** las capturas tenían el cursor del mouse, que se borró, y
+  ninguna muestra el mail de la cuenta.
+- **Comprobantes:** el mockup tenía nombres, CUIT, CAE y montos que podían
+  ser reales. Ahora todo dice "Ejemplo" y los montos son redondos. También
+  se corrigió una contradicción: el aviso decía que el comprobante no traía
+  CAE y el documento mostraba uno. La portada se regeneró con otro nombre
+  (`comprobantes-2.webp`), así la caché de imágenes no muestra la vieja.
 ---
 
 ## Decisiones tomadas

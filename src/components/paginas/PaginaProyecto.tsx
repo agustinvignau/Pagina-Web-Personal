@@ -4,6 +4,8 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PantallaGenesis from "@/components/mockups/PantallaGenesis";
 import PantallaFacturas from "@/components/mockups/PantallaFacturas";
+import Galeria from "@/components/Galeria";
+import { graficoLab } from "@/components/carrusel/GraficoLab";
 import { getProyecto } from "@/lib/proyectos";
 import { type Lang, otroIdioma, ruta, rutaProyecto, textos } from "@/lib/i18n";
 
@@ -23,9 +25,11 @@ export default async function PaginaProyecto({
   if (!proyecto) notFound();
 
   const t = textos(lang).caso;
-  const Pantalla = PANTALLAS[slug];
+  const Pantalla = PANTALLAS[slug] as (typeof PANTALLAS)[string] | undefined;
   const esProduccion = proyecto.kind === "produccion";
   const repo = proyecto.links?.repo;
+  const grafico = Pantalla ? null : graficoLab(slug, lang);
+  const capturas = proyecto.gallery ?? [];
 
   return (
     <main>
@@ -67,10 +71,21 @@ export default async function PaginaProyecto({
         </div>
       </header>
 
-      {Pantalla ? (
+      {/*
+        La vista del proyecto, en este orden: el mockup en código (Génesis y
+        Comprobantes), el gráfico del estudio (Laboratorio) o la galería de
+        capturas. Antes solo los dos primeros tenían algo que mostrar.
+      */}
+      {Pantalla || grafico || capturas.length > 0 ? (
         <section className="bg-hueso px-6 py-14 md:px-12">
           <p className="etiqueta mb-5 text-apagado">{t.vista}</p>
-          <Pantalla lang={lang} />
+          {Pantalla ? (
+            <Pantalla lang={lang} />
+          ) : grafico ? (
+            <div className="mx-auto max-w-5xl overflow-hidden border border-linea-oscura bg-tinta">{grafico}</div>
+          ) : (
+            <Galeria capturas={capturas} />
+          )}
         </section>
       ) : null}
 

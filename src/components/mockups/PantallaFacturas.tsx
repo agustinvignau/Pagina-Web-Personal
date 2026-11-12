@@ -4,12 +4,12 @@ import type { Lang } from "@/lib/i18n";
 export default function PantallaFacturas({ lang = "es" }: { lang?: Lang }) {
   const r = rotulos(lang);
   const CAMPOS = [
-    { rotulo: r.rotulos.empresa, valor: "Insumos Gráficos del Sur S.A." },
-    { rotulo: r.rotulos.comprobante, valor: "0004-00012877", mono: true },
-    { rotulo: r.rotulos.fecha, valor: "2026-08-18", mono: true },
+    { rotulo: r.rotulos.empresa, valor: "Proveedor Ejemplo S.A." },
+    { rotulo: r.rotulos.comprobante, valor: "0001-00001234", mono: true },
+    { rotulo: r.rotulos.fecha, valor: "2026-03-16", mono: true },
     { rotulo: r.rotulos.tipo, valor: lang === "en" ? "A-type invoice" : "Factura A", regla: true },
-    { rotulo: r.rotulos.iva, valor: "269.829,00", mono: true },
-    { rotulo: r.rotulos.percepciones, valor: "38.547,00", mono: true },
+    { rotulo: r.rotulos.iva, valor: "210.000,00", mono: true },
+    { rotulo: r.rotulos.percepciones, valor: "30.000,00", mono: true },
     { rotulo: r.rotulos.moneda, valor: "ARS", mono: true },
     { rotulo: r.rotulos.cambio, valor: "—", mono: true },
   ];
@@ -20,16 +20,16 @@ export default function PantallaFacturas({ lang = "es" }: { lang?: Lang }) {
         <div className="border border-linea bg-hueso">
           <div className="flex items-center justify-between border-b border-linea bg-superficie-2 px-4 py-3">
             <span className="etiqueta">{r.documento}</span>
-            <span className="etiqueta text-apagado">FC-A-0004-00012877.pdf</span>
+            <span className="etiqueta text-apagado">FC-A-0001-00001234.pdf</span>
           </div>
           <div className="flex flex-col gap-4 px-6 py-6">
             <div className="flex items-start justify-between">
               <span>
                 <span className="subtitular block text-base">
-                  Insumos Gráficos del Sur S.A.
+                  Proveedor Ejemplo S.A.
                 </span>
                 <span className="etiqueta mt-1 block text-apagado">
-                  CUIT 30-71298455-4
+                  CUIT 30-12345678-9
                 </span>
               </span>
               <span className="cifra border border-texto px-3 py-1.5 text-sm">
@@ -39,9 +39,9 @@ export default function PantallaFacturas({ lang = "es" }: { lang?: Lang }) {
             <span className="block h-px bg-linea" />
             <div className="flex flex-col gap-2 text-[0.8rem]">
               {[
-                [r.rotulos.comprobante, "0004-00012877"],
-                [r.rotulos.fecha, "18/08/2026"],
-                [r.rotulos.cae, "76194028551903"],
+                [r.rotulos.comprobante, "0001-00001234"],
+                [r.rotulos.fecha, "16/03/2026"],
+                [r.rotulos.cae, "—"],
               ].map(([k, v]) => (
                 <span key={k} className="flex justify-between">
                   <span className="text-apagado">{k}</span>
@@ -62,9 +62,9 @@ export default function PantallaFacturas({ lang = "es" }: { lang?: Lang }) {
             <span className="block h-px bg-linea" />
             <div className="flex flex-col items-end gap-2 text-[0.8rem]">
               {[
-                [r.rotulos.subtotal, "1.284.900,00"],
-                [r.rotulos.ivaPct, "269.829,00"],
-                [r.rotulos.iibb, "38.547,00"],
+                [r.rotulos.subtotal, "1.000.000,00"],
+                [r.rotulos.ivaPct, "210.000,00"],
+                [r.rotulos.iibb, "30.000,00"],
               ].map(([k, v]) => (
                 <span key={k} className="flex gap-8">
                   <span className="text-apagado">{k}</span>
@@ -74,7 +74,7 @@ export default function PantallaFacturas({ lang = "es" }: { lang?: Lang }) {
               <span className="flex gap-8 border-t border-texto pt-2 font-semibold">
                 <span>{r.rotulos.total}</span>
                 <span className="cifra w-24 text-right text-[0.78rem]">
-                  1.593.276,00
+                  1.240.000,00
                 </span>
               </span>
             </div>
@@ -127,10 +127,10 @@ export default function PantallaFacturas({ lang = "es" }: { lang?: Lang }) {
               <span className="etiqueta">{r.cola}</span>
             </div>
             {[
-              ["Metalúrgica Rivadavia SRL", false],
-              ["Insumos Gráficos del Sur S.A.", true],
-              ["Transporte Belgrano", false],
-              ["Papelera Continental", false],
+              ["Taller Ejemplo SRL", false],
+              ["Proveedor Ejemplo S.A.", true],
+              ["Transporte Ejemplo", false],
+              ["Papelera Ejemplo", false],
             ].map(([nombre, revisar]) => (
               <div
                 key={nombre as string}

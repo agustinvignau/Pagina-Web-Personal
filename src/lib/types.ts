@@ -18,6 +18,17 @@ export const ESTADOS: ProjectStatus[] = [
   "producto_propio",
 ];
 
+/** Una captura de la galería de la ficha. */
+export type Captura = {
+  src: string;
+  ancho: number;
+  alto: number;
+  alt: string;
+  alt_en?: string | null;
+  pie?: string | null;
+  pie_en?: string | null;
+};
+
 export type Project = {
   id: string;
   slug: string;
@@ -41,6 +52,7 @@ export type Project = {
   cover_url: string | null;
   cover_alt: string | null;
   cover_focus: "izquierda" | "centro" | null;
+  gallery: Captura[] | null;
   cover_alt_en?: string | null;
   title_en?: string | null;
   subtitle_en?: string | null;
@@ -68,5 +80,10 @@ export function localizarProyecto(p: Project, lang: Lang): Project {
     outcome: p.outcome_en ?? p.outcome,
     impact_label: p.impact_label_en ?? p.impact_label,
     cover_alt: p.cover_alt_en || p.cover_alt,
+    gallery: (p.gallery ?? []).map((c) => ({
+      ...c,
+      alt: c.alt_en || c.alt,
+      pie: c.pie_en || c.pie,
+    })),
   };
 }
