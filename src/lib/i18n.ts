@@ -232,7 +232,7 @@ const ES: Textos = {
     vacio: "La primera edición está en revisión.",
     edicion: "Radar tecnológico · edición",
     comoSeArma:
-      "Un rastreo automático deja las novedades y sus enlaces oficiales en un documento. Los días 1 y 16 una tarea programada lo consolida, redacta la edición en los dos idiomas y la publica sin que yo intervenga. Recibo el aviso cuando salió, y desde ahí corrijo o bajo la edición si hace falta.",
+      "El Radar lo arma un sistema de agentes que configuré: cada quince días rastrean las fuentes oficiales de mi stack, eligen lo que importa, redactan la edición en los dos idiomas y la publican solos. Recibo el aviso cuando sale, y desde ahí la corrijo o la bajo si hace falta.",
     origen: "Origen",
     todas: "← Todas las ediciones",
   },
@@ -357,7 +357,7 @@ const EN: Textos = {
     vacio: "The first edition is under review.",
     edicion: "Tech radar · edition",
     comoSeArma:
-      "An automated sweep collects releases and their official links into a document. On the 1st and the 16th a scheduled task consolidates it, writes the edition in both languages, and publishes it with no input from me. I get a notice once it is out, and correct or pull the edition from there if needed.",
+      "The Radar is put together by an agent system I set up: every two weeks the agents sweep the official sources for my stack, pick what matters, write the edition in both languages and publish it on their own. I get a notice when it is out, and from there I correct it or pull it if needed.",
     origen: "Source",
     todas: "← All editions",
   },

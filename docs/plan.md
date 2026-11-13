@@ -20,7 +20,7 @@ El sitio está en línea en https://www.agustinvignau.com.
 | 9 | Diseño: cuatro fases sobre capturas anotadas | completa |
 | 10 | Proyectos en carrusel visual y MerchBot | completa |
 | 10.1 | Imágenes en las fichas y datos de ejemplo en Comprobantes | completa |
-| 10.2 | Visor de capturas en las fichas | lista, esperando OK para el deploy |
+| 10.2 | Visor de capturas en las fichas | completa |
 | 11 | Laboratorio interactivo | idea, sin planificar |
 
 Ninguna fase arrancó sin aprobación explícita.
@@ -446,8 +446,53 @@ demo (zoom desde la captura, cortina editorial, zoom con lupa) y ganó la
   figuras tienen `transform` (por el reveal) y un `position: fixed` adentro
   quedaría atado a ellas.
 
+**Publicada el 11 de noviembre.** Al verificarla en el sitio apareció un
+caso que en las pruebas no se veía. Con la pestaña sin dibujar cuadros, las
+animaciones no terminaban y el visor quedaba esperándolas: no avanzaba ni se
+cerraba con "atrás". Ahora cada animación tiene un tiempo máximo y, pasado
+ese tiempo, se completa sola. Se probó congelando las animaciones a
+propósito. Ya en el sitio, abre en la captura 02, avanza a la 03 con la
+flecha, y "atrás" cierra el visor sin salir de la ficha.
+
 Pendiente, si hace falta: acercar con dos dedos dentro del visor, para las
 capturas con letra chica en celular.
+
+## Fase 12 — Radar y Escritos con agentes · 13 de noviembre
+
+Las dos automatizaciones dejaron de depender de Gemini y de los Google Docs.
+Ahora son dos tareas programadas de Claude, las dos con **Sonnet**, para que
+gasten poco.
+
+**Radar**
+
+- Rastrea solo fuentes oficiales del stack: Claude y Claude Code, OpenAI,
+  Gemini, MCP, LangSmith/LangGraph, CrewAI, Supabase y pgvector, FastAPI,
+  Next.js, Vercel, Tailwind y Power BI. Sin Hugging Face, PyTorch ni medios.
+  Máximo 15 lecturas por edición.
+- Quincenas fijas (1-15 y 16-fin de mes). Si falta más de una, escribe **una
+  edición por quincena**, en orden, sin juntarlas. Un borrador existente de
+  esa quincena se borra y se reescribe.
+- Corre los días 1 y 16 a las 9 (hora de Buenos Aires) y publica. El informe
+  llega por mail.
+- El hueco de 16-31 de octubre y 1-15 de noviembre se cubre en la corrida del
+  16 de noviembre con dos ediciones separadas.
+
+**Escritos (modelo mixto)**
+
+- Domingo 19:41: la tarea lee los commits de la semana en GitHub, elige una
+  historia y le manda a Agustín tres preguntas concretas.
+- Con sus respuestas, en la misma conversación, escribe la nota en su voz y
+  la deja en **borrador**. Nunca expone datos de clientes.
+
+**Stack que sigue el Radar.** Base: Python, SQL (PostgreSQL), TypeScript. IA
+aplicada: APIs de Claude, OpenAI y Gemini, function calling, RAG con
+embeddings y pgvector, evals, guardrails, MCP. Agentes: CrewAI;
+LangChain/LangGraph/LangSmith en formación. Backend: FastAPI, Supabase,
+Docker. Front: Next.js, Tailwind CSS, Vercel. Análisis: Power BI, pandas.
+
+**Bajada del Radar.** Se reescribió para describir lo que hay de verdad: un
+sistema de agentes que rastrea, elige, redacta y publica, con aviso y
+corrección manual después.
 ---
 
 ## Decisiones tomadas

@@ -125,29 +125,29 @@ clave es de solo envío y no puede listar dominios.
 
 ## Las dos automatizaciones
 
-Ninguna de las dos corre en Vercel: son tareas programadas de Cowork, que
-leen Google Drive y escriben en Supabase. No dependen de que haya una
-computadora prendida.
+Ninguna de las dos corre en Vercel: son tareas programadas de Claude (modelo
+Sonnet) que escriben en Supabase. No dependen de que haya una computadora
+prendida.
 
 ### Radar — se publica solo
 
-1. Una tarea de Gemini escribe cada 3 o 4 días en el Google Doc
-   *"Registro de Novedades y Documentación - Radar Tecnológico"*.
-2. Los días **1 y 16 a las 9**, una tarea consolida las entradas del período
-   en una edición, la escribe en los dos idiomas y la **publica**.
+1. Los días **1 y 16 a las 9** (Buenos Aires), la tarea rastrea los
+   changelogs y blogs oficiales del stack (Claude, OpenAI, Gemini, MCP,
+   LangSmith/LangGraph, CrewAI, Supabase, pgvector, FastAPI, Next.js, Vercel,
+   Tailwind, Power BI), con un máximo de 15 lecturas por edición.
+2. Escribe la edición en los dos idiomas y la **publica**.
 3. El informe de la corrida llega por mail. Ese es el único aviso; si algo
    salió mal se corrige o se baja desde `/admin`.
 
-El período se encadena desde el `period_end` de la última edición hasta ayer,
-así no quedan huecos.
+Las ediciones cubren quincenas fijas (1-15 y 16-fin de mes). Si falta más de
+una, se escribe una edición por quincena, sin juntarlas.
 
 ### Escritos — deja borrador
 
-1. **Domingos 20:00** — Gemini Spark entrevista a Agustín sobre la semana y
-   escribe un bloque en el doc *"Bitácora semanal - Escritos"*. El prompt de
-   esa entrevista está en `docs/prompt-escritos.md`.
-2. **Lunes 9:00** — una tarea convierte el bloque en una nota y la deja en
-   **borrador**. El mail trae el texto completo, para decidir sin abrir el panel.
+1. **Domingos 19:41** — la tarea revisa los commits de la semana en GitHub,
+   elige una historia y le manda a Agustín tres preguntas.
+2. Con sus respuestas escribe la nota y la deja en **borrador**. La respuesta
+   final trae el texto completo, para decidir sin abrir el panel.
 
 **Por qué uno publica y el otro no:** el radar es consolidación de novedades
 técnicas, donde un error es un dato mal citado. Un escrito es la voz y la
