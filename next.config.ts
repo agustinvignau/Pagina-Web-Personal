@@ -4,9 +4,7 @@ import type { NextConfig } from "next";
   Cabeceras de seguridad. Van acá y no en Vercel para que viajen con el
   código y valgan también en local.
 
-  No hay Content-Security-Policy a propósito: hacerla bien en Next exige
-  nonces por request, y una CSP a medias rompe la página sin proteger nada.
-  Es una mejora aparte, no un renglón más de esta lista.
+  La Content-Security-Policy se arma más abajo.
 */
 const cabeceras = [
   // El navegador no vuelve a intentar por HTTP nunca más.
@@ -26,6 +24,47 @@ const cabeceras = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=(), payment=()",
   },
+];
+
+/*
+  Content-Security-Policy (auditoría del 13/11, S2, segunda capa).
+
+  Es una política fija, sin nonces. Los nonces obligan a generar cada página
+  en cada visita, y eso tira abajo la caché que hace rápido al sitio. A cambio
+  hay que permitir scripts en línea, que Next usa para hidratar: esta política
+  no frena un script inyectado en la página (de eso se ocupa el filtro de
+  HTML), pero sí lo deja sin salida. No puede cargar código de otro sitio,
+  mandar datos a otro servidor, cambiar la base de los enlaces ni apuntar un
+  formulario afuera.
+
+  Lo único externo permitido es el proyecto de Supabase: las portadas del
+  bucket y las llamadas del panel.
+*/
+const SUPABASE = "https://ettrvdlseiamhyswiznu.supabase.co";
+const csp = [
+  "default-src 'self'",
+  // 'unsafe-eval' solo en desarrollo: lo necesita la recarga en caliente.
+  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
+  "style-src 'self' 'unsafe-inline'",
+  `img-src 'self' data: blob: ${SUPABASE}`,
+  "font-src 'self'",
+  `connect-src 'self' ${SUPABASE}`,
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
+cabeceras.push({ key: "Content-Security-Policy", value: csp });
+
+/*
+  Las imágenes de public/ no cambian de contenido sin cambiar de nombre
+  (comprobantes-2.webp), así que el navegador puede guardarlas un mes en vez
+  de volver a preguntar en cada visita.
+*/
+const cacheImagenes = [
+  { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" },
 ];
 
 const nextConfig: NextConfig = {
@@ -53,7 +92,11 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
-    return [{ source: "/:path*", headers: cabeceras }];
+    return [
+      { source: "/:path*", headers: cabeceras },
+      { source: "/portadas/:archivo*", headers: cacheImagenes },
+      { source: "/proyectos/:carpeta/:archivo(.+\\.webp)", headers: cacheImagenes },
+    ];
   },
 };
 

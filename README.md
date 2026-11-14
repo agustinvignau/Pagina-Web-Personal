@@ -173,8 +173,11 @@ Están en `next.config.ts` y no en la configuración de Vercel, para que valgan
 también en local: HSTS, `nosniff`, `Referrer-Policy`, `X-Frame-Options: DENY`
 y `Permissions-Policy`.
 
-No hay Content-Security-Policy a propósito: hacerla bien en Next exige nonces
-por request, y una CSP a medias rompe la página sin proteger nada.
+Hay Content-Security-Policy, fija y sin nonces: hacerla con nonces obliga a
+generar cada página en cada visita y tira abajo la caché. Permite solo
+recursos del propio dominio y del proyecto de Supabase (portadas y panel). Si
+se suma un servicio externo —un script, una fuente, una API llamada desde el
+navegador— hay que agregarlo en `next.config.ts` o el navegador lo bloquea.
 
 ## Deploy
 

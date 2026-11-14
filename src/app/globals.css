@@ -170,6 +170,33 @@
   transform: none;
 }
 
+/*
+  Lo de la primera pantalla no espera al JavaScript (auditoría del 13/11, V2).
+
+  El resto de la página se revela cuando el script lo ve entrar en pantalla.
+  Para el encabezado eso significaba esperar a que el JavaScript cargara: el
+  título y la bajada, que son lo primero que se lee, tardaban más de dos
+  segundos en un celular. Acá hacen la misma entrada, pero la dispara el CSS
+  apenas se dibuja la página.
+*/
+@keyframes revelar-inicio {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.con-reveal header [data-revelar],
+.con-reveal [data-revelar="inicio"] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+  animation: revelar-inicio 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
 @keyframes cortina-sale {
   from {
     transform: translateY(0);
@@ -197,6 +224,7 @@
     opacity: 1;
     transform: none;
     transition: none;
+    animation: none;
   }
   .cortina {
     animation: none;

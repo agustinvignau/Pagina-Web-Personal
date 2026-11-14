@@ -323,3 +323,35 @@ producción" del inicio sigue pendiente de definir.
 
 **Encontrado de paso:** una nota en inglés enlaza a `/en/escritos/…`, que no
 existe (la ruta es `/en/writing/…`). Hay que corregir el enlace en esa nota.
+
+## 10. Tanda F y cierre de S2 — 14 de noviembre
+
+**S2, segunda capa: Content-Security-Policy.** Fija, sin nonces, para no perder
+la caché de las páginas. Permite solo el propio dominio y el proyecto de
+Supabase. No frena un script en línea (eso lo hace el filtro de HTML), pero lo
+deja sin salida: no puede cargar código ajeno, mandar datos a otro servidor,
+cambiar la base de los enlaces ni apuntar un formulario afuera. Probada en la
+copia local recorriendo inicio, fichas, visor de capturas, gráfico
+interactivo, Radar, Escritos, panel y 404: cero bloqueos.
+
+**V2.** El encabezado de cada página (y el titular y la bajada del inicio)
+hace la misma entrada que antes, pero la dispara el CSS al dibujar la página
+en lugar de esperar al JavaScript. En la copia local, el contenido principal
+del inicio pasó de aparecer a ~1,2 s a ~0,6 s (tiempo observado), y la ficha
+de churn de 2,7 s a 0,8 s (estimado para celular).
+
+**V3.** Las imágenes de `/portadas` y `/proyectos/*/*.webp` se guardan un mes
+en el navegador.
+
+**Enlace roto.** Corregido en la nota de embeddings en inglés.
+
+**S5.** Los dos mails de `admins` se usan. Uno todavía no tiene usuario en
+Supabase: hasta invitarlo, no puede entrar al panel.
+
+**Queda abierto**
+
+- S3: quitar de las tareas programadas los conectores que no usan. Se hace
+  desde la configuración de cada tarea, no desde el código.
+- S8, V4, V5, V6: mantenimiento.
+- O3 y O7: posicionamiento, al final.
+- PageSpeed Insights sobre el dominio real.

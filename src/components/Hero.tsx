@@ -18,7 +18,7 @@ export default function Hero({ lang = "es" }: { lang?: Lang }) {
           bajada → botones → titular: la tesis de la página llegaba después de
           los botones. En celular ya se leía bien; esto lo alinea.
         */}
-        <h1 data-revelar className="order-1 lg:col-span-2 lg:mb-2 xl:col-span-1 xl:col-start-1 xl:row-start-1">
+        <h1 data-revelar="inicio" className="order-1 lg:col-span-2 lg:mb-2 xl:col-span-1 xl:col-start-1 xl:row-start-1">
           <span className="titular block text-[clamp(2.6rem,8.4vw,7rem)] leading-[0.96]">
             {t.hero.linea1}
           </span>
@@ -30,7 +30,7 @@ export default function Hero({ lang = "es" }: { lang?: Lang }) {
           </span>
         </h1>
 
-        <div data-revelar className="order-2 flex flex-col gap-5 xl:col-start-1 xl:row-start-2">
+        <div data-revelar="inicio" className="order-2 flex flex-col gap-5 xl:col-start-1 xl:row-start-2">
           <p className="etiqueta text-oliva-luz">{t.hero.rol}</p>
           <p className="max-w-[46ch] text-base leading-relaxed text-salvia md:text-[1.05rem]">
             {t.hero.bajada}
