@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PaginaProyecto from "@/components/paginas/PaginaProyecto";
 import { getProyecto, getSlugs } from "@/lib/proyectos";
+import { metaPagina } from "@/lib/seo";
 
 export const revalidate = 300;
 
@@ -18,14 +19,13 @@ export async function generateMetadata({
   const proyecto = await getProyecto(slug, "en");
   if (!proyecto) return { title: "Project not found" };
 
-  return {
+  return metaPagina({
+    lang: "en",
+    es: `/proyectos/${slug}`,
+    en: `/en/projects/${slug}`,
     title: proyecto.title,
     description: proyecto.summary,
-    alternates: {
-      canonical: `/en/projects/${slug}`,
-      languages: { "es-AR": `/proyectos/${slug}`, en: `/en/projects/${slug}` },
-    },
-  };
+  });
 }
 
 export default async function Page({

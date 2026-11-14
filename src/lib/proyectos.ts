@@ -50,3 +50,16 @@ export async function getSlugs(): Promise<string[]> {
 
   return (data ?? []).map((p) => p.slug as string);
 }
+
+/** Para el sitemap: cada ficha con la fecha de su último cambio. */
+export async function getFichasSitemap(): Promise<{ slug: string; updated_at: string | null }[]> {
+  const supabase = getSupabase();
+  if (!supabase) return [];
+
+  const { data } = await supabase
+    .from("projects")
+    .select("slug, updated_at")
+    .eq("published", true);
+
+  return (data ?? []) as { slug: string; updated_at: string | null }[];
+}

@@ -39,11 +39,21 @@ const PERSONA = {
   ],
 };
 
+/** El sitio como tal, con sus dos idiomas. */
+const SITIO_WEB = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Agustín Vignau",
+  url: "https://www.agustinvignau.com",
+  inLanguage: ["es-AR", "en"],
+  author: { "@type": "Person", name: "Agustín Vignau", url: "https://www.agustinvignau.com" },
+};
+
 export default function DatosEstructurados() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSONA) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify([PERSONA, SITIO_WEB]) }}
     />
   );
 }

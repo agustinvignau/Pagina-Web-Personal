@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PaginaEscrito from "@/components/paginas/PaginaEscrito";
 import { getEscrito, getEscritos } from "@/lib/escritos";
+import { metaPagina } from "@/lib/seo";
 
 export const revalidate = 300;
 
@@ -18,14 +19,14 @@ export async function generateMetadata({
   const escrito = await getEscrito(slug, "es");
   if (!escrito) return { title: "Escrito no encontrado" };
 
-  return {
+  return metaPagina({
+    lang: "es",
+    es: `/escritos/${slug}`,
+    en: `/en/writing/${slug}`,
     title: escrito.title,
-    description: escrito.excerpt ?? undefined,
-    alternates: {
-      canonical: `/escritos/${slug}`,
-      languages: { "es-AR": `/escritos/${slug}`, en: `/en/writing/${slug}` },
-    },
-  };
+    description: escrito.excerpt,
+    articulo: { publicado: escrito.published_at, modificado: escrito.updated_at },
+  });
 }
 
 export default async function Pagina({

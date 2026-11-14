@@ -4,6 +4,8 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { getEdicion, periodoLegible } from "@/lib/radar";
 import { type Lang, otroIdioma, rutaRadar, textos } from "@/lib/i18n";
+import { htmlSeguro } from "@/lib/html-seguro";
+import { JsonLd, articulo, migas } from "@/lib/seo";
 
 export default async function PaginaEdicion({
   slug,
@@ -19,6 +21,21 @@ export default async function PaginaEdicion({
 
   return (
     <main>
+      <JsonLd
+        datos={[
+          articulo({
+            lang,
+            ruta: rutaRadar(lang, slug),
+            titulo: edicion.title,
+            descripcion: edicion.summary,
+            publicado: edicion.published_at,
+          }),
+          migas(lang, [
+            { nombre: "Radar", ruta: rutaRadar(lang) },
+            { nombre: edicion.title, ruta: rutaRadar(lang, slug) },
+          ]),
+        ]}
+      />
       <header className="bg-tinta text-hueso">
         <Nav lang={lang} alternar={rutaRadar(otroIdioma(lang), slug)} />
         <div className="mx-auto flex max-w-[52rem] flex-col gap-6 px-6 pb-12 pt-12 md:px-12">
@@ -56,7 +73,7 @@ export default async function PaginaEdicion({
         <div
           data-revelar
           className="prosa mx-auto max-w-[52rem]"
-          dangerouslySetInnerHTML={{ __html: edicion.body_html ?? "" }}
+          dangerouslySetInnerHTML={{ __html: htmlSeguro(edicion.body_html) }}
         />
 
         <aside

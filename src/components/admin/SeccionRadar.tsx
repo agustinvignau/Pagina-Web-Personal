@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { getSupabaseNavegador } from "@/lib/supabase-navegador";
+import { htmlSeguro } from "@/lib/html-seguro";
 import { Boton, Estado, Titulo, Vacio } from "./piezas";
 
 type Edicion = {
@@ -140,7 +141,7 @@ export default function SeccionRadar() {
                     {cuerpo ? (
                       <div
                         className="prosa"
-                        dangerouslySetInnerHTML={{ __html: cuerpo }}
+                        dangerouslySetInnerHTML={{ __html: htmlSeguro(cuerpo) }}
                       />
                     ) : (
                       <p className="etiqueta text-apagado">

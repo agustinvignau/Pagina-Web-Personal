@@ -4,6 +4,8 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { fechaLegible, getEscrito, minutosDeLectura } from "@/lib/escritos";
 import { type Lang, otroIdioma, rutaEscrito, textos } from "@/lib/i18n";
+import { htmlSeguro } from "@/lib/html-seguro";
+import { JsonLd, articulo, migas } from "@/lib/seo";
 
 export default async function PaginaEscrito({
   slug,
@@ -19,6 +21,23 @@ export default async function PaginaEscrito({
 
   return (
     <main>
+      <JsonLd
+        datos={[
+          articulo({
+            lang,
+            ruta: rutaEscrito(lang, slug),
+            titulo: escrito.title,
+            descripcion: escrito.excerpt,
+            publicado: escrito.published_at,
+            modificado: escrito.updated_at,
+            etiquetas: escrito.tags,
+          }),
+          migas(lang, [
+            { nombre: lang === "es" ? "Escritos" : "Writing", ruta: rutaEscrito(lang) },
+            { nombre: escrito.title, ruta: rutaEscrito(lang, slug) },
+          ]),
+        ]}
+      />
       <header className="bg-tinta text-hueso">
         <Nav lang={lang} alternar={rutaEscrito(otroIdioma(lang), slug)} />
         <div className="mx-auto flex max-w-[52rem] flex-col gap-6 px-6 pb-12 pt-12 md:px-12">
@@ -53,7 +72,7 @@ export default async function PaginaEscrito({
         <div
           data-revelar
           className="prosa mx-auto max-w-[52rem]"
-          dangerouslySetInnerHTML={{ __html: escrito.body_html ?? "" }}
+          dangerouslySetInnerHTML={{ __html: htmlSeguro(escrito.body_html) }}
         />
 
         <div className="mx-auto mt-10 max-w-[52rem]">

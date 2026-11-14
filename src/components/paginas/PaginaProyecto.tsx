@@ -6,6 +6,7 @@ import PantallaGenesis from "@/components/mockups/PantallaGenesis";
 import PantallaFacturas from "@/components/mockups/PantallaFacturas";
 import Galeria from "@/components/Galeria";
 import { tieneGrafico } from "@/components/carrusel/GraficoLab";
+import { JsonLd, migas } from "@/lib/seo";
 import LabInteractivo from "@/components/lab/LabInteractivo";
 import { getProyecto } from "@/lib/proyectos";
 import { type Lang, otroIdioma, ruta, rutaProyecto, textos } from "@/lib/i18n";
@@ -34,6 +35,7 @@ export default async function PaginaProyecto({
 
   return (
     <main>
+      <JsonLd datos={migas(lang, [{ nombre: proyecto.title, ruta: rutaProyecto(lang, slug) }])} />
       <header className="bg-tinta text-hueso">
         <Nav lang={lang} alternar={rutaProyecto(otroIdioma(lang), slug)} />
         <div className="flex flex-col gap-8 px-6 pb-14 pt-12 md:px-12 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-end lg:gap-x-12">

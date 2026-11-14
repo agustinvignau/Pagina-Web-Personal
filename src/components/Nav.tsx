@@ -49,7 +49,7 @@ export default function Nav({
           <Link
             href={alternar ?? ruta(otro, "/")}
             hrefLang={otro}
-            aria-label={otro === "en" ? "Read in English" : "Leer en español"}
+            aria-label={otro === "en" ? "EN · Read in English" : "ES · Leer en español"}
             className="etiqueta border border-linea-oscura px-2.5 py-2 text-hueso no-underline transition-colors hover:border-oliva-luz hover:text-oliva-luz"
           >
             {otro.toUpperCase()}

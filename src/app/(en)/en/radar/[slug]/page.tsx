@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PaginaEdicion from "@/components/paginas/PaginaEdicion";
 import { getEdicion, getEdiciones } from "@/lib/radar";
+import { metaPagina } from "@/lib/seo";
 
 export const revalidate = 300;
 
@@ -18,14 +19,14 @@ export async function generateMetadata({
   const edicion = await getEdicion(slug, "en");
   if (!edicion) return { title: "Edition not found" };
 
-  return {
+  return metaPagina({
+    lang: "en",
+    es: `/radar/${slug}`,
+    en: `/en/radar/${slug}`,
     title: edicion.title,
-    description: edicion.summary ?? undefined,
-    alternates: {
-      canonical: `/en/radar/${slug}`,
-      languages: { "es-AR": `/radar/${slug}`, en: `/en/radar/${slug}` },
-    },
-  };
+    description: edicion.summary,
+    articulo: { publicado: edicion.published_at },
+  });
 }
 
 export default async function Page({

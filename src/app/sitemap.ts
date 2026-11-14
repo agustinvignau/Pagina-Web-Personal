@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getSlugs } from "@/lib/proyectos";
+import { getFichasSitemap } from "@/lib/proyectos";
 import { getEdiciones } from "@/lib/radar";
 import { getEscritos } from "@/lib/escritos";
 
@@ -20,25 +20,26 @@ function entrada(
   return {
     url: `${SITIO}${url}`,
     alternates: {
-      languages: { "es-AR": `${SITIO}${es}`, en: `${SITIO}${en}` },
+      languages: { "es-AR": `${SITIO}${es}`, en: `${SITIO}${en}`, "x-default": `${SITIO}${es}` },
     },
     ...extra,
   };
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [slugs, ediciones, escritos] = await Promise.all([
-    getSlugs(),
+  const [fichas, ediciones, escritos] = await Promise.all([
+    getFichasSitemap(),
     getEdiciones(),
     getEscritos(),
   ]);
 
-  const proyectos = slugs.flatMap((slug) => {
+  const proyectos = fichas.flatMap(({ slug, updated_at }) => {
     const es = `/proyectos/${slug}`;
     const en = `/en/projects/${slug}`;
+    const lastModified = updated_at ? new Date(updated_at) : undefined;
     return [
-      entrada(es, es, en, { changeFrequency: "monthly", priority: 0.8 }),
-      entrada(en, es, en, { changeFrequency: "monthly", priority: 0.6 }),
+      entrada(es, es, en, { lastModified, changeFrequency: "monthly", priority: 0.8 }),
+      entrada(en, es, en, { lastModified, changeFrequency: "monthly", priority: 0.6 }),
     ];
   });
 

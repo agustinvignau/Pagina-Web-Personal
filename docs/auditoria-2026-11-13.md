@@ -290,3 +290,36 @@ Cada tanda es un deploy separado, con tu OK antes de subir.
 **Lo que esta solución no cierra.** La función se puede llamar con la clave pública sin pasar por el sitio: la base no tiene forma de distinguir al servidor de otro que llame. Quien lo haga queda sujeto a los mismos límites y validaciones, pero puede inventar el dato de origen y gastar el cupo global de 20 mensajes por hora, con lo que el formulario respondería "son varios mensajes" durante esa hora. Ya no puede marcar mensajes como atendidos, mandar textos sin tope ni saltear el filtro de sospechosos. Cerrarlo del todo requiere la clave de servidor; queda anotado por si alguna vez pasa.
 
 **Pendiente de Agustín (S5):** en Supabase → Authentication, confirmar que el registro público está cerrado o que la confirmación de mail está activa, y borrar de `admins` la dirección que no se usa.
+
+## 9. Tandas B (parcial) y D — 14 de noviembre
+
+**S2, primera capa: filtro de HTML.** `src/lib/html-seguro.ts` deja pasar solo
+`h2`, `h3`, `h4`, `p`, `ul`, `ol`, `li`, `code`, `pre`, `strong`, `em`, `b`,
+`i`, `a`, `blockquote`, `br` y `hr`, sin atributos. Los enlaces quedan solo si
+apuntan a `http(s)://`, a una ruta del sitio, a un ancla o a `mailto:`. De
+`script`, `style`, `iframe`, `svg` y parecidas se saca también el contenido.
+Las únicas clases que sobreviven son `fuente` y `porque`, en párrafos, que son
+las que usa el contenido actual. Se aplica en las páginas públicas de Radar y
+Escritos y en la vista previa del panel. Probado con 24 casos de ataque y con
+dos notas reales, que salen iguales.
+
+Queda pendiente la segunda capa, la CSP con nonces.
+
+**O1.** Cada ficha, edición, nota y lista define su propio `openGraph` y
+`twitter` (título, descripción, dirección, idioma y, en notas y ediciones,
+tipo `article` con fecha). Todo sale de `metaPagina()` en `src/lib/seo.tsx`.
+
+**O2.** `BlogPosting` y `BreadcrumbList` en notas y ediciones, `BreadcrumbList`
+en fichas y `WebSite` en el inicio.
+
+**O4.** `x-default` en todas las páginas y en el sitemap.
+
+**O5.** El sitemap lleva la fecha de último cambio de cada ficha.
+
+**O6.** La descripción de `/radar` habla del stack. El "4 sistemas en
+producción" del inicio sigue pendiente de definir.
+
+**O8.** El botón de idioma incluye su texto visible en el nombre accesible.
+
+**Encontrado de paso:** una nota en inglés enlaza a `/en/escritos/…`, que no
+existe (la ruta es `/en/writing/…`). Hay que corregir el enlace en esa nota.
