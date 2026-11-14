@@ -533,6 +533,18 @@ Docker. Front: Next.js, Tailwind CSS, Vercel. Análisis: Power BI, pandas.
 **Bajada del Radar.** Se reescribió para describir lo que hay de verdad: un
 sistema de agentes que rastrea, elige, redacta y publica, con aviso y
 corrección manual después.
+
+**14 de noviembre: el Radar pasa a borrador.** Tras la auditoría
+(`docs/auditoria-2026-11-13.md`, hallazgos S2 y S3) la tarea deja de publicar
+sola: escribe la edición en borrador y Agustín la publica desde el panel. Un
+borrador existente ya no se pisa.
+
+## Fase 13 — Auditoría de seguridad, SEO y velocidad · 13-14 de noviembre
+
+El diagnóstico, las decisiones y el detalle de cada tanda están en
+`docs/auditoria-2026-11-13.md`. La **tanda A** cierra la escritura directa en
+`leads` y `eventos` con funciones en la base, saca la copia del mensaje del
+acuse de recibo, actualiza dependencias y apaga `X-Powered-By`.
 ---
 
 ## Decisiones tomadas

@@ -97,19 +97,22 @@ export async function POST(request: Request) {
   const supabase = getSupabase();
   if (supabase) {
     /*
+      La tabla no acepta inserciones directas: se escribe a través de una
+      función de la base que valida cada campo y pone un tope diario.
+
       El error se escribe en los logs. Es la misma lección que dejó el correo:
       una analítica que deja de registrar en silencio parece una web sin
       visitas, y uno se entera meses después.
     */
-    const { error } = await supabase.from("eventos").insert({
-      tipo,
-      ruta: texto(cuerpo.ruta, 200) || "/",
-      lang: texto(cuerpo.lang, 2) === "en" ? "en" : "es",
-      referido: origen(texto(cuerpo.utm, 40), ua, texto(cuerpo.referido, 300)),
-      pais: request.headers.get("x-vercel-ip-country")?.slice(0, 2) ?? null,
-      dispositivo,
-      detalle: texto(cuerpo.detalle, 200) || null,
-      visitante: await huellaDelDia(ip, ua),
+    const { error } = await supabase.rpc("evento_registrar", {
+      p_tipo: tipo,
+      p_ruta: texto(cuerpo.ruta, 200) || "/",
+      p_lang: texto(cuerpo.lang, 2) === "en" ? "en" : "es",
+      p_referido: origen(texto(cuerpo.utm, 40), ua, texto(cuerpo.referido, 300)),
+      p_pais: request.headers.get("x-vercel-ip-country")?.slice(0, 2) ?? null,
+      p_dispositivo: dispositivo,
+      p_detalle: texto(cuerpo.detalle, 200) || null,
+      p_visitante: await huellaDelDia(ip, ua),
     });
     if (error) console.error(`[evento] No se pudo registrar: ${error.message}`);
   }

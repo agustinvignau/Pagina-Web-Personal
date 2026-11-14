@@ -33,18 +33,6 @@ async function hashear(valor: string) {
 }
 
 /**
- * Señales de mensaje sospechoso. Deliberadamente pocas y conservadoras: un
- * falso positivo acá es una consulta real que no recibe respuesta, que es
- * peor que dejar pasar un spam. Nada se descarta: se marca.
- */
-function revisar(name: string, message: string) {
-  const enlaces = (message.match(/https?:\/\//gi) ?? []).length;
-  if (/https?:\/\//i.test(name)) return "enlace en el nombre";
-  if (enlaces >= 3) return `${enlaces} enlaces en el mensaje`;
-  return null;
-}
-
-/**
  * El único lugar que habla con Resend. Nunca tira: un mail que no sale es un
  * aviso perdido, no una operación fallida. El lead ya está guardado antes de
  * que esto corra.
@@ -118,22 +106,48 @@ export async function POST(request: Request) {
   const ipHash = await hashear(ipDelPedido(request));
 
   /*
-    1. Límite de envíos. La cuenta la hace la base con una función propia,
-       porque la clave pública no puede leer `leads` — y está bien que no
-       pueda. La función devuelve un permiso, no datos.
+    1 y 2. Validar, limitar y guardar, en un solo paso y en la base.
+
+       La clave pública no puede leer ni escribir `leads`: lo único que puede
+       hacer es llamar a esta función, que revisa los largos, aplica el
+       límite de envíos, decide si el mensaje es sospechoso y recién ahí
+       guarda. Así lo que vale es lo que decide la base, también para quien
+       la llame salteando este servidor.
 
        El límite por dirección de destino es el que importa: sin él, el acuse
        de recibo convierte este formulario en una máquina de mandarle mails a
        un tercero desde tu dominio.
   */
+  let sospecha: string | null = null;
+
   if (supabase) {
-    const { data: permiso } = await supabase.rpc("contacto_puede_enviar", {
-      p_ip_hash: ipHash,
+    const { data, error } = await supabase.rpc("contacto_registrar", {
+      p_name: name,
       p_email: email,
+      p_company: company,
+      p_message: message,
+      p_source: en ? "web-en" : "web",
+      p_ip_hash: ipHash,
     });
 
-    const veredicto = permiso as { permitido: boolean; motivo: string } | null;
-    if (veredicto && !veredicto.permitido) {
+    const veredicto = data as { ok: boolean; motivo: string | null; sospecha?: string | null } | null;
+
+    // Si esto falla, el mensaje se pierde: es lo que avisamos.
+    if (error || !veredicto) {
+      console.error(`[contacto] No se pudo registrar: ${error?.message ?? "sin respuesta"}`);
+      return NextResponse.json(
+        { error: "No se pudo registrar el mensaje. Escribime por mail." },
+        { status: 500 },
+      );
+    }
+
+    if (!veredicto.ok) {
+      if (veredicto.motivo === "invalido") {
+        return NextResponse.json(
+          { error: "Faltan el nombre, el mail o el mensaje." },
+          { status: 400 },
+        );
+      }
       console.warn(`[contacto] Envío frenado por límite (${veredicto.motivo}).`);
       return NextResponse.json(
         {
@@ -144,28 +158,8 @@ export async function POST(request: Request) {
         { status: 429 },
       );
     }
-  }
 
-  // 2. Guardar el lead. Si esto falla, el mensaje se pierde: es lo que avisamos.
-  const sospecha = revisar(name, message);
-
-  if (supabase) {
-    const { error } = await supabase.from("leads").insert({
-      name,
-      email,
-      company: company || null,
-      message,
-      source: en ? "web-en" : "web",
-      ip_hash: ipHash,
-      flagged: Boolean(sospecha),
-      flag_reason: sospecha,
-    });
-    if (error) {
-      return NextResponse.json(
-        { error: "No se pudo registrar el mensaje. Escribime por mail." },
-        { status: 500 },
-      );
-    }
+    sospecha = veredicto.sospecha ?? null;
   }
 
   /*
@@ -176,6 +170,11 @@ export async function POST(request: Request) {
        suele traer la dirección de otro, y contestarle es justamente el abuso
        que hay que evitar. Si fue un falso positivo, la persona recibe
        respuesta cuando Agustín le contesta a mano.
+
+       El acuse no lleva el nombre ni copia del mensaje: va a una dirección
+       que escribió quien llenó el formulario, y con texto ajeno adentro
+       serviría para mandarle a un tercero lo que uno quiera desde este
+       dominio (auditoría del 13/11, S6).
 
        Si todavía no hay clave configurada, el lead igual quedó guardado, así
        que la respuesta sigue siendo un éxito.
@@ -202,8 +201,8 @@ export async function POST(request: Request) {
           reply_to: DESTINO,
           subject: en ? "I got your message" : "Recibí tu mensaje",
           text: en
-            ? `Hi ${name},\n\nYour message reached me. I reply within 48 hours — this is just the confirmation, written automatically.\n\nA copy of what you sent:\n\n${message}\n\n—\nAgustín Vignau\n${SITIO}`
-            : `Hola ${name}:\n\nTu mensaje llegó. Te respondo dentro de las próximas 48 horas — esto es sólo la confirmación, escrita automáticamente.\n\nTe dejo una copia de lo que mandaste:\n\n${message}\n\n—\nAgustín Vignau\n${SITIO}`,
+            ? `Hi,\n\nYour message reached me. I reply within 48 hours — this is just the confirmation, written automatically.\n\nIf you did not write to me, there is nothing you need to do.\n\n—\nAgustín Vignau\n${SITIO}`
+            : `Hola:\n\nTu mensaje llegó. Te respondo dentro de las próximas 48 horas — esto es sólo la confirmación, escrita automáticamente.\n\nSi no escribiste vos, no hace falta que hagas nada.\n\n—\nAgustín Vignau\n${SITIO}`,
         }),
       );
     }

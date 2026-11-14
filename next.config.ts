@@ -30,6 +30,8 @@ const cabeceras = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // No hace falta anunciar con qué está hecho el sitio.
+  poweredByHeader: false,
   // Las portadas de los proyectos viven en el bucket público de Supabase.
   // Next las achica y las pasa a WebP o AVIF según el ancho de la tarjeta.
   images: {
