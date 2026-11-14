@@ -228,11 +228,11 @@ const ES: Textos = {
     titulo1: "Qué se movió",
     titulo2: "estas dos semanas",
     bajada:
-      "Sigo los cambios del stack con el que trabajo: modelos y APIs de IA, agentes, MCP, bases de datos y despliegue. Un sistema de agentes los rastrea en las fuentes oficiales y cada quince días publica la edición. Está automatizado de punta a punta: es el mismo tipo de sistema que construyo para otros.",
+      "Sigo los cambios del stack con el que trabajo: modelos y APIs de IA, agentes, MCP, bases de datos y despliegue. Un sistema de agentes los rastrea en las fuentes oficiales y cada quince días arma la edición, que reviso y publico. El rastreo y la redacción están automatizados: es el mismo tipo de sistema que construyo para otros.",
     vacio: "La primera edición está en revisión.",
     edicion: "Radar tecnológico · edición",
     comoSeArma:
-      "El Radar lo arma un sistema de agentes que configuré: cada quince días rastrean las fuentes oficiales de mi stack, eligen lo que importa, redactan la edición en los dos idiomas y la publican solos. Recibo el aviso cuando sale, y desde ahí la corrijo o la bajo si hace falta.",
+      "El Radar lo arma un sistema de agentes que configuré: cada quince días rastrean las fuentes oficiales de mi stack, eligen lo que importa, redactan la edición en los dos idiomas y la dejan lista. La leo, la corrijo si hace falta y la publico.",
     origen: "Origen",
     todas: "← Todas las ediciones",
   },
@@ -353,11 +353,11 @@ const EN: Textos = {
     titulo1: "What moved",
     titulo2: "these two weeks",
     bajada:
-      "I follow changes across the stack I work with: AI models and APIs, agents, MCP, databases and deployment. An agent system sweeps the official sources and publishes the edition every two weeks. It runs end to end on its own: the same kind of system I build for other people.",
+      "I follow changes across the stack I work with: AI models and APIs, agents, MCP, databases and deployment. An agent system sweeps the official sources and drafts the edition every two weeks, and I review and publish it. The sweep and the writing are automated: the same kind of system I build for other people.",
     vacio: "The first edition is under review.",
     edicion: "Tech radar · edition",
     comoSeArma:
-      "The Radar is put together by an agent system I set up: every two weeks the agents sweep the official sources for my stack, pick what matters, write the edition in both languages and publish it on their own. I get a notice when it is out, and from there I correct it or pull it if needed.",
+      "The Radar is put together by an agent system I set up: every two weeks the agents sweep the official sources for my stack, pick what matters, write the edition in both languages and leave it ready. I read it, correct it if needed and publish it.",
     origen: "Source",
     todas: "← All editions",
   },

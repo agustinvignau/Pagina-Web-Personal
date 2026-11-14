@@ -5,9 +5,9 @@
 Sitio personal en Next.js. Reemplaza la versión estática en HTML.
 
 Además del portfolio en sí, el sitio tiene dos secciones que se alimentan
-solas: el **Radar**, que se publica cada quince días sin intervención, y
-**Escritos**, que deja un borrador semanal listo para aprobar. Cómo funcionan
-está más abajo.
+solas: el **Radar**, que deja un borrador cada quince días, y **Escritos**,
+que deja un borrador semanal. Los dos se publican a mano desde el panel. Cómo
+funcionan está más abajo.
 
 - **Framework:** Next.js 15 (App Router) + TypeScript
 - **Estilos:** Tailwind v4, con la paleta y la tipografía del sistema de diseño
@@ -129,18 +129,19 @@ Ninguna de las dos corre en Vercel: son tareas programadas de Claude (modelo
 Sonnet) que escriben en Supabase. No dependen de que haya una computadora
 prendida.
 
-### Radar — se publica solo
+### Radar — deja borrador
 
 1. Los días **1 y 16 a las 9** (Buenos Aires), la tarea rastrea los
    changelogs y blogs oficiales del stack (Claude, OpenAI, Gemini, MCP,
    LangSmith/LangGraph, CrewAI, Supabase, pgvector, FastAPI, Next.js, Vercel,
    Tailwind, Power BI), con un máximo de 15 lecturas por edición.
-2. Escribe la edición en los dos idiomas y la **publica**.
-3. El informe de la corrida llega por mail. Ese es el único aviso; si algo
-   salió mal se corrige o se baja desde `/admin`.
+2. Escribe la edición en los dos idiomas y la deja en **borrador**.
+3. El informe llega por mail con título, resumen y datos. La edición se
+   publica desde `/admin`, solapa Radar.
 
 Las ediciones cubren quincenas fijas (1-15 y 16-fin de mes). Si falta más de
-una, se escribe una edición por quincena, sin juntarlas.
+una, se escribe una edición por quincena, sin juntarlas. Un borrador que ya
+existe no se pisa.
 
 ### Escritos — deja borrador
 
@@ -149,10 +150,10 @@ una, se escribe una edición por quincena, sin juntarlas.
 2. Con sus respuestas escribe la nota y la deja en **borrador**. La respuesta
    final trae el texto completo, para decidir sin abrir el panel.
 
-**Por qué uno publica y el otro no:** el radar es consolidación de novedades
-técnicas, donde un error es un dato mal citado. Un escrito es la voz y la
-opinión de Agustín; un párrafo torpe firmado por él hace más daño. La tarea
-tampoco escribe si la semana no dio para nota.
+**Por qué ninguno publica solo:** un escrito es la voz y la opinión de
+Agustín. El Radar lo redacta un agente que lee páginas de terceros, y lo que
+escribe se muestra como HTML en el sitio: hasta que ese HTML se filtre al
+mostrarlo, pasa por una lectura antes de salir (auditoría del 13/11, S2 y S3).
 
 ## Infraestructura
 
