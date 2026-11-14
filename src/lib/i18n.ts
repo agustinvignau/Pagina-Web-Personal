@@ -138,7 +138,7 @@ const ES: Textos = {
     verProduccion: "Ver producción",
     descargarCV: "Descargar CV",
     scroll: "Scroll",
-    pie: ["4 sistemas en producción", "5 estudios", "896 SKUs bajo gestión"],
+    pie: ["3 módulos en producción", "5 estudios", "896 SKUs bajo gestión"],
   },
   produccion: {
     eyebrow: "01 — Producción",
@@ -263,7 +263,7 @@ const EN: Textos = {
     verProduccion: "See production",
     descargarCV: "Download CV",
     scroll: "Scroll",
-    pie: ["4 systems in production", "5 studies", "896 SKUs under management"],
+    pie: ["3 modules in production", "5 studies", "896 SKUs under management"],
   },
   produccion: {
     eyebrow: "01 — Production",
