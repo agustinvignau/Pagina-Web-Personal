@@ -1,8 +1,8 @@
 """Resume los datos de los cinco estudios del Laboratorio para las portadas.
 
 Lee los CSV procesados de cada repo y escribe src/lib/laboratorio-datos.ts.
-Las portadas son SVG dibujados con estos datos; en la fase 11 los controles
-interactivos van a trabajar sobre lo mismo.
+Las portadas son SVG dibujados con estos datos, y los controles del
+Laboratorio interactivo (fase 11) calculan sobre lo mismo.
 
 Uso, con los cinco repos clonados uno al lado del otro:
 
@@ -34,6 +34,9 @@ def forecast(base: Path) -> dict:
     t = test[test.sku_id == sku].sort_values("semana")
     p = pred[pred.sku_id == sku].sort_values("semana")
     mape = res[(res.sku_id == sku) & (res.modelo == "LightGBM (global)")].MAPE.iloc[0]
+    # La política de inventario del estudio (notebook 04): error del modelo,
+    # demanda esperada, lead time y el nivel de servicio que eligió por costo.
+    pol = pd.read_csv(d / "politica_inventario.csv").set_index("sku_id").loc[sku]
     return {
         "producto": h.sku_nombre.iloc[0],
         "modelo": "LightGBM",
@@ -43,6 +46,10 @@ def forecast(base: Path) -> dict:
         "inicio": h.semana.iloc[0].strftime("%Y-%m-%d"),
         "corte": t.semana.iloc[0].strftime("%Y-%m-%d"),
         "mape": round(float(mape), 1),
+        "sigma": round(float(pol.sigma_error), 2),
+        "demanda": round(float(pol.demanda_semanal_esperada), 2),
+        "leadTime": int(pol.lead_time_semanas),
+        "servicioOptimo": round(float(pol.nivel_servicio_optimo), 1),
     }
 
 
@@ -120,8 +127,8 @@ def main() -> None:
         "// repo (data/processed/), resumidos por scripts/datos_laboratorio.py. No se\n"
         "// editan a mano: si cambia un estudio, se vuelve a correr el script.\n"
         "//\n"
-        "// Son los mismos datos sintéticos de los estudios. En la fase 11 los\n"
-        "// controles interactivos van a trabajar sobre esto.\n"
+        "// Son los mismos datos sintéticos de los estudios. Los controles del\n"
+        "// Laboratorio interactivo calculan sobre esto.\n"
     )
     cuerpo = json.dumps(datos, ensure_ascii=False, separators=(",", ":"))
     SALIDA.write_text(f"{cabecera}export const LAB = {cuerpo} as const;\n", encoding="utf-8")

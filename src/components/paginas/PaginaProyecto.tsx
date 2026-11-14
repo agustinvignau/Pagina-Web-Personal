@@ -5,7 +5,8 @@ import Footer from "@/components/Footer";
 import PantallaGenesis from "@/components/mockups/PantallaGenesis";
 import PantallaFacturas from "@/components/mockups/PantallaFacturas";
 import Galeria from "@/components/Galeria";
-import { graficoLab } from "@/components/carrusel/GraficoLab";
+import { tieneGrafico } from "@/components/carrusel/GraficoLab";
+import LabInteractivo from "@/components/lab/LabInteractivo";
 import { getProyecto } from "@/lib/proyectos";
 import { type Lang, otroIdioma, ruta, rutaProyecto, textos } from "@/lib/i18n";
 
@@ -28,7 +29,7 @@ export default async function PaginaProyecto({
   const Pantalla = PANTALLAS[slug] as (typeof PANTALLAS)[string] | undefined;
   const esProduccion = proyecto.kind === "produccion";
   const repo = proyecto.links?.repo;
-  const grafico = Pantalla ? null : graficoLab(slug, lang);
+  const grafico = !Pantalla && tieneGrafico(slug);
   const capturas = proyecto.gallery ?? [];
 
   return (
@@ -82,7 +83,9 @@ export default async function PaginaProyecto({
           {Pantalla ? (
             <Pantalla lang={lang} />
           ) : grafico ? (
-            <div className="mx-auto max-w-5xl overflow-hidden border border-linea-oscura bg-tinta">{grafico}</div>
+            <div className="mx-auto max-w-5xl overflow-hidden border border-linea-oscura bg-tinta">
+              <LabInteractivo slug={slug} lang={lang} />
+            </div>
           ) : (
             <Galeria capturas={capturas} lang={lang} />
           )}

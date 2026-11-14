@@ -228,7 +228,7 @@ const ES: Textos = {
     titulo1: "Qué se movió",
     titulo2: "estas dos semanas",
     bajada:
-      "Sigo los lanzamientos y cambios de IA, agentes, machine learning e infraestructura. Un rastreo automático los junta y cada quince días un agente los consolida y publica la edición. Está automatizado de punta a punta: es el mismo tipo de sistema que construyo para otros.",
+      "Sigo los cambios del stack con el que trabajo: modelos y APIs de IA, agentes, MCP, bases de datos y despliegue. Un sistema de agentes los rastrea en las fuentes oficiales y cada quince días publica la edición. Está automatizado de punta a punta: es el mismo tipo de sistema que construyo para otros.",
     vacio: "La primera edición está en revisión.",
     edicion: "Radar tecnológico · edición",
     comoSeArma:
@@ -353,7 +353,7 @@ const EN: Textos = {
     titulo1: "What moved",
     titulo2: "these two weeks",
     bajada:
-      "I follow releases and changes across AI, agents, machine learning, and infrastructure. An automated sweep collects them, and every two weeks an agent consolidates and publishes the edition. It runs end to end on its own: the same kind of system I build for other people.",
+      "I follow changes across the stack I work with: AI models and APIs, agents, MCP, databases and deployment. An agent system sweeps the official sources and publishes the edition every two weeks. It runs end to end on its own: the same kind of system I build for other people.",
     vacio: "The first edition is under review.",
     edicion: "Tech radar · edition",
     comoSeArma:

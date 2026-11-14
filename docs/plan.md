@@ -457,6 +457,46 @@ flecha, y "atrás" cierra el visor sin salir de la ficha.
 Pendiente, si hace falta: acercar con dos dedos dentro del visor, para las
 capturas con letra chica en celular.
 
+## Fase 11 — Laboratorio interactivo · 13 de noviembre
+
+En la ficha de cada estudio del Laboratorio, el gráfico ahora tiene un
+control y debajo tres cifras y una línea que explica lo que se ve. Se eligió
+en una demo entre dos estilos (deslizador abajo o arrastrar en el gráfico) y
+ganó **arrastrar en el gráfico**.
+
+| Estudio | Control | Qué muestra |
+|---|---|---|
+| Churn | Se arrastra la línea del umbral (0,10 a 0,90) | Clientes a contactar, precisión y recall |
+| Forecast | Regla de nivel de servicio (80 % a 99,5 %) | Stock de seguridad como banda sobre el pronóstico, punto de reorden y semanas de prueba con quiebre. Misma fórmula del notebook 04: z × σ × √lead time, con σ = 57,46 y el 97,8 % que eligió el estudio marcado en la regla |
+| A/B | Regla de días (10 a 120) | Medias e intervalos con los primeros n días y si la diferencia ya se sostiene; el día 45 queda marcado |
+| Anomalías | Filtro en la leyenda: todas, errores, falsas alarmas | 86 marcadas, 57 errores reales, 29 falsas alarmas |
+| Segmentos | Se toca un segmento en la leyenda | Clientes, días sin comprar y pedidos promedio del segmento |
+
+**Cómo está armado**
+
+- `GraficoLab.tsx` sigue sin `"use client"`. Cada gráfico acepta el valor del
+  control como prop opcional: sin él dibuja la portada quieta (carrusel, en el
+  servidor, sin mandar datos al navegador); con él dibuja la versión
+  interactiva.
+- `lib/laboratorio-calculos.ts` tiene las cuentas como funciones puras. El
+  dibujo y las cifras salen de las mismas funciones, así no se contradicen.
+- `components/lab/LabInteractivo.tsx` es el único componente de cliente:
+  guarda el valor, maneja el arrastre y el teclado, y arma el panel.
+- En celular el gráfico deja pasar el scroll vertical (`touch-action: pan-y`)
+  y el dedo toma el control solo cuando se mueve de costado o toca sin
+  moverse. La leyenda del gráfico queda chica para el dedo, así que en
+  anomalías y segmentos se repite como botones grandes debajo.
+- Teclado: el gráfico es un `slider` con flechas (Shift ×10), Inicio y Fin.
+  El panel anuncia los cambios con `aria-live`. Sin JavaScript se ve el
+  estado inicial con sus cifras.
+- Se descartó mover la cantidad de grupos en segmentos: el estudio usa más
+  variables que las dos del gráfico y recalcular en el navegador daría grupos
+  distintos. En anomalías no hay umbral porque el gráfico usa una muestra de
+  500 órdenes normales y cualquier conteo de falsas alarmas sería inventado.
+
+Con esta fase también cambió la introducción del Radar: ahora habla del stack
+que sigue y del sistema de agentes, sin machine learning en general.
+
 ## Fase 12 — Radar y Escritos con agentes · 13 de noviembre
 
 Las dos automatizaciones dejaron de depender de Gemini y de los Google Docs.
