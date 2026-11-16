@@ -20,7 +20,7 @@ export default async function PaginaEscritos({ lang }: { lang: Lang }) {
             <h1 data-revelar>
               <span className="titular block text-[clamp(2.2rem,6.5vw,4.75rem)]">
                 {t.titulo1}
-              </span>
+              </span>{" "}
               <span className="titular contorno-claro block text-[clamp(2.2rem,6.5vw,4.75rem)]">
                 {t.titulo2}
               </span>

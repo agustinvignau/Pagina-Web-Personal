@@ -50,7 +50,7 @@ export default function Contacto({ lang = "es" }: { lang?: Lang }) {
           <h2>
             <span className="titular block text-[clamp(2.2rem,6vw,4.5rem)]">
               {t.titulo1}
-            </span>
+            </span>{" "}
             <span className="titular contorno-oscuro block text-[clamp(2.2rem,6vw,4.5rem)]">
               {t.titulo2}
             </span>

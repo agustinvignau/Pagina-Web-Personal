@@ -14,7 +14,7 @@ export default function Metodo({ lang = "es" }: { lang?: Lang }) {
       <div data-revelar className="flex flex-col gap-4">
         <p className="rotulo text-oliva-luz">{t.eyebrow}</p>
         <h2>
-          <span className="titular block text-[clamp(2.2rem,6vw,4.75rem)]">{t.titulo1}</span>
+          <span className="titular block text-[clamp(2.2rem,6vw,4.75rem)]">{t.titulo1}</span>{" "}
           <span className="titular contorno-claro block text-[clamp(2.2rem,6vw,4.75rem)]">{t.titulo2}</span>
         </h2>
       </div>

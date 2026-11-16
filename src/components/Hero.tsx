@@ -24,9 +24,9 @@ export default function Hero({ lang = "es" }: { lang?: Lang }) {
             chico que el del titular anterior (tres palabras sueltas): acá el
             renglón más largo tiene que entrar entero en un celular.
           */}
-          <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)]">{t.hero.linea1}</span>
-          <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)] contorno-claro">{t.hero.linea2}</span>
-          <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)]">{t.hero.linea3}</span>
+          <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)]">{t.hero.linea1}</span>{" "}
+          <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)] contorno-claro">{t.hero.linea2}</span>{" "}
+          <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)]">{t.hero.linea3}</span>{" "}
           <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)] text-oliva-luz">{t.hero.linea4}</span>
         </h1>
 

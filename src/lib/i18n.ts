@@ -186,17 +186,17 @@ const ES: Textos = {
       {
         titulo: "Analizo",
         texto:
-          "Relevo cómo se trabaja hoy y qué número va a decir si el proyecto sirvió. Si no hay datos del antes, se empiezan a anotar.",
+          "Me siento con quien hace el trabajo todos los días y relevo cómo se hace hoy. Definimos qué número va a decir si el proyecto sirvió; si no hay datos del antes, se empiezan a anotar.",
       },
       {
         titulo: "Diseño",
         texto:
-          "Plan con alcance cerrado y un prototipo que el dueño prueba antes de que se construya nada grande.",
+          "Plan con alcance cerrado, acordado por escrito, y un prototipo que el dueño prueba antes de que se construya nada grande.",
       },
       {
         titulo: "Resuelvo",
         texto:
-          "El sistema queda funcionando, por fases, y se vuelve a medir contra el número del principio.",
+          "El sistema queda funcionando, por fases, y se vuelve a medir contra el número del principio. Queda documentado y con el mantenimiento acordado.",
       },
     ],
   },
@@ -355,17 +355,17 @@ const EN: Textos = {
       {
         titulo: "Analyse",
         texto:
-          "I map how the work is done today and which number will tell whether the project worked. If there is no data on the before, we start writing it down.",
+          "I sit down with the people who do the work every day and map how it is done today. We agree on the number that will tell whether the project worked; if there is no data on the before, we start writing it down.",
       },
       {
         titulo: "Design",
         texto:
-          "A plan with a closed scope and a prototype the owner tries before anything big gets built.",
+          "A plan with a closed scope, agreed in writing, and a prototype the owner tries before anything big gets built.",
       },
       {
         titulo: "Solve",
         texto:
-          "The system ends up running, in phases, and we measure again against the number from the start.",
+          "The system ends up running, in phases, and we measure again against the number from the start. It is left documented, with maintenance agreed.",
       },
     ],
   },

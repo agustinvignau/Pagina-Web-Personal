@@ -21,7 +21,7 @@ export default async function Laboratorio({ lang = "es" }: { lang?: Lang }) {
             <h2>
               <span className="titular block text-[clamp(2.2rem,6vw,4.75rem)]">
                 {t.laboratorio.titulo1}
-              </span>
+              </span>{" "}
               <span className="titular contorno-claro block text-[clamp(2.2rem,6vw,4.75rem)]">
                 {t.laboratorio.titulo2}
               </span>
