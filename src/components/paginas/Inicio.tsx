@@ -1,4 +1,6 @@
 import Hero from "@/components/Hero";
+import Puertas from "@/components/Puertas";
+import Metodo from "@/components/Metodo";
 import Produccion from "@/components/Produccion";
 import Laboratorio from "@/components/Laboratorio";
 import Perfil from "@/components/Perfil";
@@ -12,6 +14,8 @@ export default function Inicio({ lang }: { lang: Lang }) {
     <main>
       <DatosEstructurados />
       <Hero lang={lang} />
+      <Puertas lang={lang} />
+      <Metodo lang={lang} />
       <Produccion lang={lang} />
       <Laboratorio lang={lang} />
       <Perfil lang={lang} />

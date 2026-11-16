@@ -545,6 +545,30 @@ El diagnóstico, las decisiones y el detalle de cada tanda están en
 `docs/auditoria-2026-11-13.md`. La **tanda A** cierra la escritura directa en
 `leads` y `eventos` con funciones en la base, saca la copia del mensaje del
 acuse de recibo, actualiza dependencias y apaga `X-Powered-By`.
+
+## Fase 14 — Posicionamiento: qué ofrezco y a quién · 15 de noviembre
+
+Hasta acá la portada decía "Analizo, diseño y resuelvo": cómo trabaja
+Agustín, no qué recibe quien lo contrata ni a quién le habla. Los proyectos
+reales repiten un patrón —un negocio sin datos, un sistema que lo ordena y
+los genera, y después el análisis o la IA sobre esos datos— y eso pasó a ser
+la oferta.
+
+- **Titular:** "Armo el sistema que ordena tu negocio y lo convierte en datos
+  para decidir", en cuatro renglones. La bajada cuenta el recorrido completo.
+- **Dos puertas** (`Puertas.tsx`), en una banda clara debajo de la portada:
+  *Para negocios* lleva al formulario; *Para equipos*, al Laboratorio. Se
+  eligió en una demo entre ponerlas en la portada o en banda aparte.
+- **"Analizo, diseño y resuelvo" queda como nombre del método**
+  (`Metodo.tsx`), con cada verbo explicado: relevar y definir el número que
+  mide el éxito, plan y prototipo, sistema funcionando y nueva medición.
+- **Título y descripción del sitio** y la imagen para compartir del inicio
+  acompañan el cambio.
+- El sitio habla solo de Agustín. Renovatio va aparte.
+
+Pendiente, a decisión de Agustín: actualizar los textos que presentan a
+Genesis como sistema en uso.
+
 ---
 
 ## Decisiones tomadas

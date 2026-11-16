@@ -5,12 +5,12 @@ import Analitica from "@/components/Analitica";
 import { archivo, martianMono, ANTES_DE_PINTAR, SITIO, capasDeMovimiento } from "@/lib/documento";
 
 const DESCRIPCION =
-  "Sistemas de datos y automatización para PyMEs: inventario, carga automática de comprobantes y reportes sobre los que se decide.";
+  "Armo el sistema que ordena tu negocio y lo convierte en datos para decidir. Ciencia de datos, sistemas a medida e IA aplicada para negocios, desde Buenos Aires.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITIO),
   title: {
-    default: "Agustín Vignau — Analizo, diseño y resuelvo",
+    default: "Agustín Vignau — Sistemas y datos para decidir",
     template: "%s — Agustín Vignau",
   },
   description: DESCRIPCION,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     locale: "es_AR",
     url: SITIO,
     siteName: "Agustín Vignau",
-    title: "Agustín Vignau — Analizo, diseño y resuelvo",
+    title: "Agustín Vignau — Sistemas y datos para decidir",
     description: DESCRIPCION,
   },
   icons: {

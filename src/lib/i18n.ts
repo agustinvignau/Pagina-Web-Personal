@@ -33,6 +33,8 @@ export function otroIdioma(lang: Lang): Lang {
   return lang === "es" ? "en" : "es";
 }
 
+type Puerta = { rotulo: string; titulo: string; texto: string; pasos: string[]; ir: string };
+
 type Textos = {
   nav: { produccion: string; laboratorio: string; perfil: string; radar: string; escritos: string; contacto: string };
   ciudad: string;
@@ -41,11 +43,25 @@ type Textos = {
     linea1: string;
     linea2: string;
     linea3: string;
+    linea4: string;
     bajada: string;
     verProduccion: string;
     descargarCV: string;
     scroll: string;
     pie: string[];
+  };
+  puertas: {
+    eyebrow: string;
+    titulo1: string;
+    titulo2: string;
+    negocios: Puerta;
+    equipos: Puerta;
+  };
+  metodo: {
+    eyebrow: string;
+    titulo1: string;
+    titulo2: string;
+    pasos: { titulo: string; texto: string }[];
   };
   produccion: {
     eyebrow: string;
@@ -130,15 +146,59 @@ const ES: Textos = {
   ciudad: "Buenos Aires",
   hero: {
     rol: "Técnico Superior en Ciencia de Datos e IA",
-    linea1: "Analizo,",
-    linea2: "Diseño",
-    linea3: "Y resuelvo.",
+    linea1: "Armo el sistema",
+    linea2: "que ordena tu negocio",
+    linea3: "y lo convierte en datos",
+    linea4: "para decidir.",
     bajada:
-      "Diseño sistemas que sacan a las PyMEs de la planilla: inventario, carga automática de comprobantes y reportes sobre los que se decide. Entiendo el problema, armo el proyecto y lo dejo funcionando.",
+      "Trabajo con negocios que todavía llevan todo en planillas, en chats o en la cabeza. Relevo cómo funcionan, construyo el sistema con el que operan y, con los datos que ese sistema empieza a dejar, armo los reportes y la IA que ayudan a decidir.",
     verProduccion: "Ver producción",
     descargarCV: "Descargar CV",
     scroll: "Scroll",
     pie: ["3 módulos en producción", "5 estudios", "896 SKUs bajo gestión"],
+  },
+  puertas: {
+    eyebrow: "00 — Por dónde entrar",
+    titulo1: "¿Qué estás",
+    titulo2: "buscando?",
+    negocios: {
+      rotulo: "Para negocios",
+      titulo: "Tu negocio funciona, pero los números no están en ningún lado",
+      texto:
+        "Empiezo por entender cómo trabajás hoy. Armo un piloto chico, medimos el antes y el después, y recién ahí crece.",
+      pasos: ["Relevamiento", "Piloto medido", "Sistema funcionando"],
+      ir: "Contame tu caso",
+    },
+    equipos: {
+      rotulo: "Para equipos",
+      titulo: "Buscás a alguien de datos o de IA aplicada",
+      texto:
+        "Cinco estudios con el método a la vista, el CV y el código en GitHub. Disponible para sumarme a un equipo.",
+      pasos: ["Python · SQL", "Power BI", "Agentes con LLM"],
+      ir: "Ver estudios y CV",
+    },
+  },
+  metodo: {
+    eyebrow: "Mi método",
+    titulo1: "Analizo, diseño",
+    titulo2: "y resuelvo.",
+    pasos: [
+      {
+        titulo: "Analizo",
+        texto:
+          "Relevo cómo se trabaja hoy y qué número va a decir si el proyecto sirvió. Si no hay datos del antes, se empiezan a anotar.",
+      },
+      {
+        titulo: "Diseño",
+        texto:
+          "Plan con alcance cerrado y un prototipo que el dueño prueba antes de que se construya nada grande.",
+      },
+      {
+        titulo: "Resuelvo",
+        texto:
+          "El sistema queda funcionando, por fases, y se vuelve a medir contra el número del principio.",
+      },
+    ],
   },
   produccion: {
     eyebrow: "01 — Producción",
@@ -255,15 +315,59 @@ const EN: Textos = {
   ciudad: "Buenos Aires",
   hero: {
     rol: "Data Science & AI Technician",
-    linea1: "I analyse,",
-    linea2: "Design",
-    linea3: "And solve.",
+    linea1: "I build the system",
+    linea2: "that runs your business",
+    linea3: "and turns it into data",
+    linea4: "to decide.",
     bajada:
-      "I build systems that get small businesses out of the spreadsheet: inventory, automated invoice capture, and the reports decisions actually get made on. I understand the problem, build the project, and leave it running.",
+      "I work with businesses that still run on spreadsheets, chats or memory. I map how they operate, build the system they work with and, from the data that system starts producing, build the reports and the AI that help them decide.",
     verProduccion: "See production",
     descargarCV: "Download CV",
     scroll: "Scroll",
     pie: ["3 modules in production", "5 studies", "896 SKUs under management"],
+  },
+  puertas: {
+    eyebrow: "00 — Where to start",
+    titulo1: "What are you",
+    titulo2: "looking for?",
+    negocios: {
+      rotulo: "For businesses",
+      titulo: "Your business works, but the numbers are nowhere",
+      texto:
+        "I start by understanding how you work today. I build a small pilot, we measure before and after, and only then does it grow.",
+      pasos: ["Discovery", "Measured pilot", "Working system"],
+      ir: "Tell me about your case",
+    },
+    equipos: {
+      rotulo: "For teams",
+      titulo: "You need someone for data or applied AI",
+      texto:
+        "Five studies with the method in plain sight, my CV and the code on GitHub. Available to join a team.",
+      pasos: ["Python · SQL", "Power BI", "LLM agents"],
+      ir: "See studies and CV",
+    },
+  },
+  metodo: {
+    eyebrow: "My method",
+    titulo1: "I analyse, design",
+    titulo2: "and solve.",
+    pasos: [
+      {
+        titulo: "Analyse",
+        texto:
+          "I map how the work is done today and which number will tell whether the project worked. If there is no data on the before, we start writing it down.",
+      },
+      {
+        titulo: "Design",
+        texto:
+          "A plan with a closed scope and a prototype the owner tries before anything big gets built.",
+      },
+      {
+        titulo: "Solve",
+        texto:
+          "The system ends up running, in phases, and we measure again against the number from the start.",
+      },
+    ],
   },
   produccion: {
     eyebrow: "01 — Production",

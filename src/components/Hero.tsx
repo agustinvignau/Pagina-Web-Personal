@@ -19,15 +19,15 @@ export default function Hero({ lang = "es" }: { lang?: Lang }) {
           los botones. En celular ya se leía bien; esto lo alinea.
         */}
         <h1 data-revelar="inicio" className="order-1 lg:col-span-2 lg:mb-2 xl:col-span-1 xl:col-start-1 xl:row-start-1">
-          <span className="titular block text-[clamp(2.6rem,8.4vw,7rem)] leading-[0.96]">
-            {t.hero.linea1}
-          </span>
-          <span className="titular contorno-claro block text-[clamp(2.6rem,8.4vw,7rem)] leading-[0.96]">
-            {t.hero.linea2}
-          </span>
-          <span className="titular block text-[clamp(2.6rem,8.4vw,7rem)] leading-[0.96] text-oliva-luz">
-            {t.hero.linea3}
-          </span>
+          {/*
+            Cuatro renglones, cada uno una parte de la oferta. El cuerpo es más
+            chico que el del titular anterior (tres palabras sueltas): acá el
+            renglón más largo tiene que entrar entero en un celular.
+          */}
+          <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)]">{t.hero.linea1}</span>
+          <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)] contorno-claro">{t.hero.linea2}</span>
+          <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)]">{t.hero.linea3}</span>
+          <span className="titular block text-[clamp(1.5rem,6vw,3.4rem)] leading-[0.98] lg:text-[clamp(2rem,3.75vw,3.9rem)] text-oliva-luz">{t.hero.linea4}</span>
         </h1>
 
         <div data-revelar="inicio" className="order-2 flex flex-col gap-5 xl:col-start-1 xl:row-start-2">
@@ -60,9 +60,8 @@ export default function Hero({ lang = "es" }: { lang?: Lang }) {
           {/*
             Desde xl los mockups dejan de vivir debajo del titular y pasan a
             ocupar la columna derecha entera, de la primera fila a la segunda.
-            El titular son tres líneas cortas, así que a partir de 1280px
-            sobraba medio ancho de pantalla en negro a su derecha; ese hueco es
-            el que llenan ahora.
+            A partir de 1280px el titular deja libre la mitad derecha de la
+            pantalla; ese hueco es el que llenan ahora.
 
             Que sean más grandes no es solo ensancharlos: las medidas de
             adentro (barras, KPIs, cuerpo de letra) están en em, y acá se fija

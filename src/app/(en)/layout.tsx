@@ -5,12 +5,12 @@ import Analitica from "@/components/Analitica";
 import { archivo, martianMono, ANTES_DE_PINTAR, SITIO, capasDeMovimiento } from "@/lib/documento";
 
 const DESCRIPTION =
-  "Data systems and process automation for small businesses: inventory, automated invoice capture, and the reports decisions get made on.";
+  "I build the system that runs your business and turns it into data to decide. Data science, custom systems and applied AI for businesses, from Buenos Aires.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITIO),
   title: {
-    default: "Agustín Vignau — I analyse, design and solve",
+    default: "Agustín Vignau — Systems and data to decide",
     template: "%s — Agustín Vignau",
   },
   description: DESCRIPTION,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: `${SITIO}/en`,
     siteName: "Agustín Vignau",
-    title: "Agustín Vignau — I analyse, design and solve",
+    title: "Agustín Vignau — Systems and data to decide",
     description: DESCRIPTION,
   },
   icons: {
