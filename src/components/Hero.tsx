@@ -63,18 +63,23 @@ export default function Hero({ lang = "es" }: { lang?: Lang }) {
             A partir de 1280px el titular deja libre la mitad derecha de la
             pantalla; ese hueco es el que llenan ahora.
 
+            Entre lg y xl van al costado de la bajada, con el mismo sistema de
+            proporciones. Antes tenían medidas fijas en rem y, cerca de 1024px,
+            la ventana de Génesis se salía de la columna y quedaba cortada
+            contra el borde.
+
             Que sean más grandes no es solo ensancharlos: las medidas de
             adentro (barras, KPIs, cuerpo de letra) están en em, y acá se fija
             el cuerpo de letra en cqw — un porcentaje del ancho de esta caja.
             Así la maqueta se agranda entera y en proporción. Si se les diera
             solo más ancho se aplastarían: el alto es el que llena el hueco.
 
-            Debajo de xl no cambia nada: ahí el titular ocupa el ancho completo
-            y los mockups van abajo, al tamaño de diseño.
+            Debajo de lg el titular ocupa el ancho completo y Génesis va
+            abajo, al tamaño de diseño.
           */}
-          <ParallaxMouse className="relative [perspective:1600px] lg:h-[21rem] xl:aspect-[16/10] xl:h-auto xl:[container-type:inline-size]">
-            <MiniFacturas lang={lang} className="hidden lg:absolute lg:left-0 lg:top-2 lg:block lg:w-[19rem] lg:[transform:rotateY(19deg)_rotateX(7deg)_rotateZ(-2deg)] xl:top-0 xl:w-[60%] xl:text-[3.16cqw]" />
-            <MiniGenesis lang={lang} className="lg:absolute lg:left-[14rem] lg:top-16 lg:w-[30rem] lg:[transform:rotateY(17deg)_rotateX(6deg)_rotateZ(-1.5deg)] xl:left-auto xl:right-0 xl:top-[31%] xl:w-[90%] xl:text-[3cqw]" />
+          <ParallaxMouse className="relative [perspective:1600px] lg:aspect-[16/10] lg:[container-type:inline-size]">
+            <MiniFacturas lang={lang} className="hidden lg:absolute lg:left-0 lg:top-0 lg:block lg:w-[60%] lg:text-[3.16cqw] lg:[transform:rotateY(19deg)_rotateX(7deg)_rotateZ(-2deg)]" />
+            <MiniGenesis lang={lang} className="lg:absolute lg:right-0 lg:top-[31%] lg:w-[90%] lg:text-[3cqw] lg:[transform:rotateY(17deg)_rotateX(6deg)_rotateZ(-1.5deg)]" />
           </ParallaxMouse>
         </div>
       </div>
