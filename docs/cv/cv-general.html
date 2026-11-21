@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>CV Agustín Vignau</title>
+<meta name="author" content="Agustin Vignau">
+<style>
+  /*
+    Una columna, títulos estándar, fuente estándar y viñetas simples: lo que
+    leen bien los sistemas ATS. Todo el texto es texto (nada de tablas, íconos
+    ni barras de nivel), así se puede copiar y pegar sin que se desordene.
+  */
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Liberation Sans", Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.3;
+    color: #111;
+    padding: 30pt 40pt 0 40pt;
+    width: 595.3pt;
+  }
+  header { text-align: center; margin-bottom: 4pt; }
+  h1 { font-size: 18pt; margin: 0; letter-spacing: .03em; }
+  .rol { font-size: 11pt; font-weight: bold; margin: 2pt 0 3pt; color: #333; }
+  .contacto { margin: 0; font-size: 9.5pt; color: #333; }
+  h2 {
+    font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: .06em;
+    margin: 11pt 0 5pt; padding-bottom: 2pt; border-bottom: .75pt solid #111;
+  }
+  p { margin: 0; }
+  .item { margin-top: 6pt; }
+  .item:first-of-type { margin-top: 0; }
+  .fila { display: flex; justify-content: space-between; gap: 12pt; align-items: baseline; }
+  .puesto { font-weight: bold; }
+  .fecha { white-space: nowrap; color: #333; }
+  .lugar { font-style: italic; color: #333; }
+  ul { margin: 2pt 0 0; padding-left: 13pt; }
+  li { margin: 1.5pt 0 0; }
+  .hab p { margin-top: 2pt; }
+</style>
+</head>
+<body>
+<header>
+  <h1>AGUSTÍN VIGNAU</h1>
+  <p class="rol">Analista de Business Intelligence</p>
+  <p class="contacto">Buenos Aires, Argentina · agustinvignau729@gmail.com · agustinvignau.com</p>
+  <p class="contacto">linkedin.com/in/agustinvignau · github.com/agustinvignau</p>
+</header>
+
+<h2>Perfil</h2>
+<p>Analista de datos con base en stock y operaciones. Armo el sistema que ordena los datos de un negocio y los reportes sobre los que decide. SQL, Python y Power BI. Cursando la Tecnicatura en Ciencia de Datos e IA.</p>
+
+<h2>Experiencia</h2>
+<div class="item">
+  <div class="fila"><span class="puesto">Data Analyst y Automatización de Procesos — TuGenesis3D</span><span class="fecha">Feb. 2026 – Actualidad</span></div>
+  <ul>
+    <li>Construí los reportes sobre los que se deciden las compras (ventas, rotación, capital inmovilizado y margen), sobre un modelo en PostgreSQL de 13 tablas y 896 SKUs, en uso por 3 personas.</li>
+    <li>Pasé la auditoría física de inventario de permanente a mensual con alertas de stock bajo por umbral.</li>
+    <li>Eliminé el ruteo manual de órdenes entre sectores automatizando la consolidación con n8n.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Operador de Depósito y Control de Stock — Maxiconsumo S.A.</span><span class="fecha">Nov. 2022 – Ago. 2024</span></div>
+  <ul>
+    <li>Audité y concilié inventario contra sistema en un depósito mayorista de más de 10.000 SKUs, detectando desvíos y quiebres de forma temprana.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Encargado de Turno — Heladería 1952</span><span class="fecha">Dic. 2021 – Ago. 2022</span></div>
+  <ul>
+    <li>Caja, arqueos, stock de insumos y proveedores; coordiné un equipo de 3 personas.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Data Entry — Entelequia</span><span class="fecha">Dic. 2019 – Jun. 2020</span></div>
+</div>
+
+<h2>Proyectos</h2>
+<div class="item">
+  <div class="fila"><span class="puesto">Agenda y fichas de clientes para una barbería</span><span class="fecha">En desarrollo</span></div>
+  <ul>
+    <li>Reemplaza los turnos por Instagram y WhatsApp (mensajes perdidos, turnos superpuestos, ausencias) por una agenda online con seña.</li>
+    <li>Ficha por cliente para trabajar la retención. Métricas del piloto definidas antes de construir: ausencias, ocupación y clientes que vuelven.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Ticketera para eventos de música electrónica</span><span class="fecha">En desarrollo</span></div>
+  <ul>
+    <li>Cobro con Split de Pagos de Mercado Pago: la comisión se separa sola, sin validar transferencias ni conciliar a mano.</li>
+    <li>Entradas con QR que se anulan ante devoluciones o contracargos, y ventas por promotor y canal. Piloto de 50 a 60 entradas.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Estudios de ciencia de datos</span><span class="fecha">agustinvignau.com</span></div>
+  <ul>
+    <li>Segmentación de clientes (K-Means), experimento A/B, forecasting de demanda, detección de anomalías y predicción de churn.</li>
+  </ul>
+</div>
+
+<h2>Educación</h2>
+<div class="item">
+  <div class="fila"><span class="puesto">Tecnicatura Superior en Ciencia de Datos e IA — IFTS N° 18</span><span class="fecha">2025 – 2027</span></div>
+  <p class="lugar">En curso, tercer año. 16 de 19 materias aprobadas.</p>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Especialización en Data Analytics y Certificación en Tableau — Coderhouse</span><span class="fecha">2024 – 2025</span></div>
+</div>
+
+<h2>Habilidades</h2>
+<div class="hab">
+  <p><b>Datos:</b> SQL, PostgreSQL, Python (Pandas, Scikit-Learn), Google BigQuery</p>
+  <p><b>BI y visualización:</b> Power BI, Tableau, Excel (Power Query)</p>
+  <p><b>Sistemas y automatización:</b> FastAPI, Next.js, Supabase, n8n, Docker, Git</p>
+  <p><b>Pagos:</b> Mercado Pago (Split de Pagos, devoluciones, contracargos)</p>
+  <p><b>Idiomas:</b> Español nativo · Inglés intermedio (B1)</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>CV Agustín Vignau</title>
+<meta name="author" content="Agustin Vignau">
+<style>
+  /*
+    Una columna, títulos estándar, fuente estándar y viñetas simples: lo que
+    leen bien los sistemas ATS. Todo el texto es texto (nada de tablas, íconos
+    ni barras de nivel), así se puede copiar y pegar sin que se desordene.
+  */
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Liberation Sans", Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.3;
+    color: #111;
+    padding: 30pt 40pt 0 40pt;
+    width: 595.3pt;
+  }
+  header { text-align: center; margin-bottom: 4pt; }
+  h1 { font-size: 18pt; margin: 0; letter-spacing: .03em; }
+  .rol { font-size: 11pt; font-weight: bold; margin: 2pt 0 3pt; color: #333; }
+  .contacto { margin: 0; font-size: 9.5pt; color: #333; }
+  h2 {
+    font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: .06em;
+    margin: 11pt 0 5pt; padding-bottom: 2pt; border-bottom: .75pt solid #111;
+  }
+  p { margin: 0; }
+  .item { margin-top: 6pt; }
+  .item:first-of-type { margin-top: 0; }
+  .fila { display: flex; justify-content: space-between; gap: 12pt; align-items: baseline; }
+  .puesto { font-weight: bold; }
+  .fecha { white-space: nowrap; color: #333; }
+  .lugar { font-style: italic; color: #333; }
+  ul { margin: 2pt 0 0; padding-left: 13pt; }
+  li { margin: 1.5pt 0 0; }
+  .hab p { margin-top: 2pt; }
+</style>
+</head>
+<body>
+<header>
+  <h1>AGUSTÍN VIGNAU</h1>
+  <p class="rol">AI Engineer Jr · Data Analyst</p>
+  <p class="contacto">Buenos Aires, Argentina · agustinvignau729@gmail.com · agustinvignau.com</p>
+  <p class="contacto">linkedin.com/in/agustinvignau · github.com/agustinvignau</p>
+</header>
+
+<h2>Perfil</h2>
+<p>Data analyst en transición a AI Engineer. Construyo asistentes y agentes con LLM sobre datos reales de negocio, con function calling, RAG y evaluaciones medidas, para que el modelo no invente números. Base en SQL, Python y operaciones de stock.</p>
+
+<h2>Habilidades</h2>
+<div class="hab">
+  <p><b>IA aplicada:</b> APIs de Gemini, Claude y OpenAI, function calling, RAG (embeddings, pgvector, BM25), evals, salidas estructuradas (Pydantic), guardrails</p>
+  <p><b>Agentes:</b> CrewAI; MCP (conexión de Claude con herramientas como Power BI); LangGraph y LangSmith (en formación)</p>
+  <p><b>Backend y datos:</b> Python, SQL, PostgreSQL, FastAPI, Supabase, Docker, Git</p>
+  <p><b>BI:</b> Power BI, Tableau &nbsp;·&nbsp; <b>Idiomas:</b> Español nativo, Inglés intermedio (B1)</p>
+</div>
+
+<h2>Proyectos de IA</h2>
+<div class="item">
+  <div class="fila"><span class="puesto">MerchBot — asistente de stock y reclamos con LLM</span><span class="fecha">En producción</span></div>
+  <ul>
+    <li>El modelo no ve los datos: elige entre 9 funciones y cada cifra sale de una consulta SQL. Políticas internas por RAG, con BM25 de respaldo.</li>
+    <li>Evaluado con 28 casos del asistente, 25 preguntas de RAG y un set de sentimiento donde el léxico propio acertó 88 % contra 42 % de VADER. 454 tests.</li>
+    <li>Sigue respondiendo cuando el proveedor se queda sin cuota, con modelos de respaldo.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Sistema de research auditable con agentes (CrewAI)</span><span class="fecha">Uso personal</span></div>
+  <ul>
+    <li>Un planificador arma el equipo entre 16 agentes especialistas y un verificador confirma cada dato contra su fuente.</li>
+    <li>Salidas validadas con 49 modelos Pydantic, set dorado de evaluación y 517 tests. Costo promedio: US$ 0,10 por corrida.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Carga automática de comprobantes con LLM</span><span class="fecha">En producción</span></div>
+  <ul>
+    <li>Un modelo extrae los datos fiscales de la factura en PDF y reglas propias validan y marcan lo dudoso. Eliminó la carga manual.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Otros proyectos</span><span class="fecha">En desarrollo</span></div>
+  <ul>
+    <li>Agenda con seña y fichas de clientes para una barbería, con asistente para WhatsApp e Instagram en una segunda etapa.</li>
+    <li>Ticketera para eventos con cobro por Split de Pagos de Mercado Pago y analítica de ventas para el productor.</li>
+  </ul>
+</div>
+
+<h2>Experiencia</h2>
+<div class="item">
+  <div class="fila"><span class="puesto">Data Analyst y Automatización de Procesos — TuGenesis3D</span><span class="fecha">Feb. 2026 – Actualidad</span></div>
+  <ul>
+    <li>Sumé al sistema de gestión el asistente MerchBot y la carga automática de comprobantes.</li>
+    <li>Construí los reportes de compras sobre un modelo en PostgreSQL de 13 tablas y 896 SKUs, en uso por 3 personas.</li>
+    <li>Pasé la auditoría física de inventario de permanente a mensual con alertas de stock bajo.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Operador de Depósito y Control de Stock — Maxiconsumo S.A.</span><span class="fecha">Nov. 2022 – Ago. 2024</span></div>
+  <ul>
+    <li>Audité y concilié inventario contra sistema en un depósito mayorista de más de 10.000 SKUs.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Encargado de Turno — Heladería 1952</span><span class="fecha">Dic. 2021 – Ago. 2022</span></div>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Data Entry — Entelequia</span><span class="fecha">Dic. 2019 – Jun. 2020</span></div>
+</div>
+
+<h2>Educación</h2>
+<div class="item">
+  <div class="fila"><span class="puesto">Tecnicatura Superior en Ciencia de Datos e IA — IFTS N° 18</span><span class="fecha">2025 – 2027</span></div>
+  <p class="lugar">En curso, tercer año. 16 de 19 materias aprobadas.</p>
+</div>
+<div class="item">
+  <div class="fila"><span class="puesto">Especialización en Data Analytics y Certificación en Tableau — Coderhouse</span><span class="fecha">2024 – 2025</span></div>
+</div>
+</body>
+</html>

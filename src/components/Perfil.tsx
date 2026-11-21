@@ -93,7 +93,7 @@ export default function Perfil({ lang = "es" }: { lang?: Lang }) {
                   orden visual lo da flex-col-reverse. */}
               <div className="flex flex-col-reverse">
                 <dt className="etiqueta mt-1 text-apagado">{t.materias}</dt>
-                <dd className="cifra m-0 text-2xl">12/19</dd>
+                <dd className="cifra m-0 text-2xl">16/19</dd>
               </div>
               <div className="flex flex-col-reverse">
                 <dt className="etiqueta mt-1 text-apagado">{t.promedio}</dt>
